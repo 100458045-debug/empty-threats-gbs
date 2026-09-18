@@ -37,10 +37,11 @@ which are already committed.
 
 ### Why extraction cannot be reproduced by cloning
 
-The source is [IATI Tables](https://iati-tables.codeforiati.org/), a relational
+The source is [IATI Tables](https://tables.iatistandard.org/), a relational
 rendering of the whole IATI Registry, refreshed daily and around 32 GB as
 SQLite. It exceeds GitHub's 100 MB file limit by a factor of 300, so it is not
 included here.
+
 
 To rebuild that stage, download the current dump, place it where the setup chunk
 of `extraction/01_frame.qmd` expects it, and render that document followed by
