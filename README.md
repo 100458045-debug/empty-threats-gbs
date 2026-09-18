@@ -42,7 +42,6 @@ rendering of the whole IATI Registry, refreshed daily and around 32 GB as
 SQLite. It exceeds GitHub's 100 MB file limit by a factor of 300, so it is not
 included here.
 
-
 To rebuild that stage, download the current dump, place it where the setup chunk
 of `extraction/01_frame.qmd` expects it, and render that document followed by
 the harvest. If a render fails with `database is locked`, another program is
@@ -80,6 +79,14 @@ data chapter. `05_models` estimates H2 and H3 with multilevel logistic
 regression, built one level at a time. `06_prediction` tests H1 with repeated
 grouped cross-validation, reporting the paired difference across 25 resamples
 rather than two point estimates on a single split.
+
+## Source data
+
+The data in `data/interim/` is derived from the
+[IATI Registry](https://iatistandard.org/), accessed through
+[IATI Tables](https://tables.iatistandard.org/). Each activity retains its
+original IATI identifier in the `iatiidentifier` column, so any record can be
+traced back to its publisher.
 
 ## Data
 
