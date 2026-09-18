@@ -1,0 +1,581 @@
+---
+title: "Models — H2 and H3"
+subtitle: "Multilevel logistic regression, built one level at a time"
+author: "Gaspar Vigneaux"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    toc-title: "Contents"
+    number-sections: true
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+    theme: cosmo
+    fontsize: 1.02em
+    linestretch: 1.5
+    max-width: 1100px
+    fig-width: 8
+    fig-height: 4.5
+    fig-align: center
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+This document estimates **H2** and **H3**: what the mechanism is, and in which
+direction it runs.
+
+**H1 is not here.** It asks whether structural position *predicts better* than
+institutional type — a comparison of out-of-sample performance, not of
+coefficients. That is 06_prediction.
+
+The model is built in steps rather than presented finished. Each step answers a
+question the next one depends on: is there group-level variation at all, how
+much, does it need random effects, and only then, what predicts the outcome.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(lme4)
+library(broom.mixed)   # supplies the tidy() method pool() needs for glmerMod
+library(mice)
+library(kableExtra)
+library(scales)
+library(patchwork)
+library(conflicted)
+conflict_prefer("filter", "dplyr")
+conflict_prefer("select", "dplyr")
+
+d <- read_csv("../data/processed/model_data_with_network.csv", show_col_types = FALSE)
+
+theme_set(
+  theme_minimal(base_size = 11) +
+    theme(panel.grid.minor = element_blank(),
+          plot.title = element_text(face = "bold", size = 11),
+          plot.subtitle = element_text(colour = "grey35", size = 9.5),
+          legend.position = "bottom")
+)
+
+PAL  <- c(Bilateral = "#C0504D", Multilateral = "#4F6D8C")
+CTRL <- glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+
+show_tbl <- function(df, caption = NULL) {
+  df |>
+    knitr::kable(caption = caption, digits = 3, align = "l") |>
+    kableExtra::kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed"),
+      full_width = FALSE, position = "left", font_size = 13)
+}
+
+tidy_pooled <- function(pooled, keep = NULL) {
+  s <- summary(pooled, conf.int = TRUE) |> as_tibble()
+  names(s)[names(s) == "2.5 %"]  <- "lo"
+  names(s)[names(s) == "97.5 %"] <- "hi"
+  s <- s |> filter(term != "(Intercept)")
+  if (!is.null(keep)) s <- s |> filter(term %in% keep)
+  s |>
+    transmute(Term = term,
+              `Odds ratio` = round(exp(estimate), 3),
+              `95% CI` = paste0("[", round(exp(lo), 2), ", ", round(exp(hi), 2), "]"),
+              p = round(p.value, 4))
+}
+```
+
+```{r}
+#| label: prepare
+model_df <- d |>
+  mutate(
+    log_aid_dep = if_else(aid_dependence > 0, log(pmax(aid_dependence, 1e-6)), NA_real_),
+    donor_type  = factor(x1_donor_type, levels = c("Bilateral", "Multilateral")),
+    year_c      = year - 2014,
+    # Standardised so coefficients are comparable in magnitude and the
+    # optimiser converges more reliably.
+    across(c(s1_share, s2_hhi_net, s3_n_donors, net_degree, voice_account,
+             corruption_ctrl, log_aid_dep, log_gdp_pc, log_commitment),
+           ~ as.numeric(scale(.x)), .names = "z_{.col}")
+  )
+
+MODEL_VARS <- c("interrupted_flag", "z_s1_share", "z_s2_hhi_net", "z_s3_n_donors",
+                "z_net_degree", "z_voice_account", "z_corruption_ctrl",
+                "z_log_aid_dep", "z_log_gdp_pc", "z_log_commitment",
+                "coup", "election_year", "donor_type", "donor_ref",
+                "recipient_main", "year_c")
+
+cc <- model_df |> drop_na(all_of(MODEL_VARS))
+```
+
+**Two estimation samples, and why.** Likelihood-ratio tests and variance
+components have no standard pooling rule across imputed datasets — a likelihood
+ratio is not a quantity Rubin's rules combine. Model **building and
+diagnostics** therefore run on complete cases; the **final estimates** are
+pooled across imputations. Both samples are reported so the difference is
+visible.
+
+```{r}
+#| label: samples
+tibble(
+  Sample = c("Complete cases (building, diagnostics)", "All rows (final estimates, imputed)"),
+  `Activity-years` = c(nrow(cc), nrow(model_df)),
+  Donors = c(n_distinct(cc$donor_ref), n_distinct(model_df$donor_ref)),
+  Countries = c(n_distinct(cc$recipient_main), n_distinct(model_df$recipient_main))
+) |>
+  show_tbl("The two samples")
+```
+
+# Does the data need a multilevel model?
+
+Not assumed — tested. The question is whether interruption clusters by donor and
+by country beyond what chance produces.
+
+## M0 and M1: the null models
+
+```{r}
+#| label: null-models
+#| cache: true
+m0 <- glm(interrupted_flag ~ 1, data = cc, family = binomial)
+
+m1 <- glmer(interrupted_flag ~ 1 + (1 | donor_ref) + (1 | recipient_main),
+            data = cc, family = binomial, control = CTRL)
+
+# Computed directly rather than through anova(): anova.merMod compares the two
+# models' data slots by identity, and a glm() and a glmer() never share one.
+# The arithmetic is the same and it is visible here.
+ll0 <- as.numeric(logLik(m0)); ll1 <- as.numeric(logLik(m1))
+lrt <- 2 * (ll1 - ll0)
+df_lrt <- 2                       # two variance components added
+
+tibble(
+  Model = c("M0 - single level", "M1 - random intercepts"),
+  Parameters = c(attr(logLik(m0), "df"), attr(logLik(m1), "df")),
+  logLik = round(c(ll0, ll1), 1),
+  AIC = round(c(AIC(m0), AIC(m1))),
+  BIC = round(c(BIC(m0), BIC(m1)))
+) |>
+  show_tbl("Model fit with and without the grouping structure")
+
+tibble(
+  `LRT statistic` = round(lrt, 1),
+  df = df_lrt,
+  `p (naive)` = format.pval(pchisq(lrt, df_lrt, lower.tail = FALSE),
+                            digits = 3, eps = 1e-16)
+) |>
+  show_tbl("Likelihood-ratio test: is the grouping structure needed?")
+```
+
+- The test compares a model with no grouping against one with random intercepts
+  for donor and country. A significant result means observations inside the same
+  donor, or the same country, are more alike than a single-level model allows.
+- **The p-value is labelled naive on purpose.** Testing whether a variance is
+  zero puts the null on the **boundary** of the parameter space, because a
+  variance cannot be negative. The usual chi-squared reference distribution is
+  then wrong in a known direction: it is too conservative. The true p-value is
+  smaller than the one reported, so a rejection here is a safe rejection.
+
+## The variance partition coefficient
+
+For a binary outcome fitted with a logit link, the level-one variance is not
+estimated. It is fixed by the logistic distribution at **π²/3 ≈ 3.29**, and the
+VPC is computed against that constant.
+
+```{r}
+#| label: vpc
+vc <- as_tibble(VarCorr(m1))
+L1 <- pi^2 / 3
+
+vc |>
+  transmute(Level = if_else(grp == "donor_ref", "Donor", "Recipient country"),
+            Variance = round(vcov, 3),
+            SD = round(sdcor, 3),
+            VPC = round(vcov / (sum(vc$vcov) + L1), 3)) |>
+  bind_rows(tibble(Level = "Activity-year (fixed at pi^2/3)",
+                   Variance = round(L1, 3), SD = round(sqrt(L1), 3),
+                   VPC = round(L1 / (sum(vc$vcov) + L1), 3))) |>
+  show_tbl("Where the variation sits, before any predictor is added")
+```
+
+```{r}
+#| label: vpc-values
+#| echo: false
+vpc_d <- vc$vcov[vc$grp == "donor_ref"]   / (sum(vc$vcov) + L1)
+vpc_c <- vc$vcov[vc$grp == "recipient_main"] / (sum(vc$vcov) + L1)
+```
+
+- **`r round(100 * vpc_d)` per cent of the variation sits between donors** and
+  **`r round(100 * vpc_c)` per cent between countries**, before any predictor
+  enters. The rest is within.
+- That the donor share is the larger of the two is itself substantive: *who* is
+  paying explains more of whether a payment stops than *where* the money goes.
+
+# How much do donors differ?
+
+The random-intercept model assumes donors differ in their baseline rate. This
+section asks whether they also differ in **how they respond to leverage**, by
+fitting one model per donor and comparing.
+
+Only donors with enough observations can support a separate fit, so this is
+restricted rather than complete — which is itself an argument for pooling.
+
+```{r}
+#| label: per-donor
+#| cache: true
+MIN_N <- 100
+
+per_donor <- cc |>
+  add_count(donor_ref, name = "n_donor") |>
+  filter(n_donor >= MIN_N) |>
+  nest(.by = c(donor, donor_type)) |>
+  mutate(
+    fit = map(data, \(x) glm(interrupted_flag ~ z_s1_share + z_log_aid_dep +
+                               z_log_commitment, data = x, family = binomial)),
+    tidied = map(fit, \(f) broom::tidy(f, conf.int = TRUE))
+  ) |>
+  select(donor, donor_type, tidied) |>
+  unnest(tidied) |>
+  filter(term == "z_s1_share")
+
+per_donor |>
+  transmute(Donor = str_trunc(donor, 34), Type = donor_type,
+            `Odds ratio` = round(exp(estimate), 2),
+            `95% CI` = paste0("[", round(exp(conf.low), 2), ", ",
+                              round(exp(conf.high), 2), "]")) |>
+  show_tbl("The share effect, estimated separately for each large donor")
+```
+
+```{r}
+#| label: fig-per-donor
+#| fig-cap: "The effect of donor share on interruption, fitted separately per donor. Wide intervals and differing signs are what partial pooling exists to handle."
+#| fig-height: 3.6
+per_donor |>
+  mutate(donor = fct_reorder(str_trunc(donor, 30), estimate)) |>
+  ggplot(aes(exp(estimate), donor, colour = donor_type)) +
+  geom_vline(xintercept = 1, linetype = "dashed", colour = "grey50") +
+  geom_pointrange(aes(xmin = exp(conf.low), xmax = exp(conf.high)), size = 0.45) +
+  scale_colour_manual(values = PAL) +
+  scale_x_log10() +
+  labs(x = "Odds ratio for donor share (log scale)", y = NULL, colour = NULL,
+       title = "Donors do not all respond to leverage the same way")
+```
+
+# Building the model up
+
+Predictors are added one level at a time, so it is visible what each level
+contributes rather than only what the final model reports.
+
+```{r}
+#| label: build
+#| cache: true
+f2 <- interrupted_flag ~ z_s1_share + z_log_commitment + coup + election_year +
+  year_c + (1 | donor_ref) + (1 | recipient_main)
+
+f3 <- update(f2, . ~ . + z_voice_account + z_corruption_ctrl + z_log_aid_dep +
+               z_log_gdp_pc)
+
+f4 <- update(f3, . ~ . + donor_type + z_net_degree)
+
+m2 <- glmer(f2, data = cc, family = binomial, control = CTRL)
+m3 <- glmer(f3, data = cc, family = binomial, control = CTRL)
+m4 <- glmer(f4, data = cc, family = binomial, control = CTRL)
+
+tibble(
+  Model = c("M1 - null", "M2 - + activity-year", "M3 - + country controls",
+            "M4 - + donor level"),
+  Adds = c("random intercepts only", "share, size, coup, election, year",
+           "governance, aid dependence, income", "institutional type, donor size"),
+  AIC = round(c(AIC(m1), AIC(m2), AIC(m3), AIC(m4))),
+  BIC = round(c(BIC(m1), BIC(m2), BIC(m3), BIC(m4))),
+  `SD donor` = round(c(as_tibble(VarCorr(m1))$sdcor[as_tibble(VarCorr(m1))$grp == "donor_ref"],
+                       as_tibble(VarCorr(m2))$sdcor[as_tibble(VarCorr(m2))$grp == "donor_ref"],
+                       as_tibble(VarCorr(m3))$sdcor[as_tibble(VarCorr(m3))$grp == "donor_ref"],
+                       as_tibble(VarCorr(m4))$sdcor[as_tibble(VarCorr(m4))$grp == "donor_ref"]), 3)
+) |>
+  show_tbl("Model comparison as predictors are added")
+```
+
+- Watch the donor standard deviation across rows. If it falls when donor-level
+  predictors enter at M4, those predictors are explaining part of what the
+  random effect was absorbing. If it does not, the differences between donors
+  are something these variables do not capture.
+
+## The same build-up, coefficient by coefficient
+
+The table above shows what each block does to fit. This one shows what it does
+to every estimate: the same four models, one column each, coefficients reported
+as odds ratios with their 95 per cent interval underneath — the scale the rest
+of this document interprets in, rather than the raw log-odds a `summary()` call
+would print.
+
+```{r}
+#| label: regression-table
+models <- list(`(1)` = m1, `(2)` = m2, `(3)` = m3, `(4)` = m4)
+stars  <- function(p) case_when(p < 0.01 ~ "***", p < 0.05 ~ "**", p < 0.1 ~ "*", TRUE ~ "")
+
+# The order and labelling blocks match f2/f3/f4 above; the intercept is
+# omitted, since with two centred random effects it is not a quantity anyone
+# interprets on its own.
+TERM_ORDER <- c("z_s1_share", "z_log_commitment", "coup", "election_year", "year_c",
+                "z_voice_account", "z_corruption_ctrl", "z_log_aid_dep", "z_log_gdp_pc",
+                "donor_typeMultilateral", "z_net_degree")
+TERM_LBL <- c(z_s1_share = "Donor share", z_log_commitment = "Operation size (log)",
+              coup = "Coup", election_year = "Election year", year_c = "Year",
+              z_voice_account = "Voice and accountability",
+              z_corruption_ctrl = "Control of corruption",
+              z_log_aid_dep = "Aid dependence (log)", z_log_gdp_pc = "GDP per capita (log)",
+              donor_typeMultilateral = "Multilateral (ref: bilateral)",
+              z_net_degree = "Donor portfolio breadth")
+
+coef_tbl <- imap_dfr(models, \(m, lbl) {
+  broom.mixed::tidy(m, effects = "fixed", conf.int = TRUE) |>
+    filter(term != "(Intercept)") |>
+    transmute(term, model = lbl,
+              cell = paste0(round(exp(estimate), 3), stars(p.value), "<br>(",
+                            round(exp(conf.low), 2), ", ", round(exp(conf.high), 2), ")"))
+}) |>
+  pivot_wider(names_from = model, values_from = cell)
+
+# M1 has no fixed effects besides the intercept, which is dropped above, so its
+# column never appears in the pivot. Added back empty rather than assumed
+# present, since a `(1)`:`(4)` range selector below would otherwise error.
+coef_tbl[setdiff(names(models), names(coef_tbl))] <- NA_character_
+
+coef_tbl <- coef_tbl |>
+  mutate(term = factor(term, levels = TERM_ORDER)) |>
+  arrange(term) |>
+  mutate(term = recode(as.character(term), !!!TERM_LBL)) |>
+  select(term, all_of(names(models))) |>
+  mutate(across(all_of(names(models)), \(x) replace_na(x, "")))
+
+vc_tbl <- imap_dfr(models, \(m, lbl) {
+  vc <- as_tibble(VarCorr(m))
+  tibble(term = c("SD (donor)", "SD (recipient country)"), model = lbl,
+         cell = as.character(round(c(vc$sdcor[vc$grp == "donor_ref"],
+                                     vc$sdcor[vc$grp == "recipient_main"]), 3)))
+}) |>
+  pivot_wider(names_from = model, values_from = cell)
+
+fit_tbl <- imap_dfr(models, \(m, lbl) {
+  tibble(term = c("Activity-years", "Donors", "Recipient countries",
+                  "Log likelihood", "AIC", "BIC"),
+         model = lbl,
+         cell = c(nobs(m), n_distinct(cc$donor_ref), n_distinct(cc$recipient_main),
+                  round(as.numeric(logLik(m)), 1), round(AIC(m)), round(BIC(m))) |>
+           as.character())
+}) |>
+  pivot_wider(names_from = model, values_from = cell)
+
+bind_rows(coef_tbl, vc_tbl, fit_tbl) |>
+  knitr::kable(caption = "Interruption, built up one block at a time (odds ratios; 95% CI in parentheses)",
+               align = c("l", "c", "c", "c", "c"), escape = FALSE) |>
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                            full_width = FALSE, position = "left", font_size = 13) |>
+  kableExtra::add_header_above(c(" " = 1, "Probability of interruption" = 4)) |>
+  kableExtra::pack_rows("Variance components", nrow(coef_tbl) + 1,
+                        nrow(coef_tbl) + nrow(vc_tbl)) |>
+  kableExtra::pack_rows("Model fit", nrow(coef_tbl) + nrow(vc_tbl) + 1,
+                        nrow(coef_tbl) + nrow(vc_tbl) + nrow(fit_tbl)) |>
+  kableExtra::footnote(
+    general_title = "Note:",
+    general = "Complete cases (n = 1,836 activity-years, 15 donors, 94 recipient countries). *p<0.1; **p<0.05; ***p<0.01.")
+```
+
+- Read this table and the pooled H2/H3 tables below as different things. This
+  one is fit on complete cases and exists to show what each block of predictors
+  does to the estimates as it enters — it is a diagnostic on the model, not the
+  final result. The pooled tables that follow are the estimates that are
+  actually interpreted, combined across the five imputed datasets by Rubin's
+  rules. Complete-case and pooled coefficients are close throughout, which is
+  itself part of what supports H2 in §4.
+
+## Does the effect of leverage vary by donor?
+
+The per-donor fits above suggest it might. A random slope tests it inside one
+model, borrowing strength across donors instead of fitting each alone.
+
+```{r}
+#| label: random-slope
+#| cache: true
+m5 <- try(
+  glmer(update(f4, . ~ . - (1 | donor_ref) + (1 + z_s1_share | donor_ref)),
+        data = cc, family = binomial, control = CTRL),
+  silent = TRUE
+)
+
+if (!inherits(m5, "try-error")) {
+  anova(m5, m4) |> broom::tidy() |>
+    transmute(Model = c("M4 - random intercept", "M5 - + random slope"),
+              npar, AIC = round(AIC), BIC = round(BIC),
+              `LRT chi-sq` = round(statistic, 2), df,
+              p = round(p.value, 4)) |>
+    show_tbl("Does the share effect differ across donors?")
+} else {
+  tibble(Result = "The random-slope model did not converge; the effect is treated as constant across donors.") |>
+    show_tbl()
+}
+```
+
+# H2 — Does a larger share predict interruption?
+
+**The prediction.** Substitutability says a donor supplying a large share cannot
+easily be replaced, so its threat is credible and it uses it. The coefficient
+should be **positive**.
+
+```{r}
+#| label: impute
+#| cache: true
+set.seed(20260824)
+
+imp <- model_df |>
+  select(all_of(MODEL_VARS)) |>
+  mice(m = 5, method = "pmm", printFlag = FALSE, seed = 20260824)
+
+fit_pooled <- function(formula, imputations = imp) {
+  map(seq_len(imputations$m), \(i)
+      glmer(formula, data = complete(imputations, i),
+            family = binomial, control = CTRL)) |>
+    pool()
+}
+```
+
+```{r}
+#| label: h2
+#| cache: true
+pool_h2 <- fit_pooled(f4)
+tidy_pooled(pool_h2) |> show_tbl("H2: full model, pooled across imputations")
+```
+
+# H3 — Fragmentation, and which mechanism it supports
+
+The two mechanisms disagree here and only here:
+
+| Mechanism | Prediction on the number of donors |
+|---|---|
+| Substitutability | **Negative** — more donors, easier to replace, less interruption |
+| Signalling | **Positive** — more donors, larger audience, more interruption |
+
+`s1_share` and `s2_hhi_net` correlate at about −0.87 by construction, so they
+never enter together. H3 is estimated on pool size, with concentration reported
+as a second measure of the same idea.
+
+```{r}
+#| label: h3
+#| cache: true
+f_h3  <- update(f4, . ~ . - z_s1_share + z_s3_n_donors)
+f_h3b <- update(f4, . ~ . - z_s1_share + z_s2_hhi_net)
+
+pool_h3  <- fit_pooled(f_h3)
+pool_h3b <- fit_pooled(f_h3b)
+
+bind_rows(
+  tidy_pooled(pool_h3,  "z_s3_n_donors") |> mutate(Measure = "Number of donors"),
+  tidy_pooled(pool_h3b, "z_s2_hhi_net")  |> mutate(Measure = "Concentration of the others")
+) |>
+  relocate(Measure) |>
+  show_tbl("H3: two measures of the same idea")
+```
+
+# The focal estimates together
+
+```{r}
+#| label: fig-coefs
+#| fig-cap: "The focal coefficient from each model, as odds ratios. Above 1 means the variable raises the odds of interruption; below 1, lowers them."
+#| fig-height: 3.2
+grab <- function(pooled, term_name, label) {
+  s <- summary(pooled, conf.int = TRUE) |> as_tibble()
+  names(s)[names(s) == "2.5 %"] <- "lo"; names(s)[names(s) == "97.5 %"] <- "hi"
+  s |> filter(term == term_name) |> mutate(Model = label)
+}
+
+bind_rows(
+  grab(pool_h2,  "z_s1_share",    "H2 - donor share"),
+  grab(pool_h3,  "z_s3_n_donors", "H3 - number of donors"),
+  grab(pool_h3b, "z_s2_hhi_net",  "H3 - others' concentration"),
+  grab(pool_h2,  "donor_typeMultilateral", "Benchmark - multilateral")
+) |>
+  mutate(Model = fct_rev(fct_inorder(Model))) |>
+  ggplot(aes(exp(estimate), Model)) +
+  geom_vline(xintercept = 1, linetype = "dashed", colour = "grey50") +
+  geom_pointrange(aes(xmin = exp(lo), xmax = exp(hi)), size = 0.5) +
+  scale_x_log10() +
+  labs(x = "Odds ratio (log scale)", y = NULL)
+```
+
+# What the estimates mean, in probabilities
+
+Odds ratios are hard to read. This converts the H2 estimate into predicted
+probabilities of interruption across the observed range of donor share, holding
+everything else at its mean and the random effects at zero.
+
+```{r}
+#| label: fig-predicted
+#| fig-cap: "Predicted probability of interruption across the range of donor share, for an average country-year. The ribbon is the 95% interval from the fixed effects."
+#| fig-height: 3.8
+m_pred <- glmer(f4, data = cc, family = binomial, control = CTRL)
+
+newdat <- tibble(
+  z_s1_share = seq(min(cc$z_s1_share), max(cc$z_s1_share), length.out = 60)
+) |>
+  crossing(donor_type = factor(c("Bilateral", "Multilateral"),
+                               levels = levels(cc$donor_type))) |>
+  mutate(z_log_commitment = 0, coup = 0, election_year = 0, year_c = 5,
+         z_voice_account = 0, z_corruption_ctrl = 0, z_log_aid_dep = 0,
+         z_log_gdp_pc = 0, z_net_degree = 0)
+
+X  <- model.matrix(delete.response(terms(m_pred)), newdat)
+b  <- fixef(m_pred)
+se <- sqrt(diag(X %*% vcov(m_pred) %*% t(X)))
+
+newdat |>
+  mutate(fit = plogis(X %*% b)[, 1],
+         lo  = plogis(X %*% b - 1.96 * se)[, 1],
+         hi  = plogis(X %*% b + 1.96 * se)[, 1],
+         # back to the original scale for a readable axis
+         share = z_s1_share * sd(d$s1_share, na.rm = TRUE) +
+                 mean(d$s1_share, na.rm = TRUE)) |>
+  filter(between(share, 0, 1)) |>
+  ggplot(aes(share, fit, colour = donor_type, fill = donor_type)) +
+  geom_ribbon(aes(ymin = lo, ymax = hi), alpha = 0.15, colour = NA) +
+  geom_line(linewidth = 0.8) +
+  scale_colour_manual(values = PAL) +
+  scale_fill_manual(values = PAL) +
+  scale_x_continuous(labels = label_percent()) +
+  scale_y_continuous(labels = label_percent()) +
+  labs(x = "The donor's share of all money promised to that country",
+       y = "Predicted probability of interruption", colour = NULL, fill = NULL)
+```
+
+# Which donors depart from the model
+
+The random intercepts say how far each donor sits above or below what its
+observable characteristics predict. A donor high on this scale interrupts more
+than the model expects of a donor like it.
+
+```{r}
+#| label: fig-ranef
+#| fig-cap: "Donor random intercepts with 95% intervals. Zero is the average donor after controls; positive means more interruption than predicted."
+#| fig-height: 4.5
+re <- ranef(m_pred, condVar = TRUE)$donor_ref
+pv <- attr(re, "postVar")[1, 1, ]
+
+lookup <- cc |> distinct(donor_ref, donor, donor_type)
+
+tibble(donor_ref = rownames(re), est = re[, 1], se = sqrt(pv)) |>
+  left_join(lookup, by = "donor_ref") |>
+  mutate(donor = fct_reorder(str_trunc(donor, 32), est)) |>
+  ggplot(aes(est, donor, colour = donor_type)) +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = "grey50") +
+  geom_pointrange(aes(xmin = est - 1.96 * se, xmax = est + 1.96 * se), size = 0.42) +
+  scale_colour_manual(values = PAL) +
+  labs(x = "Donor random intercept (log-odds)", y = NULL, colour = NULL)
+```
+
+# Save
+
+```{r}
+#| label: save
+saveRDS(list(m1 = m1, m4 = m4, pool_h2 = pool_h2, pool_h3 = pool_h3,
+             pool_h3b = pool_h3b, cc = cc),
+        "../data/processed/models_h2_h3.rds")
+```

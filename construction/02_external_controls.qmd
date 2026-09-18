@@ -1,0 +1,260 @@
+---
+title: "External controls for the recipient country-year"
+subtitle: "Governance, aid dependence and economic size from the World Bank API"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: show
+execute:
+  warning: false
+  message: false
+---
+
+Retrieves the recipient-side controls the design requires, at country-year level,
+directly from the World Bank API.
+
+**Why these controls are not optional.** Molenaers, Gagiano, Smets and Dellepiane
+(2015) find budget support suspensions track deteriorating voice-and-accountability
+trends and lower aid dependence. Without those variables in the model, any
+association between a donor's structural position and withholding is open to the
+objection that it reflects political rupture in the recipient rather than anything
+about the donor. This is the rival explanation the literature review commits to
+addressing, so the controls are part of the design rather than a robustness check.
+
+**Why the API rather than a packaged extract.** The indicator codes, their coverage
+and their revision dates are all recoverable from the request itself, which makes
+the extraction auditable: a reader can re-run this document and obtain the same
+table, or see precisely where the source has changed. Downloading a spreadsheet
+by hand would lose that.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(httr2)
+
+# The frame runs 2014 to June 2026.
+YEAR_MIN <- 2014
+YEAR_MAX <- 2026
+
+dir_external <- "../data/external"
+```
+
+## 1. Country crosswalk
+
+The IATI frame identifies recipients by ISO-2 code; the World Bank returns ISO-3.
+The crosswalk is taken from the API's own country endpoint rather than a static
+lookup, so that it carries the same revision date as the indicator data.
+
+The endpoint returns 295 entities, of which roughly a quarter are aggregates
+(regions, income groups). These are dropped: an aggregate cannot be a budget
+support recipient and would silently duplicate country-years if it survived the
+join.
+
+```{r}
+#| label: countries
+path_countries <- file.path(dir_external, "wb_countries.csv")
+
+if (file.exists(path_countries)) {
+  countries <- read_csv(path_countries, col_types = cols(
+    iso3         = col_character(),
+    iso2         = col_character(),
+    country_name = col_character(),
+    region       = col_character(),
+    income_group = col_character()
+  ))
+} else {
+  resp <- request("https://api.worldbank.org/v2/country") |>
+    req_url_query(format = "json", per_page = 400) |>
+    req_retry(max_tries = 3) |>
+    req_perform() |>
+    resp_body_json(simplifyVector = FALSE)
+
+  countries <- resp[[2]] |>
+    map(\(x) tibble(
+      iso3         = x$id,
+      iso2         = x$iso2Code,
+      country_name = x$name,
+      region       = x$region$value,
+      income_group = x$incomeLevel$value
+    )) |>
+    list_rbind() |>
+    # "Aggregates" is the region label the API gives to every non-country entity.
+    filter(region != "Aggregates")
+
+  write_csv(countries, path_countries)
+}
+
+countries |> count(region, name = "n_countries")
+```
+
+## 2. A single fetch function
+
+One function covers both sources. The Worldwide Governance Indicators moved to
+their own source (`source = 3`) and carry a `GOV_WGI_` prefix; the older codes
+return "indicator not found", which is a silent failure mode worth naming, since
+the API answers with HTTP 200 and an error object in the body rather than a
+non-success status.
+
+```{r}
+#| label: fetch-fn
+fetch_wb_indicator <- function(indicator, source = NULL,
+                               year_min = YEAR_MIN, year_max = YEAR_MAX) {
+
+  req <- request("https://api.worldbank.org/v2/country/all/indicator") |>
+    req_url_path_append(indicator) |>
+    req_url_query(
+      format   = "json",
+      date     = str_c(year_min, ":", year_max),
+      per_page = 20000
+    ) |>
+    req_throttle(rate = 5) |>
+    req_retry(max_tries = 3)
+
+  # The WGI live in a separate source; omitting it returns an empty result
+  # rather than an error.
+  if (!is.null(source)) req <- req_url_query(req, source = source)
+
+  body <- req |> req_perform() |> resp_body_json(simplifyVector = FALSE)
+
+  # The API signals a bad indicator code inside a 200 response, so the shape of
+  # the body is the only way to detect it.
+  if (is.null(body[[1]]$total)) {
+    stop("World Bank API returned no metadata for '", indicator,
+         "'. Most likely the code is retired.", call. = FALSE)
+  }
+
+  records <- body[[2]]
+  if (is.null(records) || length(records) == 0) {
+    return(tibble(iso3 = character(), year = integer(), value = double()))
+  }
+
+  records |>
+    map(\(x) tibble(
+      iso3  = x$countryiso3code %||% NA_character_,
+      year  = as.integer(x$date),
+      value = if (is.null(x$value)) NA_real_ else as.numeric(x$value)
+    )) |>
+    list_rbind() |>
+    filter(!is.na(iso3), iso3 != "")
+}
+```
+
+## 3. The indicator set
+
+Each indicator earns its place from a specific claim in the literature rather
+than from availability.
+
+```{r}
+#| label: indicator-table
+indicators <- tribble(
+  ~name,              ~code,                    ~source, ~rationale,
+  "voice_account",    "GOV_WGI_VA.EST",         "3",     "Molenaers et al. (2015): suspensions track deteriorating voice and accountability",
+  "corruption_ctrl",  "GOV_WGI_CC.EST",         "3",     "Corruption is the single largest stated breach category in the suspension dataset",
+  "pol_stability",    "GOV_WGI_PV.EST",         "3",     "Proxies the political rupture that is the main rival explanation",
+  "aid_dependence",   "DT.ODA.ODAT.GN.ZS",      NA,      "Molenaers et al. (2015): aid dependence reduces suspension likelihood",
+  "gdp_pc",           "NY.GDP.PCAP.CD",         NA,      "Recipient income level; conventional control",
+  "population",       "SP.POP.TOTL",            NA,      "Scale; enters logged"
+)
+
+indicators |> select(name, code, rationale)
+```
+
+## 4. Retrieval
+
+Cached to disk on first run. The API is not re-queried on subsequent renders,
+which keeps the document reproducible and avoids repeated load on a public
+service.
+
+```{r}
+#| label: fetch
+path_controls <- file.path(dir_external, "wb_controls.csv")
+
+if (file.exists(path_controls)) {
+  controls_long <- read_csv(path_controls, col_types = cols(
+    name  = col_character(),
+    iso3  = col_character(),
+    year  = col_integer(),
+    value = col_double()
+  ))
+} else {
+  controls_long <- indicators |>
+    select(name, code, source) |>
+    pmap(\(name, code, source) {
+      fetch_wb_indicator(code, source = if (is.na(source)) NULL else source) |>
+        mutate(name = name, .before = 1)
+    }) |>
+    list_rbind()
+
+  write_csv(controls_long, path_controls)
+}
+
+controls_long |>
+  group_by(name) |>
+  summarise(
+    country_years = n(),
+    non_missing   = sum(!is.na(value)),
+    first_year    = min(year),
+    last_year     = max(year),
+    .groups = "drop"
+  )
+```
+
+## 5. Coverage, and the gap the design has to absorb
+
+The governance indicators are published with a lag. The frame runs to June 2026;
+the WGI series ends earlier. This is reported here rather than patched, because
+the choice of how to handle it — restrict the analytical window, carry the last
+observation forward, or treat late years as missing — belongs to the modelling
+stage and should be visible when it is made.
+
+```{r}
+#| label: coverage-by-year
+controls_long |>
+  filter(!is.na(value)) |>
+  count(name, year) |>
+  pivot_wider(names_from = name, values_from = n, values_fill = 0) |>
+  arrange(year)
+```
+
+```{r}
+#| label: fig-coverage
+#| fig-cap: "Countries with a non-missing observation, by indicator and year"
+controls_long |>
+  filter(!is.na(value)) |>
+  count(name, year) |>
+  ggplot(aes(year, n, colour = name)) +
+  geom_line(linewidth = 0.7) +
+  geom_point(size = 1.2) +
+  scale_x_continuous(breaks = seq(YEAR_MIN, YEAR_MAX, 2)) +
+  labs(x = NULL, y = "Countries reporting", colour = NULL) +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
+```
+
+## 6. Wide form, keyed for the join
+
+Written on ISO-2 as well as ISO-3, since the IATI frame keys on ISO-2 and the
+join should not require the crosswalk to be repeated downstream.
+
+```{r}
+#| label: reshape
+controls <- controls_long |>
+  pivot_wider(names_from = name, values_from = value) |>
+  left_join(countries |> select(iso3, iso2, country_name, region, income_group),
+            by = "iso3") |>
+  # A country in the indicator series but absent from the country endpoint is
+  # an aggregate that survived; dropping it here keeps the join one-to-one.
+  filter(!is.na(iso2)) |>
+  relocate(iso2, iso3, country_name, year)
+
+controls |> glimpse()
+```
+
+```{r}
+#| label: save
+write_csv(controls, file.path(dir_external, "controls_country_year.csv"))
+```
+
+**Output.** `data/external/controls_country_year.csv`, keyed on `iso2` × `year`,
+ready to join to the activity-year panel built in 01_build_tables.

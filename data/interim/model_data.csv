@@ -1,0 +1,1342 @@
+iatiidentifier,donor,x1_donor_type,modality,recipient_main,complete_flag,y1_gap_full,y2_early_days,commitment_usd_full,s1_share,s2_hhi_net,s3_n_donors,n_years_obs,withheld
+DE-1-200770347,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A01_general,MW,1,0,0,569700,0.5070049243847099,0.9721765783237024,1.5,1,0
+DE-1-200970418,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A01_general,MW,1,0,0,3670476.194736,0.6750427963003686,0.9503746581265541,1.3333333333333333,1,0
+DE-1-200970012,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A01_general,MZ,1,-2.220446049250313e-16,0,3418200,0.07363805128428165,0.27244228637639467,7,1,0
+46002-P-SC-K00-015,African Development Bank,Multilateral,A01_general,SC,1,0.02962952397659846,0,9910861.722223956,0.3045134693182473,0.4837015143597405,2,1,0
+DE-1-201265248,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A01_general,MZ,1,0,0,5697000,0.07363805128428165,0.27244228637639467,7,1,0
+DE-1-201270370,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A01_general,MZ,1,0,0,9115200,0.06534286597560612,0.3483786680824729,5.5,1,0
+DE-1-201366632,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A01_general,MZ,1,0,0,12533400,0.07363805128428165,0.27244228637639467,7,1,0
+46002-P-SC-K00-004,African Development Bank,Multilateral,A01_general,SC,1,0.0836014250123519,0,19767980.206317544,1,NA,1,1,0
+46002-P-SC-K00-005,African Development Bank,Multilateral,A01_general,SC,1,0.02621109734785287,0,9910861.722223956,0.6587283970727809,0.11646630696451354,2,1,0
+46002-P-SC-K00-022,African Development Bank,Multilateral,A01_general,SC,1,0.03263530208950804,251,19821723.458008945,0.35394358541551474,0.4173888908257603,2,1,0
+46002-P-SC-K00-023,African Development Bank,Multilateral,A01_general,SC,1,-0.04139552908215926,129,24777154.32590144,1,NA,1,1,0
+46002-P-SC-K00-024,African Development Bank,Multilateral,A01_general,SC,1,-0.02662545862321774,251,32705843.70639281,1,NA,1,1,0
+46002-P-SO-K00-003,African Development Bank,Multilateral,A01_general,SO,1,0.03200231573033696,303,120693185.71697856,0.2027472919432803,0.6356118805037733,2,1,0
+46002-P-SL-KA0-017,African Development Bank,Multilateral,A01_general,SL,1,0,0,24409857.785456337,0.19378233281842802,0.6499869268756961,2,1,0
+46002-P-SL-KA0-016,African Development Bank,Multilateral,A01_general,SL,1,0,0,20341548.15454695,0.33895619139953137,0.43697891688901314,2,1,0
+46002-P-SL-KA0-013,African Development Bank,Multilateral,A01_general,SL,1,0,365,5424412.841212519,0.06753788464270191,0.5309154978123929,3,1,0
+46002-P-SL-AA0-023,African Development Bank,Multilateral,A01_general,SL,1,0,-213,2034154.815454695,0.01919164779463118,0.961985023755811,2,1,0
+46002-P-ZA-K00-005,African Development Bank,Multilateral,A01_general,ZA,1,0.04507705976407139,0,305242621.42887175,1,NA,1,1,0
+46002-P-ZA-K00-006,African Development Bank,Multilateral,A01_general,ZA,1,-0.01454814726781683,-412,299936569.1944883,1,NA,1,1,0
+46002-P-SS-I00-006,African Development Bank,Multilateral,A01_general,SS,1,0,59,1356103.21030313,1,NA,1,1,0
+46002-P-SS-I00-003,African Development Bank,Multilateral,A02_sector,SS,1,0,-36,17425926.25239522,1,NA,1,1,0
+46002-P-SS-A00-001,African Development Bank,Multilateral,A02_sector,SS,1,0,-731,8136619.26181878,1,NA,1,1,0
+46002-P-SN-KA0-014,African Development Bank,Multilateral,A01_general,SN,1,0.04935289459648018,365,72027101.07172838,0.1582468929812206,0.6949903264074596,3,1,0
+46002-P-SN-KA0-009,African Development Bank,Multilateral,A01_general,SN,1,0,365,47165269.65434286,0.6262445408981856,0.13969314320840803,2,1,0
+46002-P-SN-K00-013,African Development Bank,Multilateral,A01_general,SN,1,0.03820285596157924,184,101414158.31420098,0.46207689873002483,0.23483950205670648,4,1,0
+46002-P-SN-A00-022,African Development Bank,Multilateral,A01_general,SN,1,0.05361950640652313,-217,139383388.6985071,0.2468832622531565,0.5905700983299541,2,1,0
+46002-P-SN-KA0-018,African Development Bank,Multilateral,A01_general,SN,1,0.12524315220630566,96,79086688.97908483,0.3998057186011574,0.360233175423873,2,1,0
+46002-P-SN-KA0-019,African Development Bank,Multilateral,A01_general,SN,1,0.03220409841360028,-557,85641605.49059069,0.3998057186011574,0.360233175423873,2,1,0
+DE-1-201265743,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,PE,1,0,0,17091000,0.05225151410463755,0.898227192516952,2,1,0
+DE-1-201265750,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,PE,1,0,0,34182000,0.11891984116477276,0.7807469121261064,2,1,0
+DE-1-201266287,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,PE,1,0,0,17091000,0.051359606214530985,0.8999185967214498,2,1,0
+46002-P-SD-KF0-006,African Development Bank,Multilateral,A01_general,SD,1,0.5012210829387218,0,391513866.3723019,0.1303805461146559,0.756237994575844,2,1,1
+46002-P-SD-K00-007,African Development Bank,Multilateral,A01_general,SD,1,0.962936938,0,27122064.2060626,0.1303805461146559,0.756237994575844,2,1,1
+46002-P-SD-AAB-005,African Development Bank,Multilateral,A02_sector,SD,1,0,-195,76999540.28101172,1,NA,1,1,0
+46002-P-SZ-K00-005,African Development Bank,Multilateral,A01_general,SZ,1,-0.02012923081909079,-115,35679102.21899169,0.5086883632539516,0.241387124402081,2,1,0
+46002-P-SZ-AA0-013,African Development Bank,Multilateral,A01_general,SZ,1,-0.04065893940085474,-546,39643446.91601789,0.5086883632539516,0.241387124402081,2,1,0
+46002-P-TG-KA0-002,African Development Bank,Multilateral,A01_general,TG,1,0,184,12923663.594188828,0.24551805693850962,0.569243002405842,2,1,0
+46002-P-TG-KZ0-002,African Development Bank,Multilateral,both,TG,1,0,0,27122064.206062596,0.26998993558131995,0.5329146941525653,2,1,0
+46002-P-TG-AA0-015,African Development Bank,Multilateral,A01_general,TG,1,0,190,5424412.841212519,0.03588488844453356,0.9295179483296095,2,1,0
+46002-P-TZ-K00-016,African Development Bank,Multilateral,A01_general,TZ,1,0,0,48819715.570912674,0.9593109885601443,0.006622382607810784,1.5,1,0
+46002-P-TZ-AA0-025,African Development Bank,Multilateral,A02_sector,TZ,1,0,1155,91225062.957091555,0.9996323072144655,5.407919381195114e-7,1.5,1,0
+46002-P-TZ-KA0-002,African Development Bank,Multilateral,A02_sector,TZ,1,0,0,67805160.5151565,0.9992646144289309,5.407919381195114e-7,2,1,0
+46002-P-TZ-KA0-005,African Development Bank,Multilateral,A01_general,TZ,1,0,366,54244128.41212519,0.9198566368580937,0.006422958655695421,2,1,0
+DE-1-201170315,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A01_general,RW,1,0,0,3418200,0.008232449984308415,0.3857504654267628,5,1,0
+46002-P-TZ-K00-013,African Development Bank,Multilateral,both,TZ,1,0,275,52074945.04391741,0.18186413090012135,0.4359492417230302,6,1,0
+46002-P-TZ-K00-014,African Development Bank,Multilateral,A01_general,TZ,1,0,762,67805160.5151565,0.23270100180961087,0.3882758396256012,5,1,0
+46002-P-TZ-KA0-007,African Development Bank,Multilateral,A02_sector,TZ,1,0,0,54244128.41212519,1,NA,1,1,0
+46002-P-TN-HZ0-005,African Development Bank,Multilateral,A01_general,TN,1,0.05208677367918069,366,138292034.05988824,0.9594457787084627,0.0016446448645629497,2,1,0
+46002-P-TN-IAZ-003,African Development Bank,Multilateral,A01_general,TN,1,0.01284703330363945,0,140596901.29060343,0.11143667858478136,0.7962366982417954,2.5,1,0
+46002-P-TN-IAZ-002,African Development Bank,Multilateral,A01_general,TN,1,0.08508482766664616,0,207918653.03692535,1,NA,1,1,0
+DE-1-201265115,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A01_general,TZ,1,0,0,20509200,0.023461888692316035,0.4418751356477871,5,1,0
+DE-1-201270040,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A01_general,TZ,1,0,0,2278800,0.002387512734650139,0.46901810361402857,6,1,0
+46002-P-TN-IZ0-008,African Development Bank,Multilateral,A02_sector,TN,1,0.07536425924229928,465,211383963.9168058,0.28200355591623033,0.5155188937169378,2,1,0
+46002-P-TN-HZ0-002,African Development Bank,Multilateral,A01_general,TN,1,0.06054751429028549,0,308852209.3904723,1,NA,1,1,0
+46002-P-TN-I00-012,African Development Bank,Multilateral,A01_general,TN,1,0.03305427491585333,0,210078470.36982292,0.5131633252783055,0.23700994785407703,2,1,0
+46002-P-TN-K00-018,African Development Bank,Multilateral,A02_sector,TN,1,0.04606467092542687,-55,68762680.83975336,1,NA,1,1,0
+46002-P-UG-K00-009,African Development Bank,Multilateral,A01_general,UG,1,0,-119,31190373.836971987,1,NA,1,1,0
+DE-1-201070259,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,UG,1,0,0,2278800,0.5157783024580053,0.9380319621347041,1.5,1,0
+46002-P-UG-E00-012,African Development Bank,Multilateral,A02_sector,UG,1,0,181,89231590.13950235,0.8327367064901621,0.2955892259700899,1.5,1,0
+DE-1-201165828,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A01_general,ZM,1,0,0,21078900,0.12348168575872975,0.4909769140920767,3,1,0
+XM-DAC-6-4-011005-01-3,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,BF,1,0,-880,3957819.84,0.05531706631438862,0.7503138040963091,2.6666666666666665,1,0
+XM-DAC-6-4-010877-02-0,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,BF,1,0,-852,568871.6562000001,0.004475853962765945,0.6213903849330099,4,1,0
+XM-DAC-6-4-010888-01-0,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,BO,1,0.3697683428571429,NA,398790,1,NA,1,1,1
+XM-DAC-6-4-010152-01-5,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,EC,1,0,NA,1156739.3892,0.5004687429128082,0.8612087731779002,2,1,0
+XM-DAC-6-4-009659-01-6,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,EG,1,0,-1695,1557215.7012,0.5036960343942555,0.985270505103952,1.5,1,0
+XM-DAC-6-4-011835-01-4,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,ET,1,0,NA,5640030,0.5019780378342776,0.6601359960476875,2,1,0
+XM-DAC-6-4-010081-01-3,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,ET,1,0,-740,7975800,0.20676711096502423,0.587717092658731,2.6666666666666665,1,0
+XM-DAC-6-4-010718-02-4,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,ET,1,0,-2938,1595160,0.30439632415071394,0.5586169405941649,2.5,1,0
+XM-DAC-6-4-010418-01-5,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,ET,1,-9.25142857144401e-6,-2618,3987900,0.20100632939292803,0.5075637624538192,2.6666666666666665,1,0
+XM-DAC-6-4-010693-01-2,AICS - Italian Agency for Cooperation and Development,Bilateral,A01_general,ML,1,0,-2297,804838.057758,0.016273890223497952,0.3717336593677495,4,1,0
+XM-DAC-6-4-010084-02-3,AICS - Italian Agency for Cooperation and Development,Bilateral,A01_general,ML,1,0,-2253,1083247.587864,0.016273890223497952,0.3717336593677495,4,1,0
+XM-DAC-6-4-010496-02-1,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,LB,1,0,-2331,20800.749672,1,NA,1,1,0
+XM-DAC-6-4-010680-01-4,AICS - Italian Agency for Cooperation and Development,Bilateral,A01_general,SL,1,0,-528,2219851.48887,0.15066426237813624,0.7213711952016754,2,1,0
+XM-DAC-6-4-011068-01-3,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,SN,1,-0.3888888888888888,NA,2050920,0.008875202508692615,0.6969154026628019,3,1,0
+XM-DAC-6-4-010733-01-5,AICS - Italian Agency for Cooperation and Development,Bilateral,A01_general,SN,1,0,-2273,3416870.37717,0.12746290128394477,0.7613209886358311,2,1,0
+XM-DAC-6-4-010997-01-1,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,MZ,1,0,-803,683640,0.23052900312899366,0.5096427966090699,2.6666666666666665,1,0
+XM-DAC-6-4-009147-01-4,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,MZ,1,0,1087,4557600,0.05112351714938125,0.5408855920976284,4.333333333333333,1,0
+XM-DAC-6-4-008465-03-0,AICS - Italian Agency for Cooperation and Development,Bilateral,A01_general,MZ,1,0,-4809,3708969.9463979998,0.05112351714938125,0.5408855920976284,4.333333333333333,1,0
+XM-DAC-6-4-010997-03-3,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,MZ,1,0,-1899,341820,0.1348403012112799,0.748501304408189,2,1,0
+XM-DAC-6-4-011097-01-5,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,MZ,1,0,-741,3418200,0.563067822483202,0.47354674600665947,1.6666666666666667,1,0
+XM-DAC-6-4-010049-01-2,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,MZ,1,0,NA,3418200,0.015684696856776384,0.4336371166917849,5,1,0
+XM-DAC-6-4-009696-03-5,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,SV,1,-6.315384615374064e-5,-2313,148122,0.5000000233861839,0.9999999064552665,1.5,1,0
+XM-DAC-6-4-010497-01-2,AICS - Italian Agency for Cooperation and Development,Bilateral,A01_general,SV,1,0,-564,187431.3,1,NA,1,1,0
+XM-DAC-6-4-012586-01-0,AICS - Italian Agency for Cooperation and Development,Bilateral,A01_general,UA,1,0,270,125334000,0.20729618291354457,0.6283793416234366,2,1,0
+XM-DAC-6-4-010408-01-6,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,VN,1,-4.440892098500626e-16,-2677,32117.635079999993,3.0754226526653406e-4,0.7407807788326268,4,1,0
+XM-DAC-6-4-010519-02-5,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,VN,1,0,-1825,5980.904298,3.892163786096485e-4,0.8152318062650749,4.333333333333333,1,0
+XM-DAC-6-4-010607-01-5,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,TN,1,0,NA,2256012,0.0056194582530632855,0.9875234473799339,3,1,0
+XM-DAC-6-4-010744-01-6,AICS - Italian Agency for Cooperation and Development,Bilateral,A02_sector,TN,1,0,NA,5540913.5940000005,0.040554221291537226,0.9205362022814884,2,1,0
+GB-1-103985-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,MZ,1,0.17474252912375488,59,39196933.25,0.19766717188323915,0.23879253813302317,7,1,0
+GB-1-103986-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A01_general,MZ,1,0.3180724672493117,-578,358159247.75,0.19766717188323915,0.23879253813302317,7,1,1
+GB-1-202328-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,PK,1,2.506927443413076e-9,-1310,242860235.7083,0.15506375095941607,0.6083818782748373,2.5555555555555554,1,0
+GB-1-202377-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,RW,1,0,-842,96060042.7735,0.10570363210923855,0.3746449808184217,5,1,0
+GB-1-202462-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,MZ,1,0.1700939219423795,-1887,27639808.4753,0.1652887464886027,0.4087948554140243,5.5,1,0
+GB-1-202468-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A01_general,GH,1,0,-639,65290721.5,0.06823617017106794,0.44918776360898,4,1,0
+GB-1-202697-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,PK,1,0,-1310,230297578.2334,0.19878046360933393,0.5618557855797041,2.5714285714285716,1,0
+GB-1-202893-104,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,ET,1,1.0834264740910983e-7,-725,4520043.69305,0.41030396247985024,0.3477414166669657,2,1,0
+GB-1-202990-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,ET,1,-0.00864221240637608,-580,344586242.5,0.7697256492556929,0.048582608045620757,3,1,0
+GB-1-202990-103,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,ET,1,0,-580,12441370,0.7697256492556929,0.048582608045620757,3,1,0
+GB-1-202991-102,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,ET,1,0,-789,310372475,0.7697256492556929,0.048582608045620757,3,1,0
+GB-1-203001-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,ZM,1,0.16149219138980553,-2001,49178379.691,0.917345283526676,0.05815353811191748,1.5,1,0
+GB-1-203100-104,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,NP,1,0.00451968680746106,-638,6448360.74745,0.404752745289869,0.4236827129143854,2.5714285714285716,1,0
+GB-1-203213-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A01_general,TZ,1,0,-586,142612512.5,0.10977973991972682,0.4569722125342438,6,1,0
+GB-1-203213-102,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,TZ,1,0,-586,103236900,0.09046441401874603,0.447167807831526,5.5,1,0
+GB-1-203396-102,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,ET,1,0,-916,39706500,0.7697256492556929,0.048582608045620757,3,1,0
+GB-1-203413-102,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,NP,1,1.1102230246251563e-16,-699,7941300,0.6036024462306089,0.10547626476352784,3,1,0
+GB-1-203536-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,GH,1,0,-1537,18529700,0.8372025908888082,0.0255756703889356,3,1,0
+GB-1-203536-113,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,GH,1,0,-1050,12435174.46245,0.6731298715396062,0.31169119503082854,2,1,0
+GB-1-203585-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A01_general,SL,1,0,-546,49396442.4948,0.5481403976889676,0.24859736104110108,2.5,1,0
+GB-1-203766-109,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,ET,1,0,-1147,6617750,0.7697256492556929,0.048582608045620757,3,1,0
+GB-1-203766-111,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,ET,1,0,-1147,19853250,0.7697256492556929,0.048582608045620757,3,1,0
+GB-1-203766-112,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,ET,1,0,-1147,590581.2455,0.13775945380200597,0.7110786060999041,2.6666666666666665,1,0
+GB-1-204024-107,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A01_general,PK,1,0,-1461,119119500,0.12196224289848442,0.39911390633999444,3,1,0
+GB-1-204179-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,MZ,1,0,-638,43015375,0.1652887464886027,0.4087948554140243,5.5,1,0
+GB-1-204288-102,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,TZ,1,-0.0105888150463369,-1640,4798240.667550001,0.07114908811776521,0.43736340312880817,5,1,0
+GB-1-205145-102,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,NP,1,0.3344203778575937,NA,18472932.9405,0.2494650017001863,0.6444855675707252,2.857142857142857,1,1
+GB-1-205145-104,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,NP,1,0.00834096163209308,NA,75846380.84365,0.2937321822664891,0.5674842385982685,2.875,1,0
+GB-1-114506-106,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,IN,1,0,-913,60883300,0.13575178791348874,0.7469249720947313,2,1,0
+GB-1-113707-102,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,IN,1,0,-640,25147450,0.13575178791348874,0.7469249720947313,2,1,0
+GB-1-113963-102,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,IN,1,0,-550,24485675,0.13575178791348874,0.7469249720947313,2,1,0
+GB-1-114086-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,MZ,1,0.2448078177494707,-1278,21031202.88225,0.1652887464886027,0.4087948554140243,5.5,1,0
+GB-1-201375-102,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,NP,1,0.29381310318456433,-480,100458221.92385,0.5318363121594969,0.11557380363015085,4,1,1
+GB-1-201375-106,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,NP,1,0,-480,4500070,0.5318363121594969,0.11557380363015085,4,1,0
+GB-1-201564-101,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A01_general,ZM,1,0.13626834381551367,-547,63133335,0.6693811341067037,0.05815353811191748,3,1,0
+GB-1-201629-108,"UK - Foreign, Commonwealth Development Office (FCDO)",Bilateral,A02_sector,GH,1,-0.06105167494004226,-654,39412739.40105,0.4891852861776894,0.3657091330774263,2.75,1,0
+CA-3-A033033001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,MZ,1,6.802691743246214e-11,365,103448275.86910623,0.37403391245684775,0.2825635048269493,4.25,1,0
+CA-3-A033033002,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,MZ,1,1.77778014531782e-10,365,39584699.514426455,0.45817367014569654,0.28905976361616303,3.3333333333333335,1,0
+CA-3-A033033004,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A01_general,MZ,1,1.3814127619582448e-10,123,50942806.48135117,0.1128897934602008,0.4243433591568432,5.5,1,0
+CA-3-A033640001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,HN,1,0.00819025052282829,0,9217866.530612243,0.17269013046179388,0.8168698090319614,2.1666666666666665,1,0
+CA-3-A034252001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,BD,1,0,0,45038705.137227304,0.46175901555117715,0.7938840356741137,1.8,1,0
+CA-3-A034769001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,ML,1,0.15316503622958655,0,2995812.5897255456,0.42804998239495207,0.44859004539775715,2.6666666666666665,1,0
+CA-3-A035261001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,MZ,1,0,1551,3442646.023926812,0.22576271987198518,0.4445622117437126,3,1,0
+CA-3-A035342001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,TZ,1,0.00840969928990098,-2059,1869594.8486981,0.22943501538419775,0.6882022540572057,3.2,1,0
+CA-3-A035369002,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,SN,1,0,-149,10907811.400422238,0.768199527124799,0.32021915917943033,1.75,1,0
+CA-3-A035369003,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,SN,1,0,-359,84447572.1323012,0.6893107135202021,0.34420684778787997,1.8,1,0
+CA-3-A035435001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,ML,1,0,-295,14074595.355383532,0.4179563020287892,0.42404055895743,2.5,1,0
+CA-3-D000301001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A01_general,TZ,1,1.428571261286038e-9,0,4926108.381421533,0.05669369367770689,0.43921142096597604,5,1,0
+CA-3-D000327001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,JO,1,1.6324259016398113e-4,0,13629223.891625617,0.02240910700859829,0.9557426327300719,2.25,1,0
+CA-3-D000954001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,BF,1,0,0,12315270.93596059,0.4454839160560391,0.23862416702221018,3,1,0
+CA-3-A032220001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,ML,1,0.02917465474861236,275,12511333.983110486,0.38488009156002573,0.6455721113864886,2.142857142857143,1,0
+CA-3-A032230001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,VN,1,0.00743115788639314,91,6951998.761435608,0.0023504904224115027,0.8045259312126986,4.4,1,0
+CA-3-A034768005,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,ML,1,0.00405274976227776,NA,3278593.4412385644,0.3793571320116682,0.7564836568596411,2,1,0
+CA-3-A035209001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,ML,1,0.0148189315451136,0,13835626.21393385,0.38488009156002573,0.6455721113864886,2.142857142857143,1,0
+CA-3-D000259001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,TZ,1,0.00764956021644513,0,13895881.477832513,0.04559028100197852,0.7195756439480224,3.4,1,0
+CA-3-D001661001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A01_general,SN,1,0.00432122414483804,-505,34632413.04011259,0.32643105499733405,0.5455484769104559,2.6,1,0
+CA-3-P006740001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,JO,1,0.00189234423056328,0,9148310.337790288,0.23933478321661156,0.6880530879097381,2.75,1,0
+CA-3-P006740002,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,JO,1,0,0,1407459.5355383533,0.9367495790480751,0.004000615750595737,2,1,0
+CA-3-A033419002,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,GH,1,0.03870527354605202,0,77090637.5791696,0.15989766054316704,0.700916586732691,3,1,0
+CA-3-A033985001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,TZ,1,0.00174673779419398,1105,116444640.6474314,0.009602634530306289,0.468931593241164,6,1,0
+CA-3-A033999002,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,TZ,1,0,0,703729.7677691766,0.009602634530306289,0.468931593241164,6,1,0
+CA-3-A034052001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A01_general,SN,1,0.03214466333509369,-186,13996717.811400425,0.9362685493580276,0.016246791203720634,1.5,1,0
+CA-3-A033033007,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,MZ,1,7.999978457462474e-11,-275,87966220.97818437,0.1128897934602008,0.4243433591568432,5.5,1,0
+CA-3-A034379001,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,SN,1,0.0160230871449557,0,14001012.54046446,1,NA,1,1,0
+CA-3-A034782006,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,TZ,1,2.222222406089713e-10,0,31667839.556650244,0.5283468468388535,0.43921142096597604,3,1,0
+CA-3-A034908002,"EN: Foreign Affairs, Trade and Development Canada (DFATD), FR: Affaires étrangères, Commerce et Développement Canada (MAECD)",Bilateral,A02_sector,ML,1,0.00337696730087921,3897,34699737.93807178,0.6119708680191928,0.42404055895743,2,1,0
+XI-IATI-IADB-BA-L1056,Inter-American Development Bank,Multilateral,A02_sector,BB,1,0,345,100000000,0.6666666666666666,0.11111111111111116,2,1,0
+XI-IATI-IADB-BA-L1052,Inter-American Development Bank,Multilateral,A02_sector,BB,1,0,361,100000000,0.5,0.25,2,1,0
+XI-IATI-IADB-BA-L1048,Inter-American Development Bank,Multilateral,A02_sector,BB,1,0,342,80000000,1,NA,1,1,0
+XI-IATI-IADB-BA-L1050,Inter-American Development Bank,Multilateral,A02_sector,BB,1,0,354,120000000,1,NA,1,1,0
+XI-IATI-IADB-BA-L1060,Inter-American Development Bank,Multilateral,A02_sector,BB,1,0,362,100000000,0.6666666666666666,0.11111111111111116,2,1,0
+XI-IATI-IADB-BO-L1100,Inter-American Development Bank,Multilateral,A02_sector,BO,1,0,323,90000000,1,NA,1,1,0
+XI-IATI-IADB-BO-L1200,Inter-American Development Bank,Multilateral,A02_sector,BO,1,0,246,100000000,1,NA,1,1,0
+XI-IATI-IADB-BO-L1112,Inter-American Development Bank,Multilateral,A02_sector,BO,1,0,350,120000000,1,NA,1,1,0
+XI-IATI-IADB-BO-L1089,Inter-American Development Bank,Multilateral,A02_sector,BO,1,0,331,106000000,1,NA,1,1,0
+XI-IATI-IADB-BO-L1107,Inter-American Development Bank,Multilateral,A02_sector,BO,1,0,321,100000000,1,NA,1,1,0
+XI-IATI-IADB-BO-L1104,Inter-American Development Bank,Multilateral,A02_sector,BO,1,0,358,142530000,0.4195626858650482,0.33690747564019674,2,1,0
+XI-IATI-IADB-BO-L1189,Inter-American Development Bank,Multilateral,A02_sector,BO,1,0,351,51600000,1,NA,1,1,0
+XI-IATI-IADB-BO-L1183,Inter-American Development Bank,Multilateral,A02_sector,BO,1,0,354,140000000,1,NA,1,1,0
+XI-IATI-IADB-BO-L1199,Inter-American Development Bank,Multilateral,A02_sector,BO,1,0,347,100000000,1,NA,1,1,0
+XI-IATI-IADB-BH-L1052,Inter-American Development Bank,Multilateral,A02_sector,BS,1,0,358,140000000,0.5833333333333334,0.1736111111111111,2,1,0
+XI-IATI-IADB-BH-L1050,Inter-American Development Bank,Multilateral,A02_sector,BS,1,0,350,200000000,1,NA,1,1,0
+XI-IATI-IADB-BH-L1056,Inter-American Development Bank,Multilateral,A02_sector,BS,1,0,351,160000000,1,NA,1,1,0
+XI-IATI-IADB-AR-L1268,Inter-American Development Bank,Multilateral,A02_sector,AR,1,0,350,200000000,1,NA,1,1,0
+XI-IATI-IADB-AR-L1303,Inter-American Development Bank,Multilateral,A02_sector,AR,1,0,360,200000000,1,NA,1,1,0
+XI-IATI-IADB-AR-L1304,Inter-American Development Bank,Multilateral,A02_sector,AR,1,0,360,300000000,1,NA,1,1,0
+XI-IATI-IADB-AR-L1298,Inter-American Development Bank,Multilateral,A02_sector,AR,1,0,348,200000000,0.5,0.25,2,1,0
+XI-IATI-IADB-AR-L1370,Inter-American Development Bank,Multilateral,A02_sector,AR,1,0,334,350000000,0.999908335534573,8.402374240823463e-9,2,1,0
+XI-IATI-IADB-AR-L1351,Inter-American Development Bank,Multilateral,A02_sector,AR,1,0,358,500000000,1,NA,1,1,0
+XI-IATI-IADB-AR-L1283,Inter-American Development Bank,Multilateral,A02_sector,AR,1,0,361,300000000,0.5,0.25,2,1,0
+XI-IATI-IADB-CH-L1111,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,186,100000000,0.8076923076923077,0.14792899408284022,1.5,1,0
+XI-IATI-IADB-CH-L1157,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,317,50000000,1,NA,1,1,0
+XI-IATI-IADB-CH-L1110,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,315,130000000,0.6153846153846154,0.14792899408284022,2,1,0
+XI-IATI-IADB-CH-L1172,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,343,100000000,1,NA,1,1,0
+XI-IATI-IADB-CH-L1148,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,232,50000000,1,NA,1,1,0
+XI-IATI-IADB-CH-L1095,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,1,90000000,0.8717948717948718,0.14792899408284022,1.3333333333333333,1,0
+XI-IATI-IADB-CH-L1145,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,320,100000000,1,NA,1,1,0
+XI-IATI-IADB-CH-L1160,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,714,500000000,1,NA,1,1,0
+XI-IATI-IADB-CH-L1149,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,708,300000000,1,NA,1,1,0
+XI-IATI-IADB-CH-L1136,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,431,100000000,0.8717948717948718,0.14792899408284022,1.3333333333333333,1,0
+XI-IATI-IADB-CH-L1165,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,668,300000000,1,NA,1,1,0
+XI-IATI-IADB-CH-L1135,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,10,100000000,1,NA,1,1,0
+XI-IATI-IADB-CH-L1134,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,329,35000000,1,NA,1,1,0
+XI-IATI-IADB-CH-L1164,Inter-American Development Bank,Multilateral,A02_sector,CL,1,0,706,100000000,1,NA,1,1,0
+XI-IATI-IADB-CR-L1081,Inter-American Development Bank,Multilateral,A02_sector,CR,1,0,352,350000000,1,NA,1,1,0
+XI-IATI-IADB-CR-L1145,Inter-American Development Bank,Multilateral,A02_sector,CR,1,0,280,250000000,0.45454545454545453,0.2975206611570247,2,1,0
+XI-IATI-IADB-CR-L1142,Inter-American Development Bank,Multilateral,A02_sector,CR,1,0,360,230000000,1,NA,1,1,0
+XI-IATI-IADB-CO-L1268,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,352,200000000,0.20701785331609662,0.6288206849594118,2,1,0
+XI-IATI-IADB-CO-L1142,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,359,400000000,0.3532318942002768,0.3893525620980327,2.5,1,0
+XI-IATI-IADB-CO-L1283,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,355,500000000,0.5714285714285714,0.18367346938775503,2,1,0
+XI-IATI-IADB-CO-L1144,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,361,500000000,0.4564637884005535,0.2162051241960654,3,1,0
+XI-IATI-IADB-CO-J0014,Inter-American Development Bank,Multilateral,A02_sector,CO,1,-1,278,17589000,0.162332456069813,0.70368369888109,2,1,0
+XI-IATI-IADB-CO-L1217,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,357,300000000,0.8977144190889994,0.010462340062300846,2,1,0
+XI-IATI-IADB-CO-L1237,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,324,600000000,0.5693736889421637,0.18543901977528043,2,1,0
+XI-IATI-IADB-CO-L1274,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,351,300000000,0.20701785331609662,0.6288206849594118,2,1,0
+XI-IATI-IADB-CO-L1233,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,306,350000000,0.4326471407657181,0.2740831360968111,2.5,1,0
+XI-IATI-IADB-CO-L1162,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,296,400000000,0.3432604336561809,0.38583486428307306,3,1,0
+XI-IATI-IADB-CO-L1252,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,350,300000000,0.5146868444710818,0.23851950988764026,2,1,0
+XI-IATI-IADB-CO-L1163,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,356,400000000,0.3432604336561809,0.38583486428307306,3,1,0
+XI-IATI-IADB-CO-L1254,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,354,850000000,0.46,0.2916000000000001,2,1,0
+XI-IATI-IADB-CO-L1141,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,358,400000000,0.25,0.5625,2,1,0
+XI-IATI-IADB-CO-L1214,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,349,450000000,0.8977144190889994,0.010462340062300846,2,1,0
+XI-IATI-IADB-CO-L1227,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,234,600000000,0.29592059258927245,0.36272725241834175,3,1,0
+XI-IATI-IADB-CO-L1272,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,358,300000000,0.11764705882352941,0.7785467128027681,2,1,0
+XI-IATI-IADB-CO-L1291,Inter-American Development Bank,Multilateral,A02_sector,CO,1,0,361,500000000,0.5714285714285714,0.18367346938775503,2,1,0
+XI-IATI-IADB-DR-L1132,Inter-American Development Bank,Multilateral,A02_sector,DO,1,0,360,250000000,0.8333333333333333,0.11111111111111116,1.5,1,0
+XI-IATI-IADB-DR-L1146,Inter-American Development Bank,Multilateral,A02_sector,DO,1,0,252,250000000,0.38461538461538464,0.37869822485207105,2,1,0
+XI-IATI-IADB-DR-L1058,Inter-American Development Bank,Multilateral,A02_sector,DO,1,0,362,400000000,1,NA,1,1,0
+XI-IATI-IADB-DR-L1072,Inter-American Development Bank,Multilateral,A02_sector,DO,1,0,335,250000000,0.8695652173913043,0.017013232514177745,2,1,0
+XI-IATI-IADB-DR-L1121,Inter-American Development Bank,Multilateral,A02_sector,DO,1,0,291,300000000,1,NA,1,1,0
+XI-IATI-IADB-DR-L1144,Inter-American Development Bank,Multilateral,A02_sector,DO,1,0,347,250000000,0.6666666666666666,0.11111111111111116,2,1,0
+XI-IATI-IADB-DR-L1162,Inter-American Development Bank,Multilateral,A02_sector,DO,1,0,704,300000000,0.38461538461538464,0.37869822485207105,2,1,0
+XI-IATI-IADB-DR-L1079,Inter-American Development Bank,Multilateral,A02_sector,DO,1,0,24,300000000,0.9347826086956521,0.017013232514177745,1.5,1,0
+XI-IATI-IADB-DR-L1073,Inter-American Development Bank,Multilateral,A02_sector,DO,1,0,325,150000000,0.8695652173913043,0.017013232514177745,2,1,0
+XI-IATI-IADB-BR-L1385,Inter-American Development Bank,Multilateral,A02_sector,BR,1,0,407,184000000,0.3640202376699355,0.4044702580934053,2,1,0
+XI-IATI-IADB-BR-L1575,Inter-American Development Bank,Multilateral,A02_sector,BR,1,0,890,104000000,0.2777210393101046,0.5216868970552755,2,1,0
+XI-IATI-IADB-BR-L1381,Inter-American Development Bank,Multilateral,A02_sector,BR,1,0,572,400000000,0.3640202376699355,0.4044702580934053,2,1,0
+XI-IATI-IADB-BR-L1375,Inter-American Development Bank,Multilateral,A02_sector,BR,1,0,535,200000000,0.3640202376699355,0.4044702580934053,2,1,0
+XI-IATI-IADB-BR-L1374,Inter-American Development Bank,Multilateral,A02_sector,BR,1,0,497,250000000,0.3640202376699355,0.4044702580934053,2,1,0
+XI-IATI-IADB-GU-L1085,Inter-American Development Bank,Multilateral,A02_sector,GT,1,0,108,250000000,0.423728813559322,0.33208848032174665,2,1,0
+XI-IATI-IADB-GU-L1096,Inter-American Development Bank,Multilateral,A02_sector,GT,1,0,543,250000000,0.5555555555555556,0.19753086419753085,2,1,0
+XI-IATI-IADB-GY-L1086,Inter-American Development Bank,Multilateral,A02_sector,GY,1,0,355,30000000,0.4562906834476996,0.29561982090576966,2,1,0
+XI-IATI-IADB-GY-L1067,Inter-American Development Bank,Multilateral,A02_sector,GY,1,0,352,11640000,0.5726879099872888,0.7303824890841254,1.5,1,0
+XI-IATI-IADB-GY-L1043,Inter-American Development Bank,Multilateral,A02_sector,GY,1,0,360,17160000,1,NA,1,1,0
+XI-IATI-IADB-GY-L1075,Inter-American Development Bank,Multilateral,A02_sector,GY,1,0,355,34000000,1,NA,1,1,0
+XI-IATI-IADB-GY-L1083,Inter-American Development Bank,Multilateral,A02_sector,GY,1,0,356,130000000,1,NA,1,1,0
+XI-IATI-IADB-EC-L1280,Inter-American Development Bank,Multilateral,A02_sector,EC,1,0,358,400000000,0.6756756756756757,0.42074506939371803,1.5,1,0
+XI-IATI-IADB-EC-L1265,Inter-American Development Bank,Multilateral,A02_sector,EC,1,0,359,280000000,0.3006993006993007,0.489021468042447,2,1,0
+XI-IATI-IADB-EC-L1140,Inter-American Development Bank,Multilateral,A02_sector,EC,1,0,363,500000000,1,NA,1,1,0
+XI-IATI-IADB-EC-L1287,Inter-American Development Bank,Multilateral,A02_sector,EC,1,-0.8999999999999999,354,500000000,0.6551724137931034,0.11890606420927469,2,1,0
+XI-IATI-IADB-EC-L1277,Inter-American Development Bank,Multilateral,A02_sector,EC,1,0,352,250000000,0.35135135135135137,0.42074506939371803,2,1,0
+XI-IATI-IADB-EC-L1273,Inter-American Development Bank,Multilateral,A02_sector,EC,1,0,358,200000000,1,NA,1,1,0
+XI-IATI-IADB-EC-L1238,Inter-American Development Bank,Multilateral,A02_sector,EC,1,0,398,100000000,0.537002315339792,0.8557329666955519,2,1,0
+XI-IATI-IADB-EC-L1252,Inter-American Development Bank,Multilateral,A02_sector,EC,1,0,4,300000000,0.4582346437929615,0.6723772173689995,2,1,0
+XI-IATI-IADB-HO-L1207,Inter-American Development Bank,Multilateral,A02_sector,HN,1,0,337,60000000,0.7937088937369656,0.08382027118435145,2,1,0
+XI-IATI-IADB-HO-L1193,Inter-American Development Bank,Multilateral,A02_sector,HN,1,0,342,49780000,0.9982806192802776,2.9562700593066538e-6,2,1,0
+XI-IATI-IADB-HO-L1204,Inter-American Development Bank,Multilateral,A02_sector,HN,1,0,352,59500000,0.9968449335258839,9.95444445606175e-6,2,1,0
+XI-IATI-IADB-HO-L1103,Inter-American Development Bank,Multilateral,A02_sector,HN,1,0,356,60000000,0.6582148327198613,0.10847241687150355,3,1,0
+XI-IATI-IADB-HO-L1219,Inter-American Development Bank,Multilateral,A02_sector,HN,1,0,280,118480000,1,NA,1,1,0
+XI-IATI-IADB-HO-L1206,Inter-American Development Bank,Multilateral,A02_sector,HN,1,0,349,111650000,0.5905728539480475,0.16763058792424684,2,1,0
+XI-IATI-IADB-HO-L1198,Inter-American Development Bank,Multilateral,A02_sector,HN,1,0,352,90000000,0.9982806192802776,2.9562700593066538e-6,2,1,0
+XI-IATI-IADB-HO-L1232,Inter-American Development Bank,Multilateral,A02_sector,HN,1,0,347,195000000,1,NA,1,1,0
+XI-IATI-IADB-HO-L1182,Inter-American Development Bank,Multilateral,A02_sector,HN,1,0,318,50000000,0.9902505987412962,9.505082490324224e-5,2,1,0
+XI-IATI-IADB-HO-L1118,Inter-American Development Bank,Multilateral,A02_sector,HN,1,0,358,40000000,0.6582148327198613,0.10847241687150355,3,1,0
+XI-IATI-IADB-HO-L1070,Inter-American Development Bank,Multilateral,A02_sector,HN,1,0,359,130000000,0.6964913846392342,0.0869082052963952,3,1,0
+XI-IATI-IADB-HO-L1189,Inter-American Development Bank,Multilateral,A02_sector,HN,1,0,344,50000000,0.9942656090107869,4.9003547481274445e-5,2,1,0
+XI-IATI-IADB-JA-L1086,Inter-American Development Bank,Multilateral,A02_sector,JM,1,0,353,100000000,0.5882352941176471,0.1695501730103806,2,1,0
+XI-IATI-IADB-JA-L1033,Inter-American Development Bank,Multilateral,A02_sector,JM,1,0,344,25000000,0.6739130434782609,0.1063327032136106,2,1,0
+XI-IATI-IADB-JA-L1058,Inter-American Development Bank,Multilateral,A02_sector,JM,1,0,353,100000000,1,NA,1,1,0
+XI-IATI-IADB-JA-L1080,Inter-American Development Bank,Multilateral,A02_sector,JM,1,0,353,50000000,1,NA,1,1,0
+XI-IATI-IADB-JA-L1078,Inter-American Development Bank,Multilateral,A02_sector,JM,1,0,428,110000000,1,NA,1,1,0
+XI-IATI-IADB-JA-L1014,Inter-American Development Bank,Multilateral,A02_sector,JM,1,0,359,60000000,1,NA,1,1,0
+XI-IATI-IADB-JA-L1087,Inter-American Development Bank,Multilateral,A02_sector,JM,1,0,354,75000000,0.3333333333333333,0.4444444444444445,2,1,0
+XI-IATI-IADB-JA-L1051,Inter-American Development Bank,Multilateral,A02_sector,JM,1,0,359,130000000,0.6739130434782609,0.1063327032136106,2,1,0
+XI-IATI-IADB-JA-L1055,Inter-American Development Bank,Multilateral,A02_sector,JM,1,0,361,50000000,1,NA,1,1,0
+XI-IATI-IADB-JA-L1038,Inter-American Development Bank,Multilateral,A02_sector,JM,1,0,359,80000000,1,NA,1,1,0
+XI-IATI-IADB-JA-L1088,Inter-American Development Bank,Multilateral,A02_sector,JM,1,0,354,100000000,1,NA,1,1,0
+XI-IATI-IADB-ME-L1144,Inter-American Development Bank,Multilateral,A02_sector,MX,1,0,305,800000000,0.7664069889784244,0.21826277919250375,1.5,1,0
+XI-IATI-IADB-ME-L1189,Inter-American Development Bank,Multilateral,A02_sector,MX,1,0,355,600000000,1,NA,1,1,0
+XI-IATI-IADB-ME-L1331,Inter-American Development Bank,Multilateral,A02_sector,MX,1,0,352,600000000,0.9975062344139651,6.218866798080036e-6,2,1,0
+XI-IATI-IADB-ME-L1264,Inter-American Development Bank,Multilateral,A02_sector,MX,1,0,343,600000000,1,NA,1,1,0
+XI-IATI-IADB-ME-L1322,Inter-American Development Bank,Multilateral,A02_sector,MX,1,0,342,500000000,0.5,0.25,2,1,0
+XI-IATI-IADB-ME-L1299,Inter-American Development Bank,Multilateral,A02_sector,MX,1,0,331,700000000,0.42391304347826086,0.3376654064272212,2,1,0
+XI-IATI-IADB-ME-L1315,Inter-American Development Bank,Multilateral,A02_sector,MX,1,0,353,700000000,0.7487531172069826,0.12500310943339904,2,1,0
+XI-IATI-IADB-ME-L1289,Inter-American Development Bank,Multilateral,A02_sector,MX,1,0,131,800000000,0.36141304347826086,0.4079779064272212,2,1,0
+XI-IATI-IADB-ME-L1294,Inter-American Development Bank,Multilateral,A02_sector,MX,1,0,347,600000000,0.5404411764705883,0.23856509515570934,2,1,0
+XI-IATI-IADB-ME-L1266,Inter-American Development Bank,Multilateral,A02_sector,MX,1,0,351,600000000,0.8529411764705883,0.08650519031141868,1.5,1,0
+XI-IATI-IADB-ME-L1276,Inter-American Development Bank,Multilateral,A02_sector,MX,1,0,362,600000000,0.7058823529411765,0.08650519031141868,2,1,0
+XI-IATI-IADB-ME-L1253,Inter-American Development Bank,Multilateral,A02_sector,MX,1,0,357,650000000,1,NA,1,1,0
+XI-IATI-IADB-ME-L1186,Inter-American Development Bank,Multilateral,A02_sector,MX,1,0,341,600000000,1,NA,1,1,0
+XI-IATI-IADB-HA-L1099,Inter-American Development Bank,Multilateral,A02_sector,HT,1,0,286,27000000,1,NA,1,1,0
+XI-IATI-IADB-HA-L1088,Inter-American Development Bank,Multilateral,A02_sector,HT,1,0,311,12000000,1,NA,1,1,0
+XI-IATI-IADB-HA-L1090,Inter-American Development Bank,Multilateral,A02_sector,HT,1,0,319,15000000,1,NA,1,1,0
+XI-IATI-IADB-NI-L1096,Inter-American Development Bank,Multilateral,A02_sector,NI,1,0,342,65000000,1,NA,1,1,0
+XI-IATI-IADB-NI-L1079,Inter-American Development Bank,Multilateral,A02_sector,NI,1,0,333,45000000,1,NA,1,1,0
+XI-IATI-IADB-NI-L1144,Inter-American Development Bank,Multilateral,A02_sector,NI,1,0,355,65000000,1,NA,1,1,0
+XI-IATI-IADB-NI-L1089,Inter-American Development Bank,Multilateral,A02_sector,NI,1,0,335,65000000,1,NA,1,1,0
+XI-IATI-IADB-PN-L1175,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,359,150000000,0.375,0.390625,2,1,0
+XI-IATI-IADB-PN-L1159,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,356,200000000,0.36968576709796674,0.39729603219887855,2,1,0
+XI-IATI-IADB-PN-L1181,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,348,200000000,0.5714285714285714,0.18367346938775503,2,1,0
+XI-IATI-IADB-PN-L1145,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,342,300000000,1,NA,1,1,0
+XI-IATI-IADB-PN-L1152,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,345,200000000,0.8,0.040000000000000036,2,1,0
+XI-IATI-IADB-PN-L1167,Inter-American Development Bank,Multilateral,A02_sector,PA,1,-1,322,150000000,1,NA,1,1,0
+XI-IATI-IADB-PN-L1149,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,349,200000000,1,NA,1,1,0
+XI-IATI-IADB-PN-L1100,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,532,300000000,0.6,0.16000000000000003,2,1,0
+XI-IATI-IADB-PN-L1119,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,273,200000000,0.9411764705882353,0.0034602076124568004,2,1,0
+XI-IATI-IADB-PN-L1110,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,292,150000000,0.5,0.25,2,1,0
+XI-IATI-IADB-PN-L1151,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,355,200000000,0.8,0.040000000000000036,2,1,0
+XI-IATI-IADB-PN-L1118,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,348,200000000,0.9411764705882353,0.0034602076124568004,2,1,0
+XI-IATI-IADB-PN-L1103,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,292,150000000,0.5,0.25,2,1,0
+XI-IATI-IADB-PN-L1162,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,355,150000000,1,NA,1,1,0
+XI-IATI-IADB-PN-L1156,Inter-American Development Bank,Multilateral,A02_sector,PA,1,0,322,150000000,1,NA,1,1,0
+XI-IATI-IADB-SU-L1065,Inter-American Development Bank,Multilateral,A02_sector,SR,1,0,326,150000000,1,NA,1,1,0
+XI-IATI-IADB-SU-L1033,Inter-American Development Bank,Multilateral,A02_sector,SR,1,0,151,15000000,1,NA,1,1,0
+XI-IATI-IADB-SU-L1043,Inter-American Development Bank,Multilateral,A02_sector,SR,1,0,331,15000000,1,NA,1,1,0
+XI-IATI-IADB-SU-L1075,Inter-American Development Bank,Multilateral,A02_sector,SR,1,0,351,150000000,1,NA,1,1,0
+XI-IATI-IADB-SU-L1036,Inter-American Development Bank,Multilateral,A02_sector,SR,1,0,356,70000000,1,NA,1,1,0
+XI-IATI-IADB-ES-L1093,Inter-American Development Bank,Multilateral,A02_sector,SV,1,0,347,350000000,1,NA,1,1,0
+XI-IATI-IADB-ES-L1137,Inter-American Development Bank,Multilateral,A02_sector,SV,1,0,274,200000000,0.9999999532276321,2.220446049250313e-15,2,1,0
+XI-IATI-IADB-ES-L1143,Inter-American Development Bank,Multilateral,A02_sector,SV,1,0,360,250000000,1,NA,1,1,0
+XI-IATI-IADB-PE-L1267,Inter-American Development Bank,Multilateral,A02_sector,PE,1,0,968,500000000,0.4825581395348837,0.2680502974580854,2,1,0
+XI-IATI-IADB-PE-L1099,Inter-American Development Bank,Multilateral,A02_sector,PE,1,0,347,25000000,0.814411831775092,0.03444296818507675,2,1,0
+XI-IATI-IADB-PE-L1261,Inter-American Development Bank,Multilateral,A02_sector,PE,1,0,1025,400000000,0.31267461489943815,0.4956546459786551,2,1,0
+XI-IATI-IADB-PE-L1276,Inter-American Development Bank,Multilateral,A02_sector,PE,1,0,1020,300000000,0.39285714285714285,0.38010204081632654,2,1,0
+XI-IATI-IADB-PE-L1154,Inter-American Development Bank,Multilateral,A02_sector,PE,1,0,515,300000000,1,NA,1,1,0
+XI-IATI-IADB-PE-L1283,Inter-American Development Bank,Multilateral,A02_sector,PE,1,0,942,300000000,0.2857142857142857,0.5102040816326531,2,1,0
+XI-IATI-IADB-PE-L1244,Inter-American Development Bank,Multilateral,A02_sector,PE,1,0,306,50000000,0.17627032151840058,0.6787877804732325,2,1,0
+XI-IATI-IADB-PE-L1138,Inter-American Development Bank,Multilateral,A02_sector,PE,1,0,337,25000000,0.814411831775092,0.03444296818507675,2,1,0
+XI-IATI-IADB-PE-L1169,Inter-American Development Bank,Multilateral,A02_sector,PE,1,0,17,300000000,0.16023295072910884,0.7052086970411394,2,1,0
+XI-IATI-IADB-PE-L1140,Inter-American Development Bank,Multilateral,A02_sector,PE,1,0,347,25000000,0.814411831775092,0.03444296818507675,2,1,0
+XI-IATI-IADB-PE-L1262,Inter-American Development Bank,Multilateral,A02_sector,PE,1,0,1005,600000000,0.46511627906976744,0.2861005949161708,2,1,0
+XI-IATI-IADB-PE-L1223,Inter-American Development Bank,Multilateral,A02_sector,PE,1,0,310,100000000,0.19230769230769232,0.6523668639053255,2,1,0
+XI-IATI-IADB-PR-L1163,Inter-American Development Bank,Multilateral,A02_sector,PY,1,0,1612,90000000,0.6356723981160797,0.25702727379824514,2,1,0
+XI-IATI-IADB-PR-L1144,Inter-American Development Bank,Multilateral,A02_sector,PY,1,0,393,200000000,0.9113149847094801,0.0707852874337177,1.3333333333333333,1,0
+XI-IATI-IADB-PR-L1161,Inter-American Development Bank,Multilateral,A02_sector,PY,1,0,714,90000000,0.875,0.0625,1.5,1,0
+XI-IATI-IADB-PR-L1179,Inter-American Development Bank,Multilateral,A02_sector,PY,1,0,292,250000000,0.9987893462469734,1.4656825096936998e-6,2,1,0
+XI-IATI-IADB-PR-L1175,Inter-American Development Bank,Multilateral,A02_sector,PY,1,0,561,210000000,0.75,0.0625,2,1,0
+XI-IATI-IADB-PR-L1151,Inter-American Development Bank,Multilateral,A02_sector,PY,1,0,319,300000000,0.875,0.0625,1.5,1,0
+XI-IATI-IADB-PR-L1177,Inter-American Development Bank,Multilateral,A02_sector,PY,1,0,685,200000000,0.9987893462469734,1.4656825096936998e-6,2,1,0
+XI-IATI-IADB-PR-L1180,Inter-American Development Bank,Multilateral,A02_sector,PY,1,0,1050,250000000,0.9987893462469734,1.4656825096936998e-6,2,1,0
+XI-IATI-IADB-PR-L1101,Inter-American Development Bank,Multilateral,A02_sector,PY,1,0,580,200000000,0.672315988514602,0.11117494078579424,2,1,0
+XI-IATI-IADB-PR-L1185,Inter-American Development Bank,Multilateral,A02_sector,PY,1,0,713,150000000,0.15822784810126583,0.7085803557122257,2,1,0
+XI-IATI-IADB-TT-L1058,Inter-American Development Bank,Multilateral,A02_sector,TT,1,-1,340,100000000,1,NA,1,1,0
+XI-IATI-IADB-UR-L1170,Inter-American Development Bank,Multilateral,A02_sector,UY,1,0,129,350000000,1,NA,1,1,0
+XI-IATI-IADB-UR-L1108,Inter-American Development Bank,Multilateral,A02_sector,UY,1,0,721,250000000,1,NA,1,1,0
+XI-IATI-IADB-UR-L1076,Inter-American Development Bank,Multilateral,A02_sector,UY,1,0.6659090909090909,94,550000000,1,NA,1,1,1
+XI-IATI-IADB-UR-L1140,Inter-American Development Bank,Multilateral,A02_sector,UY,1,0,591,250000000,1,NA,1,1,0
+XI-IATI-IADB-UR-L1186,Inter-American Development Bank,Multilateral,A02_sector,UY,1,0,1076,155000000,1,NA,1,1,0
+XI-IATI-IADB-UR-L1106,Inter-American Development Bank,Multilateral,A02_sector,UY,1,0,364,247000000,1,NA,1,1,0
+XI-IATI-IADB-UR-L1156,Inter-American Development Bank,Multilateral,A02_sector,UY,1,0,1068,250000000,1,NA,1,1,0
+XI-IATI-IADB-UR-L1097,Inter-American Development Bank,Multilateral,A02_sector,UY,1,0,364,120000000,1,NA,1,1,0
+XI-IATI-IADB-UR-L1175,Inter-American Development Bank,Multilateral,A02_sector,UY,1,0,1018,145000000,1,NA,1,1,0
+XI-IATI-IADB-UR-L1195,Inter-American Development Bank,Multilateral,A02_sector,UY,1,0,360,200000000,1,NA,1,1,0
+XM-DAC-46004-45230-001-LN2922,Asian Development Bank,Multilateral,A01_general,AM,1,0.04567506300000013,745,20000000,0.30901007432656197,0.4888981672976273,2,1,0
+XM-DAC-46004-46220-001-LN3155,Asian Development Bank,Multilateral,A01_general,AM,1,0.07012845571428572,-42,49000000,0.30901007432656197,0.4888981672976273,2,1,0
+XM-DAC-46004-46220-006-LN3453,Asian Development Bank,Multilateral,A01_general,AM,1,0,0,90000000,1,NA,1,1,0
+XM-DAC-46004-51060-002-LN3584,Asian Development Bank,Multilateral,A01_general,AM,1,0,1,40000000,1,NA,1,1,0
+XM-DAC-46004-51060-003-LN3735,Asian Development Bank,Multilateral,A01_general,AM,1,0,0,50000000,1,NA,1,1,0
+XM-DAC-46004-53248-001-LN3859,Asian Development Bank,Multilateral,A01_general,AM,1,-0.0176047347499999,0,40000000,0.49899485663719995,0.25100615367597984,2,1,0
+XM-DAC-46004-51129-002-LN3860,Asian Development Bank,Multilateral,A01_general,AM,1,-0.01464998499999992,91,10000000,0.49899485663719995,0.25100615367597984,2,1,0
+XM-DAC-46004-55103-001-LN4250,Asian Development Bank,Multilateral,A01_general,AM,1,0,0,100000000,1,NA,1,1,0
+XM-DAC-46004-50145-001-LN3486,Asian Development Bank,Multilateral,A01_general,AZ,1,0,26,500000000,1,NA,1,1,0
+XM-DAC-46004-48386-004-LN3614,Asian Development Bank,Multilateral,A01_general,AZ,1,0,1004,250000000,1,NA,1,1,0
+XM-DAC-46004-51059-001-LN3616,Asian Development Bank,Multilateral,A01_general,AZ,1,0,0,250000000,1,NA,1,1,0
+XM-DAC-46004-51059-002-LN3868,Asian Development Bank,Multilateral,A01_general,AZ,1,0,0,250000000,1,NA,1,1,0
+XM-DAC-46004-55073-001-LN4082,Asian Development Bank,Multilateral,A01_general,AZ,1,0,-273,250000000,1,NA,1,1,0
+XM-DAC-46004-50212-001-LN3479,Asian Development Bank,Multilateral,A01_general,CK,1,1,140,10000000,1,NA,1,1,1
+XM-DAC-46004-50212-003-LN3933,Asian Development Bank,Multilateral,A01_general,CK,1,-0.03429943267429536,1112,9734796,1,NA,1,1,0
+XM-DAC-46004-54289-001-LN4010,Asian Development Bank,Multilateral,A01_general,CK,1,-0.01733104759444104,0,21055190,1,NA,1,1,0
+XM-DAC-46004-55014-001-LN4161,Asian Development Bank,Multilateral,A01_general,CK,1,-5.888740857427077e-4,909,37744979,1,NA,1,1,0
+XM-DAC-46004-46371-002-GRNT0431,Asian Development Bank,Multilateral,A01_general,BT,1,0,562,16100000,0.4451442886826516,0.30786486038148064,2,1,0
+XM-DAC-46004-45260-001-LN2955,Asian Development Bank,Multilateral,A01_general,BT,1,0.04599082613908878,46,8340000,0.7225721443413258,0.30786486038148064,1.5,1,0
+XM-DAC-46004-46371-001-LN2994,Asian Development Bank,Multilateral,A01_general,BT,1,-0.00179530373502467,69,14190000,1,NA,1,1,0
+XM-DAC-46004-46371-002-LN3258,Asian Development Bank,Multilateral,A01_general,BT,1,0.00660183781094536,-150,20100000,0.4505092478592453,0.30196886947517887,2,1,0
+XM-DAC-46004-51141-002-GRNT0615,Asian Development Bank,Multilateral,A01_general,BT,1,0,623,14000000,0.5142107331237381,0.23690764928475314,2,1,0
+XM-DAC-46004-51252-003-LN3863,Asian Development Bank,Multilateral,A01_general,BT,1,0,0,30000000,0.5138921745779914,0.23767516970673846,2,1,0
+XM-DAC-46004-54183-001-LN3914,Asian Development Bank,Multilateral,A01_general,BT,1,0,-12,20000000,0.4958338870583395,0.25454500023363485,2,1,0
+XM-DAC-46004-51252-004-LN3992,Asian Development Bank,Multilateral,A01_general,BT,1,0,0,30000000,0.47681992390144745,0.27371739202648726,2,1,0
+XM-DAC-46004-51252-005-LN4130,Asian Development Bank,Multilateral,A01_general,BT,1,0,0,30000000,0.5148478502152315,0.23537260844078245,2,1,0
+XM-DAC-46004-56010-001-LN4229,Asian Development Bank,Multilateral,A01_general,BT,1,0,0,37350000,0.41663216576788825,0.3403180300166645,2,1,0
+XM-DAC-46004-48490-002-LN3667,Asian Development Bank,Multilateral,A01_general,FJ,1,0,-124,15000000,1,NA,1,1,0
+XM-DAC-46004-48490-003-LN3812,Asian Development Bank,Multilateral,A01_general,FJ,1,0,34,65000000,0.8061324644227202,0.03758462135080787,2,1,0
+XM-DAC-46004-48490-004-LN3952,Asian Development Bank,Multilateral,A01_general,FJ,1,0,16,200000000,0.8061324644227202,0.03758462135080787,2,1,0
+XM-DAC-46004-55116-001-LN4194,Asian Development Bank,Multilateral,A01_general,FJ,1,0,61,90000000,0.6030830667799991,0.15754305187677065,2,1,0
+XM-DAC-46004-55116-001-LN4193,Asian Development Bank,Multilateral,A01_general,FJ,1,0,61,60000000,0.6030830667799991,0.15754305187677065,2,1,0
+XM-DAC-46004-50028-002-GRNT0669,Asian Development Bank,Multilateral,A01_general,FM,1,0,957,6000000,1,NA,1,1,0
+XM-DAC-46004-54309-001-GRNT0751,Asian Development Bank,Multilateral,A01_general,FM,1,0,240,14000000,1,NA,1,1,0
+XM-DAC-46004-50028-003-GRNT0756,Asian Development Bank,Multilateral,A01_general,FM,1,1,535,6000000,1,NA,1,1,1
+XM-DAC-46004-48044-001-LN3190,Asian Development Bank,Multilateral,A01_general,GE,1,0,-5,16000000,0.6903340817732176,0.3835719236449451,1.5,1,0
+XM-DAC-46004-48044-001-LN3191,Asian Development Bank,Multilateral,A01_general,GE,1,0.02548080542372888,-5,59000000,0.6903340817732176,0.3835719236449451,1.5,1,0
+XM-DAC-46004-48044-004-LN3282,Asian Development Bank,Multilateral,A01_general,GE,1,0.02866221681818181,13,22000000,0.38066816354643535,0.3835719236449451,2,1,0
+XM-DAC-46004-48044-004-LN3283,Asian Development Bank,Multilateral,A01_general,GE,1,0.01155160886792461,13,53000000,0.38066816354643535,0.3835719236449451,2,1,0
+XM-DAC-46004-48044-005-LN3417,Asian Development Bank,Multilateral,A01_general,GE,1,0,1,50000000,1,NA,1,1,0
+XM-DAC-46004-48044-005-LN3418,Asian Development Bank,Multilateral,A01_general,GE,1,0.02591516299999996,1,50000000,1,NA,1,1,0
+XM-DAC-46004-54191-001-LN3929,Asian Development Bank,Multilateral,A01_general,GE,1,-0.01543787649935879,0,102242870,0.49295564030761535,0.23112626529782668,3,1,0
+XM-DAC-46004-51132-002-LN3985,Asian Development Bank,Multilateral,A01_general,GE,1,-0.00935766364091428,-74,136215705,0.7410910398880745,0.11562116745217595,2.5,1,0
+XM-DAC-46004-54271-001-LN3993,Asian Development Bank,Multilateral,A01_general,GE,1,-0.0370869369153346,0,201741975,0.7410910398880745,0.11562116745217595,2.5,1,0
+XM-DAC-46004-52339-001-LN4033,Asian Development Bank,Multilateral,A01_general,GE,1,0.01113858797772782,-43,51412461,0.7410910398880745,0.11562116745217595,2.5,1,0
+XM-DAC-46004-49006-003-LN4112,Asian Development Bank,Multilateral,A01_general,GE,1,1,0,100892076,0.9892264394685335,1.1606960652521536e-4,2,1,1
+XM-DAC-46004-54014-001-LN4378,Asian Development Bank,Multilateral,A01_general,GE,1,-0.01804352733333325,0,15000000,0.21895392516996529,0.5229171757922236,3,1,0
+XM-DAC-46004-37017-013-LN2362,Asian Development Bank,Multilateral,A01_general,BD,1,0.02437490779999995,-2421,150000000,0.8900895099523233,0.01182715681297423,2.3333333333333335,1,0
+XM-DAC-46004-39405-013-LN2383,Asian Development Bank,Multilateral,A01_general,BD,1,-3.4174560000010956e-4,-98,50000000,0.9436104631092312,0.0031797798707553504,2,1,0
+XM-DAC-46004-39305-013-LN2554,Asian Development Bank,Multilateral,A01_general,BD,1,0.01528509399999999,996,70000000,0.9436104631092312,0.0031797798707553504,2,1,0
+XM-DAC-46004-43477-013-LN2952,Asian Development Bank,Multilateral,A01_general,BD,1,0.03063582548387111,-171,155000000,0.9436104631092312,0.0031797798707553504,2,1,0
+XM-DAC-46004-43477-013-LN2953,Asian Development Bank,Multilateral,A01_general,BD,1,0.00948131680000008,-171,50000000,0.9436104631092312,0.0031797798707553504,2,1,0
+XM-DAC-46004-45260-001-LN2954,Asian Development Bank,Multilateral,A01_general,BD,1,0.03773377047619042,46,21000000,0.9076385111638039,0.00982462594680289,2,1,0
+XM-DAC-46004-45253-002-LN3318,Asian Development Bank,Multilateral,A01_general,BD,1,0,-629,150000000,0.8175717682783221,0.03578210912418841,2.3333333333333335,1,0
+XM-DAC-46004-45253-002-LN3319,Asian Development Bank,Multilateral,A01_general,BD,1,0.01905398709999994,-629,100000000,0.8175717682783221,0.03578210912418841,2.3333333333333335,1,0
+XM-DAC-46004-54180-001-LN3920,Asian Development Bank,Multilateral,A01_general,BD,1,0,0,250000000,0.7260572380872277,0.07504463680439788,2,1,0
+XM-DAC-46004-54180-001-LN3919,Asian Development Bank,Multilateral,A01_general,BD,1,0,0,250000000,0.7260572380872277,0.07504463680439788,2,1,0
+XM-DAC-46004-53260-001-LN4177,Asian Development Bank,Multilateral,A01_general,BD,1,0,0,90000000,0.3057630902043611,0.5001660655531263,2,1,0
+XM-DAC-46004-55041-003-LN4187,Asian Development Bank,Multilateral,A01_general,BD,1,1,-182,250000000,0.3057630902043611,0.5001660655531263,2,1,1
+XM-DAC-46004-54307-002-LN4319,Asian Development Bank,Multilateral,A01_general,BD,1,0,192,400000000,0.4406748340613298,0.312844641252321,2,1,0
+XM-DAC-46004-56253-001-LN4423,Asian Development Bank,Multilateral,A01_general,BD,1,1,-92,400000000,0.4406748340613298,0.312844641252321,2,1,1
+XM-DAC-46004-46239-001-LN2871,Asian Development Bank,Multilateral,A01_general,ID,1,0,-808,500000000,0.635950224476627,0.16077915934737247,2.6666666666666665,1,0
+XM-DAC-46004-46093-004-LN3068,Asian Development Bank,Multilateral,A01_general,ID,1,0,56,400000000,0.8609537916855876,0.019333848046614976,2,1,0
+XM-DAC-46004-48134-001-LN3164,Asian Development Bank,Multilateral,A01_general,ID,1,0,0,400000000,0.8609537916855876,0.019333848046614976,2,1,0
+XM-DAC-46004-48207-001-LN3274,Asian Development Bank,Multilateral,A01_general,ID,1,0,148,400000000,0.5234484408721467,0.23150181499775122,3,1,0
+XM-DAC-46004-49043-001-LN3303,Asian Development Bank,Multilateral,A01_general,ID,1,0,0,400000000,0.3864721165650912,0.3538757493780981,3,1,0
+XM-DAC-46004-48134-006-LN3402,Asian Development Bank,Multilateral,A01_general,ID,1,0,39,500000000,0.6604247651792021,0.1091278806174043,3,1,0
+XM-DAC-46004-50168-001-LN3454,Asian Development Bank,Multilateral,A01_general,ID,1,0,119,500000000,0.5793615263417452,0.17872032362439147,3,1,0
+XM-DAC-46004-48207-002-LN3541,Asian Development Bank,Multilateral,A01_general,ID,1,0,136,400000000,0.49829828750428834,0.24831276663137863,3,1,0
+XM-DAC-46004-49043-002-LN3561,Asian Development Bank,Multilateral,A01_general,ID,1,0,85,400000000,0.5991491437521441,0.16915638331568933,2.5,1,0
+XM-DAC-46004-50168-002-LN3671,Asian Development Bank,Multilateral,A01_general,ID,1,0,171,500000000,0.5975160653965483,0.17249627446568008,2,1,0
+XM-DAC-46004-48134-007-LN3670,Asian Development Bank,Multilateral,A01_general,ID,1,0,181,500000000,0.7,0.09000000000000002,2,1,0
+XM-DAC-46004-48207-004-LN3779,Asian Development Bank,Multilateral,A01_general,ID,1,0,274,500000000,0.49503213079309666,0.25499254893136014,2,1,0
+XM-DAC-46004-50168-003-LN3842,Asian Development Bank,Multilateral,A01_general,ID,1,0,259,500000000,0.49503213079309666,0.25499254893136014,2,1,0
+XM-DAC-46004-54139-001-LN3905,Asian Development Bank,Multilateral,A01_general,ID,1,0.00580231167094014,-306,502638494,0.5579798213702482,0.21242548005284898,2,1,0
+XM-DAC-46004-54139-001-LN3906,Asian Development Bank,Multilateral,A01_general,ID,1,-0.03536622485583041,-306,1005276988,0.5579798213702482,0.21242548005284898,2,1,0
+XM-DAC-46004-54117-001-LN3971,Asian Development Bank,Multilateral,A01_general,ID,1,0,0,500000000,0.5421648517878168,0.2231460940298798,2,1,0
+XM-DAC-46004-52218-001-LN4038,Asian Development Bank,Multilateral,A01_general,ID,1,0,0,500000000,0.6373128798913044,0.13822620717528028,2,1,0
+XM-DAC-46004-53211-001-LN4137,Asian Development Bank,Multilateral,A01_general,ID,1,0,0,500000000,0.4774346299418456,0.2791774450027586,2,1,0
+XM-DAC-46004-54461-001-LN4144,Asian Development Bank,Multilateral,A01_general,ID,1,0,0,500000000,0.4774346299418456,0.2791774450027586,2,1,0
+XM-DAC-46004-49043-003-LN4256,Asian Development Bank,Multilateral,A01_general,ID,1,0,0,500000000,0.4470168236843294,0.30806598088447934,2,1,0
+XM-DAC-46004-52218-002-LN4249,Asian Development Bank,Multilateral,A01_general,ID,1,0,0,500000000,0.4470168236843294,0.30806598088447934,2,1,0
+XM-DAC-46004-55235-001-LN4251,Asian Development Bank,Multilateral,A01_general,ID,1,0,0,500000000,0.4470168236843294,0.30806598088447934,2,1,0
+XM-DAC-46004-53211-002-LN4350,Asian Development Bank,Multilateral,A01_general,ID,1,0.0333579932000001,0,500000000,0.4947199430405231,0.25530793596097234,2,1,0
+XM-DAC-46004-54461-002-LN4377,Asian Development Bank,Multilateral,A01_general,ID,1,0.01209868432144223,112,512657363,0.4947199430405231,0.25530793596097234,2,1,0
+XM-DAC-46004-41544-084-GRNT0393,Asian Development Bank,Multilateral,A01_general,KG,1,0,114,22000000,0.46865744681132077,0.2823249088290644,2,1,0
+XM-DAC-46004-46537-002-GRNT0407,Asian Development Bank,Multilateral,A01_general,KG,1,0.7,-223,10000000,0.6127004880289149,0.3435180475076879,1.6666666666666667,1,1
+XM-DAC-46004-41544-088-GRNT0432,Asian Development Bank,Multilateral,A01_general,KG,1,0,86,20000000,0.49661358119389143,0.25339788663843893,2,1,0
+XM-DAC-46004-41544-089-GRNT0487,Asian Development Bank,Multilateral,A01_general,KG,1,1,1,12500000,0.341487882892853,0.4336382083769369,2,1,1
+XM-DAC-46004-50024-002-GRNT0552,Asian Development Bank,Multilateral,A01_general,KG,1,-0.6666666666666667,-38,12000000,1,NA,1,1,0
+XM-DAC-46004-41544-091-GRNT0563,Asian Development Bank,Multilateral,A01_general,KG,1,0.01631839999999995,-125,25000000,1,NA,1,1,0
+XM-DAC-46004-41544-089-LN3410,Asian Development Bank,Multilateral,A01_general,KG,1,0.03857139200000004,1,12500000,0.341487882892853,0.4336382083769369,2,1,0
+XM-DAC-46004-54169-001-GRNT0699,Asian Development Bank,Multilateral,A01_general,KG,1,0,0,25000000,1,NA,1,1,0
+XM-DAC-46004-54169-001-LN3913,Asian Development Bank,Multilateral,A01_general,KG,1,0,0,25000000,1,NA,1,1,0
+XM-DAC-46004-52225-003-GRNT0800,Asian Development Bank,Multilateral,A01_general,KG,1,-0.01091662149532712,0,10700000,1,NA,1,1,0
+XM-DAC-46004-52225-003-LN4114,Asian Development Bank,Multilateral,A01_general,KG,1,0,0,69300000,1,NA,1,1,0
+XM-DAC-46004-52225-001-GRNT0657,Asian Development Bank,Multilateral,A01_general,KG,1,1,0,50000000,1,NA,1,1,1
+XM-DAC-46004-52225-004-LN4221,Asian Development Bank,Multilateral,A01_general,KG,1,0,0,25000000,1,NA,1,1,0
+XM-DAC-46004-52225-004-GRNT0853,Asian Development Bank,Multilateral,A01_general,KG,1,1.990065128,0,25000000,1,NA,1,1,1
+XM-DAC-46004-56150-001-GRNT0860,Asian Development Bank,Multilateral,A01_general,KG,1,1.9951723064,0,25000000,1,NA,1,1,1
+XM-DAC-46004-56150-001-LN4241,Asian Development Bank,Multilateral,A01_general,KG,1,0,0,25000000,1,NA,1,1,0
+XM-DAC-46004-49232-001-LN3356,Asian Development Bank,Multilateral,A01_general,CN,1,0,392,300000000,1,NA,1,1,0
+XM-DAC-46004-52230-001-LN3988,Asian Development Bank,Multilateral,A01_general,CN,1,0,-282,50000000,1,NA,1,1,0
+XM-DAC-46004-47314-001-GRNT0416,Asian Development Bank,Multilateral,A01_general,KI,1,0,0,3000000,0.3623475483081751,0.40660064914859495,2,1,0
+XM-DAC-46004-47322-001-GRNT0560,Asian Development Bank,Multilateral,A01_general,KI,1,0,101,5000000,0.41112473943941824,0.346774072500293,2,1,0
+XM-DAC-46004-47322-002-GRNT0633,Asian Development Bank,Multilateral,A01_general,KI,1,0.847230792,-3,2500000,0.554555250762593,0.13056561360943375,3,1,1
+XM-DAC-46004-50028-003-GRNT0758,Asian Development Bank,Multilateral,A01_general,KI,1,0,656,8000000,0.554555250762593,0.13056561360943375,3,1,0
+XM-DAC-46004-49083-001-LN3272,Asian Development Bank,Multilateral,A01_general,KZ,1,0,361,1000000000,1,NA,1,1,0
+XM-DAC-46004-54188-001-LN3940,Asian Development Bank,Multilateral,A01_general,KZ,1,-0.03440068954423192,0,538797633,1,NA,1,1,0
+XM-DAC-46004-54188-001-LN3941,Asian Development Bank,Multilateral,A01_general,KZ,1,-0.03440068954423192,0,538797633,1,NA,1,1,0
+XM-DAC-46004-40368-022-LN2777,Asian Development Bank,Multilateral,A01_general,LA,1,0.076050281,-717,10000000,1,NA,1,1,0
+XM-DAC-46004-44057-013-LN3036,Asian Development Bank,Multilateral,A01_general,LA,1,-0.00738221400000016,-22,15000000,1,NA,1,1,0
+XM-DAC-46004-46059-002-LN3205,Asian Development Bank,Multilateral,A01_general,LA,1,0.02382347399999995,0,15000000,1,NA,1,1,0
+XM-DAC-46004-47137-003-LN3279,Asian Development Bank,Multilateral,A01_general,LA,1,-2.1830352941187847e-4,0,17000000,1,NA,1,1,0
+XM-DAC-46004-47137-006-GRNT0572,Asian Development Bank,Multilateral,A01_general,LA,1,0,161,30000000,1,NA,1,1,0
+XM-DAC-46004-52146-001-LN3825,Asian Development Bank,Multilateral,A01_general,LA,1,0,244,45000000,0.5779720740077058,0.17810757031735736,2,1,0
+XM-DAC-46004-50399-003-LN3821,Asian Development Bank,Multilateral,A01_general,LA,1,0,211,10000000,0.5779720740077058,0.17810757031735736,2,1,0
+NL-1-PPR-26891,EN: Ministry of Foreign Affairs of the Netherlands,Bilateral,A02_sector,RW,1,0,219,22788000,0.03832066513624511,0.676726322089515,3,1,0
+XM-DAC-46004-38558-013-LN2673,Asian Development Bank,Multilateral,A01_general,KH,1,0.0266093140000001,-1454,20000000,1,NA,1,1,0
+XM-DAC-46004-43260-013-LN2888,Asian Development Bank,Multilateral,A01_general,KH,1,0.04039450416666668,-730,12000000,1,NA,1,1,0
+XM-DAC-46004-44321-013-LN3006,Asian Development Bank,Multilateral,A01_general,KH,1,0.05465805041666671,-1888,24000000,0.8648246019936662,0.8953470230823674,1.1428571428571428,1,0
+XM-DAC-46004-46064-002-LN3166,Asian Development Bank,Multilateral,A01_general,KH,1,0.08716712428571427,-192,7000000,1,NA,1,1,0
+XM-DAC-46004-42305-033-LN3185,Asian Development Bank,Multilateral,A01_general,KH,1,0.08012302399999993,-31,15000000,1,NA,1,1,0
+XM-DAC-46004-41392-023-LN3415,Asian Development Bank,Multilateral,A01_general,KH,1,0.04117072733333338,137,15000000,1,NA,1,1,0
+XM-DAC-46004-47136-003-LN3426,Asian Development Bank,Multilateral,A01_general,KH,1,0.02441369599999998,30,15000000,1,NA,1,1,0
+XM-DAC-46004-49041-002-LN3428,Asian Development Bank,Multilateral,A01_general,KH,1,0.02730010679245276,67,26500000,1,NA,1,1,0
+XM-DAC-46004-44263-013-LN3460,Asian Development Bank,Multilateral,A01_general,KH,1,0.0341934987500001,80,40000000,1,NA,1,1,0
+XM-DAC-46004-47136-006-LN3719,Asian Development Bank,Multilateral,A01_general,KH,1,0,109,15000000,1,NA,1,1,0
+XM-DAC-46004-50101-002-LN3832,Asian Development Bank,Multilateral,A01_general,KH,1,0,-820,15000000,0.6018864497153309,0.6564778013240246,1.5,1,0
+XM-DAC-46004-44263-015-LN3831,Asian Development Bank,Multilateral,A01_general,KH,1,0,0,40000000,1,NA,1,1,0
+XM-DAC-46004-54195-001-LN3951,Asian Development Bank,Multilateral,A01_general,KH,1,0,-215,250000000,0.5268861069778316,0.8953470230823674,1.5,1,0
+XM-DAC-46004-52145-001-LN3969,Asian Development Bank,Multilateral,A01_general,KH,1,0,0,20000000,1,NA,1,1,0
+XM-DAC-46004-44263-016-LN4128,Asian Development Bank,Multilateral,A01_general,KH,1,1,0,40000000,0.05377221395566308,0.8953470230823674,2,1,1
+XM-DAC-46004-54430-001-LN4285,Asian Development Bank,Multilateral,A01_general,KH,1,0,2,40000000,0.2037728994306617,0.6564778013240246,2,1,0
+XM-DAC-46004-55255-001-LN4267,Asian Development Bank,Multilateral,A01_general,KH,1,0,0,50000000,0.2037728994306617,0.6564778013240246,2,1,0
+XM-DAC-46004-55360-001-LN4331,Asian Development Bank,Multilateral,A01_general,KH,1,0,0,20000000,0.35377358490566035,0.41760857956568176,2,1,0
+XM-DAC-46004-52145-002-LN4330,Asian Development Bank,Multilateral,A01_general,KH,1,0,-92,40000000,0.35377358490566035,0.41760857956568176,2,1,0
+XM-DAC-46004-49041-004-LN4391,Asian Development Bank,Multilateral,A01_general,KH,1,0,232,50000000,0.35377358490566035,0.41760857956568176,2,1,0
+XM-DAC-46004-50028-002-GRNT0666,Asian Development Bank,Multilateral,A01_general,MH,1,-0.22490517999999993,957,6000000,1,NA,1,1,0
+XM-DAC-46004-50028-003-GRNT0761,Asian Development Bank,Multilateral,A01_general,MH,1,1,535,6000000,1,NA,1,1,1
+XM-DAC-46004-54358-001-GRNT0766,Asian Development Bank,Multilateral,A01_general,MH,1,1,237,16000000,1,NA,1,1,1
+XM-DAC-46004-54189-001-LN3942,Asian Development Bank,Multilateral,A01_general,MV,1,0,0,25000000,0.7137924225395318,0.0819147773957899,2,1,0
+XM-DAC-46004-54189-001-GRNT0710,Asian Development Bank,Multilateral,A01_general,MV,1,1,0,25000000,0.7137924225395318,0.0819147773957899,2,1,1
+XM-DAC-46004-55003-001-GRNT0898,Asian Development Bank,Multilateral,A01_general,MV,1,0,0,18700000,1,NA,1,1,0
+XM-DAC-46004-42151-013-LN2452,Asian Development Bank,Multilateral,A01_general,IN,1,0.30000000000000004,-2293,150000000,0.9654567261451145,0.009217205325873834,1.5,1,1
+XM-DAC-46004-41607-013-LN2536,Asian Development Bank,Multilateral,A01_general,IN,1,0,-760,94000000,0.9321241060432557,0.018428547921708782,1.5,1,0
+XM-DAC-46004-44453-014-LN2926,Asian Development Bank,Multilateral,A01_general,IN,1,0,129,400000000,0.8642482120865113,0.018428547921708782,2,1,0
+XM-DAC-46004-42267-026-LN3182,Asian Development Bank,Multilateral,A01_general,IN,1,0,236,250000000,0.8457889867841376,0.18876058637127932,1.5,1,0
+XM-DAC-46004-45288-002-LN3187,Asian Development Bank,Multilateral,A01_general,IN,1,0,-532,200000000,0.9654567261451145,0.009217205325873834,1.5,1,0
+XM-DAC-46004-48434-005-LN3424,Asian Development Bank,Multilateral,A01_general,IN,1,0,67,125000000,0.7943853157121835,0.18876058637127932,1.6666666666666667,1,0
+XM-DAC-46004-49209-001-LN3563,Asian Development Bank,Multilateral,A01_general,IN,1,0,-60,300000000,0.7943853157121835,0.18876058637127932,1.6666666666666667,1,0
+XM-DAC-46004-54182-001-LN3915,Asian Development Bank,Multilateral,A01_general,IN,1,0,0,500000000,0.2479638205924055,0.6144034430459238,2,1,0
+XM-DAC-46004-54182-001-LN3916,Asian Development Bank,Multilateral,A01_general,IN,1,0,0,1000000000,0.2479638205924055,0.6144034430459238,2,1,0
+XM-DAC-46004-54001-001-LN4004,Asian Development Bank,Multilateral,A01_general,IN,1,0,-272,50000000,0.24223229065134724,0.6068409541410695,2,1,0
+XM-DAC-46004-54465-001-LN4138,Asian Development Bank,Multilateral,A01_general,IN,1,1,0,250000000,0.026954707866364044,0.946817140543433,2,1,1
+XM-DAC-46004-55054-001-LN4158,Asian Development Bank,Multilateral,A01_general,IN,1,1,58,350000000,0.026954707866364044,0.946817140543433,2,1,1
+XM-DAC-46004-55154-001-LN4275,Asian Development Bank,Multilateral,A01_general,IN,1,0,42,250000000,0.23076923076923078,0.591715976331361,2,1,0
+XM-DAC-46004-55054-002-LN4362,Asian Development Bank,Multilateral,A01_general,IN,1,0,125,400000000,0.23076923076923078,0.591715976331361,2,1,0
+XM-DAC-46004-55080-001-LN4401,Asian Development Bank,Multilateral,A01_general,IN,1,0,224,250000000,0.23076923076923078,0.591715976331361,2,1,0
+XM-DAC-46004-54465-002-LN4421,Asian Development Bank,Multilateral,A01_general,IN,1,0,143,250000000,0.23076923076923078,0.591715976331361,2,1,0
+XM-DAC-46004-45032-001-GRNT0300,Asian Development Bank,Multilateral,A01_general,NR,1,0,-52,4000000,0.4764082628249098,0.27414830723802874,2,1,0
+XM-DAC-46004-48478-001-GRNT0473,Asian Development Bank,Multilateral,A01_general,NR,1,0,-154,2000000,0.4707499878698313,0.28010557533978353,2,1,0
+XM-DAC-46004-52073-001-GRNT0703,Asian Development Bank,Multilateral,A01_general,NR,1,0,-72,5000000,0.9633693385933995,0.0013418053550849907,2,1,0
+XM-DAC-46004-49210-001-LN3297,Asian Development Bank,Multilateral,A01_general,MN,1,0,199,150000000,1,NA,1,1,0
+XM-DAC-46004-50302-001-LN3532,Asian Development Bank,Multilateral,A01_general,MN,1,0,-30,150000000,1,NA,1,1,0
+XM-DAC-46004-51054-001-LN3533,Asian Development Bank,Multilateral,A01_general,MN,1,0,150,100000000,1,NA,1,1,0
+XM-DAC-46004-51199-001-LN3648,Asian Development Bank,Multilateral,A01_general,MN,1,0,-153,130000000,0.9998077662437523,1.4781526813667512e-7,1.5,1,0
+XM-DAC-46004-53028-001-LN3880,Asian Development Bank,Multilateral,A01_general,MN,1,0,-83,160000000,0.8072614579434179,0.07414823558780911,2,1,0
+XM-DAC-46004-54174-001-LN3922,Asian Development Bank,Multilateral,A01_general,MN,1,0,0,100000000,0.8074536916996654,0.1482963233603501,1.5,1,0
+XM-DAC-46004-54228-001-LN4056,Asian Development Bank,Multilateral,A01_general,MN,1,0,-161,100000000,1,NA,1,1,0
+XM-DAC-46004-56144-001-LN4202,Asian Development Bank,Multilateral,A01_general,MN,1,0,272,100000000,1,NA,1,1,0
+XM-DAC-46004-55209-003-LN4356,Asian Development Bank,Multilateral,A01_general,MN,1,0,18,100000000,1,NA,1,1,0
+XM-DAC-46004-49365-002-LN3446,Asian Development Bank,Multilateral,A01_general,LK,1,0.5,-1280,250000000,1,NA,1,1,1
+XM-DAC-46004-57035-001-LN4315,Asian Development Bank,Multilateral,A01_general,LK,1,0,153,350000000.00000006,0.4138953495456442,0.3435186612842227,2,1,0
+XM-DAC-46004-56285-001-LN4422,Asian Development Bank,Multilateral,A01_general,LK,1,1,0,200000000,0.4138953495456442,0.3435186612842227,2,1,1
+XM-DAC-46004-35174-082-GRNT0272,Asian Development Bank,Multilateral,A01_general,NP,1,0,-15,65000000,0.6067316837589755,0.15317117340626135,3,1,0
+XM-DAC-46004-36172-063-GRNT0305,Asian Development Bank,Multilateral,A01_general,NP,1,0,-523,21000000,0.48529823784725623,0.25534457646421005,2.75,1,0
+XM-DAC-46004-45260-001-GRNT0322,Asian Development Bank,Multilateral,A01_general,NP,1,0,46,15000000,0.6067316837589755,0.15317117340626135,3,1,0
+XM-DAC-46004-36169-023-LN2641,Asian Development Bank,Multilateral,A01_general,NP,1,0.04684340182119206,-960,60400000,0.6067316837589755,0.15317117340626135,3,1,0
+XM-DAC-46004-50254-001-LN3546,Asian Development Bank,Multilateral,A01_general,NP,1,-0.01231919238095224,515,21000000,0.405971602955817,0.35879287017463746,2.6666666666666665,1,0
+XM-DAC-46004-48218-010-LN3847,Asian Development Bank,Multilateral,A01_general,NP,1,0,-599,50000000,0.4458274122846928,0.37020071755293377,3.75,1,0
+XM-DAC-46004-54184-001-LN3926,Asian Development Bank,Multilateral,A01_general,NP,1,0,-138,250000000,0.6587333757925342,0.09358228771173077,3,1,0
+XM-DAC-46004-38349-029-LN3948,Asian Development Bank,Multilateral,A01_general,NP,1,0.5,-196,50000000,0.5458872358213873,0.28064983770288887,4,1,1
+XM-DAC-46004-54402-001-LN4323,Asian Development Bank,Multilateral,A01_general,NP,1,1,0,50000000,0.8893085617382495,0.0041018670855856865,4,1,1
+XM-DAC-46004-55002-001-LN4349,Asian Development Bank,Multilateral,A01_general,NP,1,0,0,100000000,0.8893085617382495,0.0041018670855856865,4,1,0
+XM-DAC-46004-52018-001-LN3725,Asian Development Bank,Multilateral,A01_general,PW,1,0,444,15000000,1,NA,1,1,0
+XM-DAC-46004-54245-001-LN3955,Asian Development Bank,Multilateral,A01_general,PW,1,0,110,20000000,1,NA,1,1,0
+XM-DAC-46004-54151-001-LN4030,Asian Development Bank,Multilateral,A01_general,PW,1,0,-37,5000000,1,NA,1,1,0
+XM-DAC-46004-54284-001-LN4063,Asian Development Bank,Multilateral,A01_general,PW,1,0,-61,5000000,1,NA,1,1,0
+XM-DAC-46004-54284-001-LN4064,Asian Development Bank,Multilateral,A01_general,PW,1,0,-61,20000000,1,NA,1,1,0
+XM-DAC-46004-54284-002-LN4206,Asian Development Bank,Multilateral,A01_general,PW,1,0,11,30000000,1,NA,1,1,0
+XM-DAC-46004-54151-003-LN4198,Asian Development Bank,Multilateral,A01_general,PW,1,0,38,5000000,1,NA,1,1,0
+XM-DAC-46004-51035-001-LN3664,Asian Development Bank,Multilateral,A01_general,PG,1,0,-155,100000000,0.7016213940880639,0.3561191698638018,1.5,1,0
+XM-DAC-46004-51035-003-LN3857,Asian Development Bank,Multilateral,A01_general,PG,1,0,-56,100000000,1,NA,1,1,0
+XM-DAC-46004-53424-001-LN4022,Asian Development Bank,Multilateral,A01_general,PG,1,0,0,100000000,0.7994712195106781,0.15425027018807574,2,1,0
+XM-DAC-46004-51035-005-LN4017,Asian Development Bank,Multilateral,A01_general,PG,1,0,-41,100000000,0.7994712195106781,0.15425027018807574,2,1,0
+XM-DAC-46004-54346-001-LN4015,Asian Development Bank,Multilateral,A01_general,PG,1,0,22,250000000,0.7994712195106781,0.15425027018807574,2,1,0
+XM-DAC-46004-51035-005-LN4016,Asian Development Bank,Multilateral,A01_general,PG,1,0,-41,50000000,0.7994712195106781,0.15425027018807574,2,1,0
+XM-DAC-46004-53424-002-LN4155,Asian Development Bank,Multilateral,A01_general,PG,1,0,0,150000000,0.7994712195106781,0.15425027018807574,2,1,0
+XM-DAC-46004-53424-003-LN4266,Asian Development Bank,Multilateral,A01_general,PG,1,0,59,250000000,1,NA,1,1,0
+XM-DAC-46004-48479-001-GRNT0478,Asian Development Bank,Multilateral,A01_general,SB,1,0,0,5000000,0.16313367625125325,0.7003452438247422,2,1,0
+XM-DAC-46004-52074-001-GRNT0629,Asian Development Bank,Multilateral,A01_general,SB,1,0,-43,5000000,0.17110811674609516,0.687061754124205,2,1,0
+XM-DAC-46004-50028-002-GRNT0667,Asian Development Bank,Multilateral,A01_general,SB,1,0,957,3000000,0.3404743512897556,0.2175120229472838,3,1,0
+XM-DAC-46004-50028-002-LN3830,Asian Development Bank,Multilateral,A01_general,SB,1,0,957,3000000,0.3404743512897556,0.2175120229472838,3,1,0
+XM-DAC-46004-54178-001-LN3938,Asian Development Bank,Multilateral,A01_general,SB,1,0,27,10000000,0.3404743512897556,0.2175120229472838,3,1,0
+XM-DAC-46004-50028-003-GRNT0754,Asian Development Bank,Multilateral,A01_general,SB,1,0,651,5000000,0.2998386903859096,0.3831460872379181,2.5,1,0
+XM-DAC-46004-54178-001-GRNT0708,Asian Development Bank,Multilateral,A01_general,SB,1,1,27,10000000,0.3404743512897556,0.2175120229472838,3,1,1
+XM-DAC-46004-55011-001-GRNT0871,Asian Development Bank,Multilateral,A01_general,SB,1,1.961351802,-32,5000000,0.25920302948206364,0.5487801515285524,2,1,1
+XM-DAC-46004-55011-001-LN4274,Asian Development Bank,Multilateral,A01_general,SB,1,0,-32,5000000,0.25920302948206364,0.5487801515285524,2,1,0
+XM-DAC-46004-44253-013-LN3111,Asian Development Bank,Multilateral,A01_general,PH,1,0,138,250000000,0.554016620498615,0.1989011747914764,2,1,0
+XM-DAC-46004-43396-014-LN3233,Asian Development Bank,Multilateral,A01_general,PH,1,0,51,350000000,0.3689064558629776,0.39827906145142783,2,1,0
+XM-DAC-46004-48458-001-LN3333,Asian Development Bank,Multilateral,A01_general,PH,1,0,122,300000000,0.6823785391348083,0.19914813939292006,2,1,0
+XM-DAC-46004-48427-001-LN3334,Asian Development Bank,Multilateral,A01_general,PH,1,0,122,300000000,0.6823785391348083,0.19914813939292006,2,1,0
+XM-DAC-46004-44253-016-LN3505,Asian Development Bank,Multilateral,A01_general,PH,1,0,-111,250000000,0.9979253112033195,1.7217334412289453e-5,1.5,1,0
+XM-DAC-46004-49117-002-LN3530,Asian Development Bank,Multilateral,A01_general,PH,1,0,104,300000000,0.7506265664160401,0.24874843750981457,1.5,1,0
+XM-DAC-46004-48427-002-LN3595,Asian Development Bank,Multilateral,A01_general,PH,1,0,-46,300000000,0.7033162616686645,0.20093376506870694,1.6666666666666667,1,0
+XM-DAC-46004-48458-003-LN3691,Asian Development Bank,Multilateral,A01_general,PH,1,0,216,300000000,0.5549743925029966,0.20093376506870694,2,1,0
+XM-DAC-46004-51309-001-LN3707,Asian Development Bank,Multilateral,A01_general,PH,1,0,314,300000000,0.5549743925029966,0.20093376506870694,2,1,0
+XM-DAC-46004-52173-001-LN3858,Asian Development Bank,Multilateral,A01_general,PH,1,-0.33333333333333326,336,300000000,0.6558660913063812,0.12065319744069791,2,1,0
+XM-DAC-46004-49117-003-LN3875,Asian Development Bank,Multilateral,A01_general,PH,1,0.25,336,400000000,0.6558660913063812,0.12065319744069791,2,1,0
+XM-DAC-46004-54138-001-LN3910,Asian Development Bank,Multilateral,A01_general,PH,1,-0.02053069373387472,-245,503196143,0.6177371064451216,0.15954216662799497,2,1,0
+XM-DAC-46004-54138-001-LN3907,Asian Development Bank,Multilateral,A01_general,PH,1,0,-245,250000000,0.6177371064451216,0.15954216662799497,2,1,0
+XM-DAC-46004-54138-001-LN3909,Asian Development Bank,Multilateral,A01_general,PH,1,0.00294575827830267,-245,251598614,0.6177371064451216,0.15954216662799497,2,1,0
+XM-DAC-46004-54138-001-LN3908,Asian Development Bank,Multilateral,A01_general,PH,1,0,-245,500000000,0.6177371064451216,0.15954216662799497,2,1,0
+XM-DAC-46004-53047-001-LN3925,Asian Development Bank,Multilateral,A01_general,PH,1,0,274,400000000,0.7030365304388493,0.0881873022537965,2,1,0
+XM-DAC-46004-53353-001-LN3957,Asian Development Bank,Multilateral,A01_general,PH,1,0,298,400000000,0.7030365304388493,0.0881873022537965,2,1,0
+XM-DAC-46004-51309-002-LN3959,Asian Development Bank,Multilateral,A01_general,PH,1,0,211,300000000,0.5785043938448975,0.19316679905271192,2,1,0
+XM-DAC-46004-54022-001-LN3968,Asian Development Bank,Multilateral,A01_general,PH,1,0,0,500000000,0.5450188666060577,0.2329345940895961,2,1,0
+XM-DAC-46004-49117-004-LN4089,Asian Development Bank,Multilateral,A01_general,PH,1,0,0,400000000,0.5750873944482577,0.1952195988150942,2,1,0
+XM-DAC-46004-52173-003-LN4102,Asian Development Bank,Multilateral,A01_general,PH,1,0,0,400000000,0.5750873944482577,0.1952195988150942,2,1,0
+XM-DAC-46004-55105-001-LN4145,Asian Development Bank,Multilateral,A01_general,PH,1,0,0,600000000,0.5750873944482577,0.1952195988150942,2,1,0
+XM-DAC-46004-55268-001-LN4186,Asian Development Bank,Multilateral,A01_general,PH,1,0,0,250000000,0.5115333393672179,0.2727023891264803,2,1,0
+XM-DAC-46004-53047-003-LN4185,Asian Development Bank,Multilateral,A01_general,PH,1,0,0,400000000,0.5115333393672179,0.2727023891264803,2,1,0
+XM-DAC-46004-53353-002-LN4288,Asian Development Bank,Multilateral,A01_general,PH,1,1,285,500000000,0.3268641470888662,0.45311187647439954,2,1,1
+XM-DAC-46004-55300-001-LN4289,Asian Development Bank,Multilateral,A01_general,PH,1,0,0,500000000,0.3268641470888662,0.45311187647439954,2,1,0
+XM-DAC-46004-51309-003-LN4355,Asian Development Bank,Multilateral,A01_general,PH,1,0,0,300000000,0.3268641470888662,0.45311187647439954,2,1,0
+XM-DAC-46004-55105-003-LN4414,Asian Development Bank,Multilateral,A01_general,PH,1,-0.01384278010703865,0,463115924,0.3268641470888662,0.45311187647439954,2,1,0
+XM-DAC-46004-56288-001-LN4376,Asian Development Bank,Multilateral,A01_general,PH,1,0,0,400000000,0.3268641470888662,0.45311187647439954,2,1,0
+XM-DAC-46004-52313-001-GRNT0635,Asian Development Bank,Multilateral,A01_general,PH,1,0.992713906,-1343,5000000.000000001,0.5483373752383707,0.22226765108263305,2,1,1
+XM-DAC-46004-54177-001-LN3949,Asian Development Bank,Multilateral,A01_general,TH,1,0,-215,1000000000,1,NA,1,1,0
+XM-DAC-46004-54177-001-LN3945,Asian Development Bank,Multilateral,A01_general,TH,1,0,-215,500000000,1,NA,1,1,0
+XM-DAC-46004-47099-002-GRNT0463,Asian Development Bank,Multilateral,A01_general,TJ,1,0,174,53400000,1,NA,1,1,0
+XM-DAC-46004-47099-004-GRNT0530,Asian Development Bank,Multilateral,A01_general,TJ,1,0.8999664007276508,0,19240000,0.9714127374600345,0.0032689263181157058,1.5,1,1
+XM-DAC-46004-47099-002-LN3343,Asian Development Bank,Multilateral,A01_general,TJ,1,0.00724812121212115,174,6600000,1,NA,1,1,0
+XM-DAC-46004-47099-004-LN3513,Asian Development Bank,Multilateral,A01_general,TJ,1,-0.02775374609882974,0,30760000,1,NA,1,1,0
+XM-DAC-46004-51066-001-GRNT0782,Asian Development Bank,Multilateral,A01_general,TJ,1,0.9939706172,0,50000000,0.942825474920069,0.0032689263181157058,2,1,1
+XM-DAC-46004-53315-001-GRNT0777,Asian Development Bank,Multilateral,A01_general,TJ,1,0,-174,20000000,0.942825474920069,0.0032689263181157058,2,1,0
+NO-BRC-971277882-NPL-20/0002,Norad - Norwegian Agency for Development Cooperation,Bilateral,A02_sector,NP,1,-2.220446049250313e-16,NA,19643990.449998487,0.031352105040798564,0.7725710462326107,4.5,1,0
+NO-BRC-971277882-NPL-07/010,Norad - Norwegian Agency for Development Cooperation,Bilateral,A02_sector,NP,1,0.0737443092485548,-3666,34855490.7471768,0.08055338379763989,0.550964544384064,3,1,0
+XM-DAC-46004-47318-001-GRNT0442,Asian Development Bank,Multilateral,A01_general,TV,1,0,-25,2000000,0.4671287088951336,0.1600261046763011,3,1,0
+XM-DAC-46004-50028-001-GRNT0559,Asian Development Bank,Multilateral,A01_general,TV,1,0,1031,3000000,0.4137537965545729,0.33228718860337336,2.5,1,0
+XM-DAC-46004-50377-001-GRNT0673,Asian Development Bank,Multilateral,A01_general,TV,1,-0.01992796499999993,27,4000000,0.4137537965545729,0.33228718860337336,2.5,1,0
+XM-DAC-46004-50028-003-GRNT0760,Asian Development Bank,Multilateral,A01_general,TV,1,1.95281244,405,4000000,0.15920622960759362,0.5545503917518173,3,1,1
+XM-DAC-46004-48361-001-GRNT0479,Asian Development Bank,Multilateral,A01_general,TO,1,0,0,3000000,0.7322275824692495,0.07170206759026265,2,1,0
+XM-DAC-46004-48361-002-GRNT0532,Asian Development Bank,Multilateral,A01_general,TO,1,1,19,2250000,0.5773115525981879,0.17866552356695437,2,1,1
+XM-DAC-46004-50028-001-GRNT0558,Asian Development Bank,Multilateral,A01_general,TO,1,0.8169383103448276,1611,2900000,0.3744412014944045,0.3776084304651278,2.3333333333333335,1,1
+XM-DAC-46004-48361-001-LN3393,Asian Development Bank,Multilateral,A01_general,TO,1,7.683333333333708e-4,0,3000000,0.7322275824692495,0.07170206759026265,2,1,0
+XM-DAC-46004-48361-002-LN3531,Asian Development Bank,Multilateral,A01_general,TO,1,-0.02082404363636358,19,2750000,0.5773115525981879,0.17866552356695437,2,1,0
+XM-DAC-46004-50028-001-LN3628,Asian Development Bank,Multilateral,A01_general,TO,1,0,1611,3100000,0.5682636094176161,0.18647817622890359,2,1,0
+XM-DAC-46004-48361-003-GRNT0647,Asian Development Bank,Multilateral,A01_general,TO,1,0,-3,5000000,0.3918388430240673,0.21982352973281064,3,1,0
+XM-DAC-46004-50028-002-GRNT0668,Asian Development Bank,Multilateral,A01_general,TO,1,0,957,6000000,0.26333818258831015,0.4443020779107967,3,1,0
+XM-DAC-46004-50028-003-GRNT0755,Asian Development Bank,Multilateral,A01_general,TO,1,0,654,10000000,0.23942704903570927,0.5576235668667163,2.3333333333333335,1,0
+XM-DAC-46004-55016-001-GRNT0807,Asian Development Bank,Multilateral,A01_general,TO,1,0,-20,5000000,0.2917218124772874,0.5020450372556831,2,1,0
+XM-DAC-46004-52030-001-GRNT0709,Asian Development Bank,Multilateral,A01_general,TO,1,1,3,12200000,0.13483752215255299,0.6687806260887827,3,1,1
+XM-DAC-46004-50028-003-GRNT0757,Asian Development Bank,Multilateral,A01_general,VU,1,0,648,5000000,1,NA,1,1,0
+XM-DAC-46004-54179-001-GRNT0776,Asian Development Bank,Multilateral,A01_general,VU,1,1,-172,16925000,1,NA,1,1,1
+XM-DAC-46004-46384-001-GRNT0360,Asian Development Bank,Multilateral,A01_general,WS,1,0,80,14000000,0.3251735088082226,0.32954816237369644,3,1,0
+XM-DAC-46004-50210-001-GRNT0525,Asian Development Bank,Multilateral,A01_general,WS,1,0,-89,5000000,0.4958884893570429,0.2541284151627243,2,1,0
+XM-DAC-46004-50028-001-GRNT0557,Asian Development Bank,Multilateral,A01_general,WS,1,0,957,2900000,0.5117235637210362,0.23866462780539824,2,1,0
+XM-DAC-46004-50028-001-LN3627,Asian Development Bank,Multilateral,A01_general,WS,1,0,-30,3100000,0.40527936188598374,0.3765205399940876,2,1,0
+XM-DAC-46004-54243-001-GRNT0718,Asian Development Bank,Multilateral,A01_general,WS,1,0,260,20000000,0.5275586380850295,0.2232008404480722,2,1,0
+XM-DAC-46004-50028-003-GRNT0759,Asian Development Bank,Multilateral,A01_general,WS,1,0,526,10000000,0.3599747981504542,0.43771660240976923,2,1,0
+XM-DAC-46004-54054-001-GRNT0862,Asian Development Bank,Multilateral,A01_general,WS,1,1.9604038746666663,-157,7500000,0.19239095821587893,0.6522323643714663,2,1,1
+XM-DAC-46004-47015-001-LN3126,Asian Development Bank,Multilateral,A01_general,PK,1,0.00210587924999994,27,400000000,0.33509414278798433,0.3568634850831319,3,1,0
+XM-DAC-46004-47015-002-LN3321,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,100000000,0.36252333791409797,0.28164170203673494,3,1,0
+XM-DAC-46004-47015-002-LN3322,Asian Development Bank,Multilateral,A01_general,PK,1,0.02003693700000008,0,300000000,0.36252333791409797,0.28164170203673494,3,1,0
+XM-DAC-46004-48065-002-LN3398,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,200000000,0.47265682135358006,0.20219334334355654,3,1,0
+XM-DAC-46004-48065-002-LN3399,Asian Development Bank,Multilateral,A01_general,PK,1,0.01369589560000006,0,100000000,0.47265682135358006,0.20219334334355654,3,1,0
+XM-DAC-46004-47015-003-LN3537,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,300000000,0.6248214026123308,0.10226002543481494,3,1,0
+XM-DAC-46004-48065-003-LN3538,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,300000000,0.6248214026123308,0.10226002543481494,3,1,0
+XM-DAC-46004-52049-001-LN3804,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,500000000,0.7523536117953386,0.1141912365931228,2.5,1,0
+XM-DAC-46004-53247-001-LN3882,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,1000000000,0.7523536117953386,0.1141912365931228,2.5,1,0
+XM-DAC-46004-53165-001-LN3881,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,300000000,0.7523536117953386,0.1141912365931228,2.5,1,0
+XM-DAC-46004-54193-001-LN3931,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,500000000,0.39559560624907675,0.3738625382100042,3,1,0
+XM-DAC-46004-53221-001-LN3976,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,290204000,0.39559560624907675,0.3738625382100042,3,1,0
+XM-DAC-46004-53221-001-LN3975,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,9796000,0.39559560624907675,0.3738625382100042,3,1,0
+XM-DAC-46004-52049-003-LN4018,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,300000000,0.39559560624907675,0.3738625382100042,3,1,0
+XM-DAC-46004-53165-002-LN4159,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,300000000,0.635652751726832,0.25977456289564776,2.5,1,0
+XM-DAC-46004-53221-003-LN4176,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,300000000,0.9991683214495172,6.916892113517648e-7,2,1,0
+XM-DAC-46004-56148-001-LN4234,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,1250000000,0.6106918307209378,0.30245074745768374,2.5,1,0
+XM-DAC-46004-56148-001-LN4235,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,250000000,0.6106918307209378,0.30245074745768374,2.5,1,0
+XM-DAC-46004-54424-001-LN4427,Asian Development Bank,Multilateral,A01_general,PK,1,0,0,100000000,0.22221533999235837,0.6049008032261561,3,1,0
+XM-DAC-46004-56006-001-LN4406,Asian Development Bank,Multilateral,A01_general,PK,1,1,-91,300000000,0.22221533999235837,0.6049008032261561,3,1,1
+XM-DAC-46004-51350-001-LN3675,Asian Development Bank,Multilateral,A01_general,UZ,1,0,0,300000000,0.375,0.390625,2,1,0
+XM-DAC-46004-51348-001-LN3869,Asian Development Bank,Multilateral,A01_general,UZ,1,0,-549,50000000,0.42427981798010567,0.3350561690061128,2,1,0
+XM-DAC-46004-51350-003-LN3866,Asian Development Bank,Multilateral,A01_general,UZ,1,0,0,300000000,0.375,0.390625,2,1,0
+XM-DAC-46004-54160-001-LN3939,Asian Development Bank,Multilateral,A01_general,UZ,1,0,0,500000000,0.5087719298245614,0.2413050169282856,2,1,0
+XM-DAC-46004-54269-001-LN3980,Asian Development Bank,Multilateral,A01_general,UZ,1,0,0,200000000,0.5087719298245614,0.2413050169282856,2,1,0
+XM-DAC-46004-53161-001-LN4123,Asian Development Bank,Multilateral,A01_general,UZ,1,1,-60,100000000,0.3890675241157556,0.37323849009005283,2,1,1
+XM-DAC-46004-42007-020-LN4156,Asian Development Bank,Multilateral,A01_general,UZ,1,1,0,19717136,0.3890675241157556,0.37323849009005283,2,1,1
+XM-DAC-46004-42007-020-LN4157,Asian Development Bank,Multilateral,A01_general,UZ,1,0,0,80000000,0.3890675241157556,0.37323849009005283,2,1,0
+XM-DAC-46004-56149-001-LN4225,Asian Development Bank,Multilateral,A01_general,UZ,1,0,0,500000000,0.3890675241157556,0.37323849009005283,2,1,0
+XM-DAC-46004-40354-013-LN2642,Asian Development Bank,Multilateral,A01_general,VN,1,-0.04249687666666668,-462,30000000,0.22981194529464283,0.5253026565265846,5,1,0
+XM-DAC-46004-41360-014-LN3050,Asian Development Bank,Multilateral,A01_general,VN,1,-0.01985839999999994,-140,50000000,0.22981194529464283,0.5253026565265846,5,1,0
+XM-DAC-46004-44251-013-LN3081,Asian Development Bank,Multilateral,A01_general,VN,1,-0.00399393599999986,-140,45000000,0.22981194529464283,0.5253026565265846,5,1,0
+XM-DAC-46004-42235-023-LN3213,Asian Development Bank,Multilateral,A01_general,VN,1,0.05239044459999997,-92,50000000,0.5620276029111314,0.16937595776635878,5,1,0
+XM-DAC-46004-47293-001-LN3227,Asian Development Bank,Multilateral,A01_general,VN,1,0,-70,140000000,0.5620276029111314,0.16937595776635878,5,1,0
+XM-DAC-46004-47293-001-LN3228,Asian Development Bank,Multilateral,A01_general,VN,1,0.04962983988888891,-70,90000000,0.5620276029111314,0.16937595776635878,5,1,0
+XM-DAC-46004-44251-034-LN3335,Asian Development Bank,Multilateral,A01_general,VN,1,-0.00416675799999999,0,100000000,0.7741459622709745,0.08475333492690565,4.5,1,0
+XM-DAC-46004-47140-002-LN3493,Asian Development Bank,Multilateral,A01_general,VN,1,0.01362457680000006,-359,50000000,0.9997130598433881,1.424047892939484e-7,2.5,1,0
+XM-DAC-46004-50051-001-LN3503,Asian Development Bank,Multilateral,A01_general,VN,1,-0.00494631031543058,-365,117300000,0.9994261196867762,1.424047892939484e-7,4,1,0
+XM-DAC-46004-49331-001-LN3743,Asian Development Bank,Multilateral,A01_general,VN,1,0,-46,100000000,0.7222222036654771,0.30864192376213695,2,1,0
+XM-DAC-46004-50285-002-LN3758,Asian Development Bank,Multilateral,A01_general,VN,1,0,-1084,88600000,0.8148148024436515,0.30864192376213695,1.6666666666666667,1,0
+AU-5-INL354-VN,Australian Aid,Bilateral,A02_sector,VN,1,0,0,2500340.7284000064,0.01312265266320417,0.8042313980147074,4.4,1,0
+AU-5-INJ438-VU,Australian Aid,Bilateral,A02_sector,VU,1,0.00446401060322909,184,32235598.79000008,0.8707483744031359,0.8185931532521642,1.1428571428571428,1,0
+AU-5-INJ402-WS,Australian Aid,Bilateral,A02_sector,WS,1,0.20254672119899553,0,6782632.628500016,0.5558722498399482,0.4227991399956373,2,1,0
+AU-5-INJ648-ID,Australian Aid,Bilateral,A02_sector,ID,1,0.00145685940031514,0,253776286.86750063,0.04269197048718107,0.5714805063404959,2.75,1,0
+46002-P-DZ-K00-007,African Development Bank,Multilateral,A01_general,DZ,1,0.06431603773588968,365,1025460547.7029648,1,NA,1,1,0
+46002-P-AO-FA0-002,African Development Bank,Multilateral,A02_sector,AO,1,0.04157134000848028,173,988399010.4379264,1,NA,1,1,0
+46002-P-AO-K00-007,African Development Bank,Multilateral,A01_general,AO,1,0.00147601751484938,365,164965113.05154416,1,NA,1,1,0
+46002-P-BW-K00-004,African Development Bank,Multilateral,A01_general,BW,1,0.00410017164789178,-224,135139797.79145032,1,NA,1,1,0
+46002-P-BJ-FZ0-001,African Development Bank,Multilateral,A02_sector,BJ,1,0,-1,27013575.94923835,1,NA,1,1,0
+46002-P-BJ-K00-005,African Development Bank,Multilateral,both,BJ,1,0,0,9492722.47212191,0.1231502402558264,0.7665220495456346,2.5,1,0
+46002-P-BJ-K00-006,African Development Bank,Multilateral,both,BJ,1,0,0,6837848.026937635,0.07413191949675518,0.8427476076917855,3,1,0
+46002-P-BJ-KZ0-001,African Development Bank,Multilateral,A01_general,BJ,1,0,395,6916126.372545962,0.06925317501699774,0.8458573659383821,3,1,0
+46002-P-BJ-KF0-001,African Development Bank,Multilateral,A01_general,BJ,1,0,-121,42446030.48248797,0.2268036828972088,0.588145242106342,4,1,0
+AU-5-INI950-NR,Australian Aid,Bilateral,A02_sector,NR,1,0.148278877813266,365,25127101.48840006,0.7270674872445513,0.45888362216972617,1.4285714285714286,1,0
+46002-P-BI-I00-004,African Development Bank,Multilateral,A02_sector,BI,1,0,-102,1356103.21030313,1,NA,1,1,0
+46002-P-BF-FA0-008,African Development Bank,Multilateral,A02_sector,BF,1,0,366,27122064.206062596,0.3231644940033186,0.35178260391606764,4,1,0
+46002-P-BF-KA0-009,African Development Bank,Multilateral,A01_general,BF,1,0,0,27122064.206062596,0.3231644940033186,0.35178260391606764,4,1,0
+46002-P-BF-KZ0-003,African Development Bank,Multilateral,both,BF,1,0,0,54244128.41212519,0.24934766080227946,0.4810406835762247,4,1,0
+46002-P-BF-KZ0-001,African Development Bank,Multilateral,A02_sector,BF,1,0,0,13561032.103031298,0.10669752766906937,0.6100260557910141,4,1,0
+AU-5-INK561-SB,Australian Aid,Bilateral,A02_sector,SB,1,2.6600973291246444e-4,0,51902950.500500135,0.8975958095402915,0.04368325390401162,1.5,1,0
+AU-5-INL121-SB,Australian Aid,Bilateral,A02_sector,SB,1,0.1132609277108434,184,57012700.00000015,0.7998110626070204,0.09274614329583374,1.8,1,0
+AU-5-INL126-SB,Australian Aid,Bilateral,A02_sector,SB,1,0.3031996173913043,365,19748375.000000052,0.7998110626070204,0.09274614329583374,1.8,1,1
+AU-5-INL129-SB,Australian Aid,Bilateral,A02_sector,SB,1,0.02154081086130244,184,39507572.10950011,0.7920953712412535,0.08474808534206894,1.8333333333333333,1,0
+AU-5-INL683-TO,Australian Aid,Bilateral,A02_sector,TO,1,0.05946536518170708,548,11800214.57290003,0.3920118614655895,0.44210488528988234,2.1666666666666665,1,0
+AU-5-INJ899-TV,Australian Aid,Bilateral,A01_general,TV,1,-0.06502088780451554,365,19831594.99570005,0.38957497389300955,0.42580543578985064,2.142857142857143,1,0
+AU-5-INJ128-VN,Australian Aid,Bilateral,A02_sector,VN,1,-2.765350126665567e-8,0,49679061.60680013,0.02117302889443983,0.6782367222280885,4.666666666666667,1,0
+46002-P-CV-K00-013,African Development Bank,Multilateral,A01_general,CV,1,0.03504801284625303,0,23048672.34783505,0.4286233215149043,0.3264713087166605,2,1,0
+46002-P-CV-KA0-005,African Development Bank,Multilateral,A01_general,CV,1,-0.01401502838789214,181,17091009.130642917,0.5268273225559166,0.2238923826796027,2,1,0
+46002-P-CV-KA0-008,African Development Bank,Multilateral,A01_general,CV,1,0.01616287363101332,0,22788012.169670213,1,NA,1,1,0
+46002-P-CV-KA0-006,African Development Bank,Multilateral,A01_general,CV,1,0.07089863743287317,0,17243276.277550936,0.6124273569947059,0.1502125536061093,2,1,0
+46002-P-CV-KA0-007,African Development Bank,Multilateral,A01_general,CV,1,0.00575791248919632,0,22788012.169670213,1,NA,1,1,0
+46002-P-CV-K00-016,African Development Bank,Multilateral,A01_general,CV,1,0.03821532893544166,0,34573008.51497206,0.481714679313804,0.2686196736387929,2,1,0
+46002-P-CV-KA0-009,African Development Bank,Multilateral,A01_general,CV,1,0.03848380341453483,0,22788012.169670213,0.35582315882067583,0.41496380271177236,2,1,0
+46002-P-CV-K00-015,African Development Bank,Multilateral,A01_general,CV,1,0.06467735643461092,-387,23048672.34783505,0.3239667283025711,0.4570209844419296,2,1,0
+46002-P-CF-KZ0-002,African Development Bank,Multilateral,A01_general,CF,1,0,275,20341548.154546943,1,NA,1,1,0
+46002-P-CF-K00-006,African Development Bank,Multilateral,A01_general,CF,1,0,0,16652947.422522437,1,NA,1,1,0
+46002-P-CF-KZ0-003,African Development Bank,Multilateral,A01_general,CF,1,0,0,9980919.627831036,1,NA,1,1,0
+46002-P-CF-K00-007,African Development Bank,Multilateral,A01_general,CF,1,0,0,9492722.47212191,0.2782739201500423,0.5208885343355875,2,1,0
+46002-P-CF-K00-010,African Development Bank,Multilateral,A01_general,CF,1,0,0,14239083.708182864,0.1556870945682725,0.7128642822785651,2,1,0
+46002-P-CF-K00-020,African Development Bank,Multilateral,A01_general,CF,1,0,-153,10170774.077273477,1,NA,1,1,0
+46002-P-CM-K00-010,African Development Bank,Multilateral,A01_general,CM,1,0.00296549471589557,0,100267253.55197334,1,NA,1,1,0
+46002-P-CM-KA0-011,African Development Bank,Multilateral,A01_general,CM,1,1.6793445316110045e-4,548,207200341.11420155,1,NA,1,1,0
+46002-P-CM-K00-009,African Development Bank,Multilateral,A01_general,CM,1,0.02944983330062522,305,171906702.11972493,1,NA,1,1,0
+46002-P-CM-KA0-015,African Development Bank,Multilateral,A01_general,CM,1,0.05023758304137515,275,92141992.33259246,1,NA,1,1,0
+46002-P-CM-AA0-015,African Development Bank,Multilateral,A01_general,CM,1,0.4650548036350809,-229,72512637.15966895,0.7244721971383258,0.3036622805991265,1.5,1,1
+46002-P-CM-KF0-006,African Development Bank,Multilateral,A01_general,CM,1,0.06844852644489707,-189,93687085.30024804,0.44894439427665156,0.3036622805991265,2,1,0
+46002-P-KM-K00-006,African Development Bank,Multilateral,A02_sector,KM,1,0,0,5424412.841212519,0.4402406893536991,0.31406253369020753,2,1,0
+46002-P-KM-K00-009,African Development Bank,Multilateral,both,KM,1,0,0,20341548.15454695,0.7475759133398202,0.25487167810490374,1.5,1,0
+46002-P-TD-KA0-009,African Development Bank,Multilateral,A01_general,TD,1,0,0,61024644.46364084,0.3780582982883643,0.38681148032796525,2,1,0
+46002-P-TD-KA0-007,African Development Bank,Multilateral,A01_general,TD,1,0,0,62380747.673943974,0.5069666224822249,0.2430819113465848,2,1,0
+46002-P-TD-KA0-006,African Development Bank,Multilateral,both,TD,1,0,1,42238139.86034849,0.4121535477566477,0.3545529705540137,2,1,0
+46002-P-TD-KA0-005,African Development Bank,Multilateral,A01_general,TD,1,0,0,18124319.40570133,0.26797673246193954,0.5358580642170987,2,1,0
+46002-P-TD-K00-009,African Development Bank,Multilateral,A01_general,TD,1,0,0,20341548.15454695,1,NA,1,1,0
+46002-P-CG-K00-009,African Development Bank,Multilateral,A01_general,CG,1,0.04670782561228548,-9,214966177.55188113,1,NA,1,1,0
+46002-P-CG-K00-012,African Development Bank,Multilateral,A01_general,CG,1,0.03564119770883589,-272,105902396.5733984,0.999116488228797,7.805930498649971e-7,2,1,0
+46002-P-CI-I00-003,African Development Bank,Multilateral,A02_sector,CI,1,0.7207011887531474,1,145414947.2408046,0.262767753378523,0.5498704888208517,2,1,1
+46002-P-CI-IZ0-004,African Development Bank,Multilateral,A02_sector,CI,1,4.354059457423176e-8,641,25539491.190075494,0.20745568848152693,0.6463666227043315,2,1,0
+46002-P-CI-KA0-009,African Development Bank,Multilateral,A01_general,CI,1,0,181,49134331.515703,0.2790507901089496,0.5197677632425299,2,1,0
+46002-P-CI-KA0-012,African Development Bank,Multilateral,A01_general,CI,1,0.02273416251771587,0,87213696.54749684,0.3022755756596951,0.48681937232100975,2,1,0
+46002-P-CI-KA0-011,African Development Bank,Multilateral,A01_general,CI,1,0.07600703601402792,0,35141305.46631643,0.24657275479103127,0.5676526138231756,2,1,0
+46002-P-CI-KA0-010,African Development Bank,Multilateral,A01_general,CI,1,0.0538072676415321,365,86632772.10549942,0.5444312460988993,0.2075428895310018,2,1,0
+46002-P-CD-K00-012,African Development Bank,Multilateral,both,CD,1,0,-125,135610321.030313,1,NA,1,1,0
+46002-P-EG-FA0-005,African Development Bank,Multilateral,A02_sector,EG,1,0.02152305446903846,-134,260241903.61632043,1,NA,1,1,0
+46002-P-EG-FA0-008,African Development Bank,Multilateral,A02_sector,EG,1,0.05494788951806662,0,96000346.67422467,1,NA,1,1,0
+46002-P-EG-K00-011,African Development Bank,Multilateral,A02_sector,EG,1,0.03354547201343516,17,500001183.64756507,0.29587313420898625,0.4957946431286764,2,1,0
+46002-P-EG-K00-009,African Development Bank,Multilateral,A02_sector,EG,1,0.00881440460597693,0,495869244.664073,1,NA,1,1,0
+46002-P-EG-K00-010,African Development Bank,Multilateral,A02_sector,EG,1,-0.00901839328885478,0,493210940.8508463,1,NA,1,1,0
+46002-P-EG-K00-017,African Development Bank,Multilateral,A01_general,EG,1,-0.01258797147318957,-182,268584352.84720653,1,NA,1,1,0
+46002-P-GA-K00-015,African Development Bank,Multilateral,A01_general,GA,1,0.07980107702748418,29,58175388.46254511,1,NA,1,1,0
+46002-P-GA-K00-013,African Development Bank,Multilateral,A01_general,GA,1,0.03337286554019425,0,116932530.8140552,1,NA,1,1,0
+46002-P-GA-KA0-007,African Development Bank,Multilateral,A01_general,GA,1,0.051049070615376,184,116350776.92509022,0.3569503347887758,0.4135128719282675,2,1,0
+46002-P-GA-KA0-005,African Development Bank,Multilateral,A01_general,GA,1,0.08958616485054716,96,232701553.85018045,0.7349611179962153,0.07024560897381604,2,1,0
+46002-P-GA-KA0-006,African Development Bank,Multilateral,A01_general,GA,1,0.02415479159199884,0,349052330.7752707,0.7349611179962153,0.07024560897381604,2,1,0
+46002-P-ET-IZ0-002,African Development Bank,Multilateral,A02_sector,ET,1,0.967741935483871,0,7567055913.491466,0.6812052805545815,0.2744833533870372,3,1,1
+46002-P-ET-K00-011,African Development Bank,Multilateral,A01_general,ET,1,0.8738296239101939,0,1779424388.431355,0.2201835216681212,0.5925793999535426,3,1,1
+46002-P-ET-K00-015,African Development Bank,Multilateral,A02_sector,ET,1,0,153,120232110.6254755,0.1579219877957601,0.7075755334525939,3,1,0
+46002-P-ET-K00-016,African Development Bank,Multilateral,A01_general,ET,1,0,0,162732385.2363756,0.21159200000315892,0.6153804721170459,3,1,0
+46002-P-GM-KA0-009,African Development Bank,Multilateral,A01_general,GM,1,0,85,6780516.051515649,1,NA,1,1,0
+46002-P-GM-K00-010,African Development Bank,Multilateral,A01_general,GM,1,9.986885245905076e-5,92,827222.9582849093,1,NA,1,1,0
+46002-P-GM-K00-011,African Development Bank,Multilateral,A02_sector,GM,1,0.05956657500000018,-493,2712206.4206062597,0.6716268137309933,0.7017763084403552,1.4,1,0
+46002-P-GM-J00-002,African Development Bank,Multilateral,A02_sector,GM,1,0.00196365330848102,2,2910197.489310517,0.7819787891257576,0.42779923551963783,1.3333333333333333,1,0
+46002-P-GM-K00-013,African Development Bank,Multilateral,A01_general,GM,1,0,0,13561032.103031298,0.3459363673772728,0.42779923551963783,2,1,0
+46002-P-GM-KA0-011,African Development Bank,Multilateral,A01_general,GM,1,0.5,-50,13561032.103031298,0.14327162488644357,0.7339835087247147,2,1,1
+46002-P-GN-KA0-006,African Development Bank,Multilateral,A01_general,GN,1,0.00149395247148276,365,14266205.772388926,0.5757229029285141,0.7200442203976279,1.5,1,0
+DE-1-201165281,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A01_general,BF,1,0,0,13672800,0.05704706474910381,0.6603845286964475,3,1,0
+DE-1-201166974,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,BF,1,0,0,7463070,0.05704706474910381,0.6603845286964475,3,1,0
+DE-1-201170307,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A01_general,BF,1,0,0,1139400,0.05704706474910381,0.6603845286964475,3,1,0
+DE-1-201170323,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,BF,1,0,0,569700,0.024984594303854947,0.7221344700510359,3,1,0
+DE-1-201767508,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,BF,1,0,0,7975800,0.04997065284636518,0.7709828884309741,3,1,0
+DE-1-201868785,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,BF,1,0,0,20509200,0.06644146803800595,0.6950158855571413,3.3333333333333335,1,0
+46002-P-GN-KA0-005,African Development Bank,Multilateral,A02_sector,GN,1,0,0,8665499.513837,0.14965901277507693,0.7230797945546567,2,1,0
+46002-P-GN-KZ0-002,African Development Bank,Multilateral,both,GN,1,0,0,32546477.04727512,0.28301361898422256,0.5140694705621015,2,1,0
+46002-P-GW-KA0-008,African Development Bank,Multilateral,A01_general,GW,1,0,0,6780516.05151565,1,NA,1,1,0
+46002-P-GW-IB0-005,African Development Bank,Multilateral,A02_sector,GW,1,0.00634805606849087,-191,8078306.823775745,1,NA,1,1,0
+46002-P-GW-A00-010,African Development Bank,Multilateral,A02_sector,GW,1,1.3799999987185174e-7,-91,6780516.051515649,1,NA,1,1,0
+46002-P-GH-K00-013,African Development Bank,Multilateral,A01_general,GH,1,0,0,54244128.41212519,0.22391337716389112,0.403706738055656,4,1,0
+46002-P-GH-KA0-006,African Development Bank,Multilateral,A01_general,GH,1,0,92,47463612.36060955,0.180792696331258,0.5923099007558992,3,1,0
+46002-P-GH-KA0-008,African Development Bank,Multilateral,A01_general,GH,1,0,0,67127108.91000493,1,NA,1,1,0
+46002-P-LR-KA0-004,African Development Bank,Multilateral,A01_general,LR,1,0,0,9492722.47212191,0.25839917011914487,0.5525464964228662,2,1,0
+DE-1-201965052,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,CI,1,0,0,68591880,0.4555687539011008,0.29640538172880027,2,1,0
+46002-P-LR-K00-020,African Development Bank,Multilateral,A01_general,LR,1,0,0,13764447.584576769,0.30914072648957114,0.4772865357953577,2,1,0
+46002-P-KE-K00-004,African Development Bank,Multilateral,A01_general,KE,1,0.03759423834659869,-178,102546054.77029648,0.12769141220213026,0.7610531331762587,2,1,0
+46002-P-KE-K00-007,African Development Bank,Multilateral,A01_general,KE,1,0.05523347995814431,0,219415291.27062804,0.15710470360079534,0.7104724806919029,2,1,0
+46002-P-KE-K00-010,African Development Bank,Multilateral,A01_general,KE,1,0.10453884385806832,-363,103493586.56752647,0.13913085407421394,0.7410956864069924,2,1,0
+46002-P-KE-A00-002,African Development Bank,Multilateral,A01_general,KE,1,0.02746363783795558,113,71782238.34327585,0.08265463326939626,0.8415225218621061,2,1,0
+46002-P-MG-KA0-009,African Development Bank,Multilateral,A01_general,MG,1,0,191,16951290.128789123,0.2138124448954859,0.6180908718012134,2,1,0
+46002-P-MG-K00-010,African Development Bank,Multilateral,A01_general,MG,1,0,0,33902580.25757825,0.38288590243873627,0.380829809408853,2,1,0
+46002-P-MG-K00-018,African Development Bank,Multilateral,A01_general,MG,1,0,0,40683096.3090939,0.2242177944672589,0.6158856724984882,2,1,0
+46002-P-MG-KA0-012,African Development Bank,Multilateral,A01_general,MG,1,0,0,13520349.006722204,0.10569504527013553,0.7997813520543847,2,1,0
+46002-P-MU-K00-004,African Development Bank,Multilateral,A01_general,MU,1,0.1066094178210063,1,319947454.3772978,0.8903123724047787,0.012031375647467923,2,1,0
+46002-P-MU-K00-005,African Development Bank,Multilateral,A01_general,MU,1,-0.02546127789407504,1,170396981.51766938,0.8903123724047787,0.012031375647467923,2,1,0
+46002-P-MU-K00-008,African Development Bank,Multilateral,A01_general,MU,1,0.04902228348048465,0,218615666.00262815,1,NA,1,1,0
+46002-P-MU-K00-009,African Development Bank,Multilateral,A01_general,MU,1,-0.02221026919006141,-120,247771543.20477027,1,NA,1,1,0
+46002-P-MR-K00-018,African Development Bank,Multilateral,A01_general,MR,1,0,0,10170774.077273477,0.12394732091006479,0.7674682965406531,2,1,0
+46002-P-MR-K00-017,African Development Bank,Multilateral,A01_general,MR,1,0,0,5424412.841212519,1,NA,1,1,0
+46002-P-MR-K00-016,African Development Bank,Multilateral,A01_general,MR,1,0,0,9086759.415085563,0.2565493257756416,0.552718905004653,2,1,0
+46002-P-MW-IE0-005,African Development Bank,Multilateral,A02_sector,MW,1,0,182,25765960.99575947,0.9859901512305802,1.962758625420058e-4,2,1,0
+46002-P-MW-KA0-004,African Development Bank,Multilateral,both,MW,1,0,0,44615795.61897297,0.6014189844390869,0.15886682596556884,2,1,0
+44000-P146280,EN: World Bank,Multilateral,A02_sector,AL,1,0.03720084999999995,0,100000000,1,NA,1,1,0
+44000-P147226,EN: World Bank,Multilateral,A02_sector,AL,1,0.03740608333333328,0,120000000,1,NA,1,1,0
+44000-P152064,EN: World Bank,Multilateral,A02_sector,AL,1,0,0,100000000,1,NA,1,1,0
+44000-P155605,EN: World Bank,Multilateral,A02_sector,AL,1,-0.11023528571428565,0,70000000,1,NA,1,1,0
+44000-P160594,EN: World Bank,Multilateral,A02_sector,AL,1,-0.01961229999999991,0,10000000,0.598626697876762,0.1611005276573121,2,1,0
+44000-P169524,EN: World Bank,Multilateral,A02_sector,AL,1,0,0,80000000,0.799313348938381,0.1611005276573121,1.5,1,0
+44000-P178202,EN: World Bank,Multilateral,A02_sector,AL,1,-0.02109355833333337,0,120000000,0.9426100295370431,0.003246182024397415,3,1,0
+44000-P168446,EN: World Bank,Multilateral,A02_sector,AF,1,0.00261476000000004,0,100000000,1,NA,1,1,0
+46002-P-ML-KA0-009,African Development Bank,Multilateral,both,ML,1,0,0,48819715.570912674,0.9977852130316378,4.9052813152483665e-6,2,1,0
+44000-P176137,EN: World Bank,Multilateral,A02_sector,AF,1,0.00702727272727277,0,132000000,1,NA,1,1,0
+44000-P174234,EN: World Bank,Multilateral,A02_sector,AF,1,-0.01249352000000003,0,100000000,1,NA,1,1,0
+44000-P164882,EN: World Bank,Multilateral,A02_sector,AF,1,0.02690386666666666,0,90000000,1,NA,1,1,0
+44000-P160544,EN: World Bank,Multilateral,A02_sector,AF,1,-0.02811739999999996,0,100000000,1,NA,1,1,0
+44000-P172211,EN: World Bank,Multilateral,A02_sector,AF,1,9.559000000000096e-4,0,160000000,1,NA,1,1,0
+44000-P153234,EN: World Bank,Multilateral,A02_sector,AM,1,0,0,50000000,0.5840736504135693,0.17299472828029366,2,1,0
+44000-P169624,EN: World Bank,Multilateral,A02_sector,AM,1,-0.0211110000000001,0,50000000,0.5010051433628,0.24899586695037979,2,1,0
+44000-P143040,EN: World Bank,Multilateral,A02_sector,AM,1,0,0,75000000,0.7979062009333067,0.040841903621208986,2,1,0
+44000-P176278,EN: World Bank,Multilateral,A02_sector,AM,1,-0.03412919999999997,0,100000000,1,NA,1,1,0
+44000-P168336,EN: World Bank,Multilateral,A02_sector,AO,1,0,0,700000000,1,NA,1,1,0
+44000-P179512,EN: World Bank,Multilateral,A02_sector,AO,1,0,0,500000000,1,NA,1,1,0
+46002-P-ML-KA0-008,African Development Bank,Multilateral,A01_general,ML,1,0,-182,16869923.936170936,0.9977852130316378,4.9052813152483665e-6,2,1,0
+44000-P153243,EN: World Bank,Multilateral,A02_sector,AO,1,0,0,450000000,1,NA,1,1,0
+44000-P166564,EN: World Bank,Multilateral,A02_sector,AO,1,0,0,500000000,1,NA,1,1,0
+44000-P169983,EN: World Bank,Multilateral,A02_sector,AO,1,0,0,500000000,1,NA,1,1,0
+44000-P175492,EN: World Bank,Multilateral,A02_sector,BB,1,0,0,100000000,0.5,0.25,2,1,0
+44000-P179112,EN: World Bank,Multilateral,A02_sector,BB,1,0,0,100000000,0.3333333333333333,0.4444444444444445,2,1,0
+44000-P167889,EN: World Bank,Multilateral,A02_sector,AR,1,0,0,500000000,0.5,0.25,2,1,0
+44000-P149768,EN: World Bank,Multilateral,A02_sector,BA,1,-0.1476430500000001,0,80000000,1,NA,1,1,0
+44000-P146740,EN: World Bank,Multilateral,A02_sector,BA,1,0.1501498,0,50000000,1,NA,1,1,0
+44000-P150941,EN: World Bank,Multilateral,A02_sector,BI,1,0.04789935999999994,0,25000000,1,NA,1,1,0
+44000-P166298,EN: World Bank,Multilateral,A02_sector,BF,1,0.01844199999999996,0,100000000,0.7722849637704651,0.02498635293575735,4,1,0
+44000-P173529,EN: World Bank,Multilateral,A02_sector,BF,1,0.10049513118171882,0,199451991,0.9964412645347758,2.1667767553079642e-5,2,1,0
+44000-P170934,EN: World Bank,Multilateral,A02_sector,BF,1,-0.01703257857384255,0,147950000,0.6916755073550499,0.06479993204892759,4,1,0
+44000-P146640,EN: World Bank,Multilateral,A02_sector,BF,1,-0.0023456799999999,0,100000000,0.9309004656147652,0.004774745652256218,2,1,0
+44000-P174315,EN: World Bank,Multilateral,A02_sector,BF,1,-0.02264277547474646,0,99743426,0.8455586500418035,0.03240012182214272,3,1,0
+44000-P151275,EN: World Bank,Multilateral,A02_sector,BF,1,0.00980567373151763,0,99999656,0.7924704774814751,0.054121143184396175,3,1,0
+44000-P157060,EN: World Bank,Multilateral,A02_sector,BF,1,0.02791690999999996,0,100000000,0.9950254065052629,2.4746580437828847e-5,2,1,0
+44000-P163283,EN: World Bank,Multilateral,A02_sector,BF,1,-0.05044132505534171,0,74885959,0.8700223205633003,0.013012895669968938,3,1,0
+44000-P150751,EN: World Bank,Multilateral,A02_sector,BO,1,0.01409570999999998,0,200000000,0.5804373141349518,0.17603284737029312,2,1,0
+46002-P-ML-KA0-004,African Development Bank,Multilateral,A01_general,ML,1,0,0,31394602.98044364,0.6123247390696995,0.15029210793737657,2,1,0
+44000-P132786,EN: World Bank,Multilateral,A02_sector,BJ,1,-0.00152774999999993,0,20000000,1,NA,1,1,0
+44000-P146665,EN: World Bank,Multilateral,A02_sector,BJ,1,0.00131399999999981,0,19999999.999999996,1,NA,1,1,0
+44000-P166115,EN: World Bank,Multilateral,A02_sector,BJ,1,0.02346999999999999,0,15000000,0.8327101834648599,0.02798588271636082,2,1,0
+44000-P168668,EN: World Bank,Multilateral,A02_sector,BJ,1,-0.00936742666666656,0,150000000,0.9179717638179095,0.005592015984850263,3,1,0
+44000-P172749,EN: World Bank,Multilateral,A02_sector,BJ,1,-0.03677795000000006,0,100000000,0.919637949865052,0.0049194093563211805,3,1,0
+44000-P176513,EN: World Bank,Multilateral,A02_sector,BJ,1,0.01720463999999999,0,100000000,0.9591088588016675,0.001672085428501946,2,1,0
+44000-P178042,EN: World Bank,Multilateral,A02_sector,BJ,1,0.04491766666666663,0,150000000,0.9886118534446127,1.2968988196693232e-4,2,1,0
+44000-P175490,EN: World Bank,Multilateral,A02_sector,BS,1,0,0,100000000,0.4166666666666667,0.3402777777777778,2,1,0
+44000-P157469,EN: World Bank,Multilateral,A02_sector,BT,1,0.00696979166666666,0,24000000,0.544125792964161,0.20782129264055504,2,1,0
+44000-P178635,EN: World Bank,Multilateral,A02_sector,BT,1,-0.00309103999999993,0,50000000,1,NA,1,1,0
+44000-P177712,EN: World Bank,Multilateral,A02_sector,BT,1,0.00385860952380934,0,52500000,0.5833678342321117,0.17358236155244106,2,1,0
+44000-P147806,EN: World Bank,Multilateral,A02_sector,BT,1,-0.00340239999999991,0,20000000,0.5548557113173483,0.1981534377467839,2,1,0
+44000-P173008,EN: World Bank,Multilateral,A02_sector,BT,1,-0.01624824324324314,0,14800000,0.5231800760985525,0.22735723982938216,2,1,0
+44000-P171780,EN: World Bank,Multilateral,A02_sector,BT,1,0.00447710000000001,0,40000000,0.5231800760985525,0.22735723982938216,2,1,0
+44000-P168166,EN: World Bank,Multilateral,A02_sector,BT,1,-0.00516570000000005,0,30000000,0.44903557474546446,0.3035617978960607,2,1,0
+44000-P175758,EN: World Bank,Multilateral,A02_sector,BT,1,0.00383165714285715,0,35000000,0.48515214978476856,0.2650683088712454,2,1,0
+44000-P175934,EN: World Bank,Multilateral,A02_sector,BW,1,0,0,250000000,1,NA,1,1,0
+44000-P172455,EN: World Bank,Multilateral,A02_sector,BR,1,0,0,200000000,1,NA,1,1,0
+44000-P147984,EN: World Bank,Multilateral,A02_sector,BR,1,0,0,400000000,0.6359797623300645,0.13251073343327635,2,1,0
+44000-P179182,EN: World Bank,Multilateral,A02_sector,BR,1,0,0,135238245,0.7222789606898954,0.07712897567548471,2,1,0
+44000-P147913,EN: World Bank,Multilateral,A02_sector,BR,1,0,0,250000000,0.6359797623300645,0.13251073343327635,2,1,0
+44000-P148083,EN: World Bank,Multilateral,A02_sector,BR,1,0,0,280000000,0.6359797623300645,0.13251073343327635,2,1,0
+44000-P146981,EN: World Bank,Multilateral,A02_sector,BR,1,0,0,200000000,1,NA,1,1,0
+44000-P153203,EN: World Bank,Multilateral,A02_sector,BR,1,0,0,150000000,1,NA,1,1,0
+44000-P129652,EN: World Bank,Multilateral,A02_sector,BR,1,0,0,150000000,0.6359797623300645,0.13251073343327635,2,1,0
+44000-P178729,EN: World Bank,Multilateral,A02_sector,BR,1,0,0,135238245,0.8611394803449477,0.07712897567548471,1.5,1,0
+44000-P164588,EN: World Bank,Multilateral,A02_sector,BR,1,0,0,248883034,1,NA,1,1,0
+44000-P177632,EN: World Bank,Multilateral,A02_sector,BR,1,-2.220446049250313e-16,0,470169601,0.8611394803449477,0.07712897567548471,1.5,1,0
+44000-P147979,EN: World Bank,Multilateral,A02_sector,BR,1,0,0,216000000,0.6359797623300645,0.13251073343327635,2,1,0
+44000-P168035,EN: World Bank,Multilateral,A02_sector,CF,1,0.00173739751607449,0,124489645,0.9221564527158637,0.024238471415110263,1.5,1,0
+44000-P168474,EN: World Bank,Multilateral,A02_sector,CF,1,-0.02857749580471802,0,49921554,0.8443129054317274,0.024238471415110263,2,1,0
+44000-P164442,EN: World Bank,Multilateral,A02_sector,CF,1,0.01519404000000002,0,25000000,0.7217260798499576,0.0774363746356721,2,1,0
+44000-P178614,EN: World Bank,Multilateral,A02_sector,CG,1,-0.0761407999999999,0,50000000,1,NA,1,1,0
+46002-P-ML-KA0-007,African Development Bank,Multilateral,A01_general,ML,1,0,184,12204928.892728169,0.38358453318655744,0.3465157433577007,2.5,1,0
+44000-P180093,EN: World Bank,Multilateral,A02_sector,CG,1,-0.03108713749999991,0,80000000,8.835117712030058e-4,0.9982337570506438,2,1,0
+44000-P167190,EN: World Bank,Multilateral,A02_sector,BD,1,-0.00553626799999995,0,250000000,1,NA,1,1,0
+44000-P168724,EN: World Bank,Multilateral,A02_sector,BD,1,-0.00829339999999989,0,250000000,0.2739427619127724,0.5271591129788532,2,1,0
+44000-P168725,EN: World Bank,Multilateral,A02_sector,BD,1,0.00521644799999998,0,250000000,1,NA,1,1,0
+44000-P174892,EN: World Bank,Multilateral,A02_sector,BD,1,0.029391724,0,250000000,0.8291486536526075,0.029190182548716637,2,1,0
+44000-P179079,EN: World Bank,Multilateral,A02_sector,BD,1,-0.01539751799999988,0,500000000.00000006,0.5593251659386702,0.19419430937498056,2,1,0
+44000-P154213,EN: World Bank,Multilateral,A02_sector,CL,1,0,0,100000000,0.38461538461538464,0.37869822485207105,2,1,0
+44000-P155259,EN: World Bank,Multilateral,A02_sector,CI,1,0.02001975,0,100000000,0.9276003627862375,0.0052417074686844645,2,1,0
+44000-P166388,EN: World Bank,Multilateral,A02_sector,CI,1,0.00933759999999994,0,100000000,1,NA,1,1,0
+44000-P178064,EN: World Bank,Multilateral,A02_sector,CI,1,-0.07295849999999993,0,400000000,0.7534272452089688,0.06079812340523805,2,1,0
+44000-P169828,EN: World Bank,Multilateral,A02_sector,CI,1,0.01633258500000001,0,200000000,0.6977244243403048,0.0913705236404001,2,1,0
+44000-P143781,EN: World Bank,Multilateral,A02_sector,CI,1,0.02116498972247726,0,69999845,0.7925443115184732,0.06127799966738534,2,1,0
+44000-P158463,EN: World Bank,Multilateral,A02_sector,CI,1,0.03556566666666672,0,75000000,0.8169762329922454,0.033497699289708915,2,1,0
+44000-P163284,EN: World Bank,Multilateral,A02_sector,CI,1,-0.01553863999999993,0,125000000,0.7209492098910505,0.07786934346042906,2,1,0
+44000-P179006,EN: World Bank,Multilateral,A02_sector,CI,1,-0.03423880000000001,0,300000000,1,NA,1,1,0
+44000-P174110,EN: World Bank,Multilateral,A02_sector,CI,1,-0.00115280000000006,0,300000000,1,NA,1,1,0
+44000-P177460,EN: World Bank,Multilateral,A02_sector,CD,1,0.02798632000000001,0,250000000,1,NA,1,1,0
+44000-P179141,EN: World Bank,Multilateral,A02_sector,CD,1,0,0,500000000,0.9999680973735852,1.0177775289221813e-9,2,1,0
+44000-P163657,EN: World Bank,Multilateral,A02_sector,CM,1,-0.03085286999999992,0,200000000,1,NA,1,1,0
+44000-P166694,EN: World Bank,Multilateral,A02_sector,CM,1,-0.00201387500000005,0,200000000,1,NA,1,1,0
+44000-P168332,EN: World Bank,Multilateral,A02_sector,CM,1,0.01689479999999998,0,100000000,1,NA,1,1,0
+44000-P175249,EN: World Bank,Multilateral,A02_sector,CM,1,-0.07124660000000005,0,100000000,0.5510556057233484,0.2015510691524296,2,1,0
+44000-P111926,EN: World Bank,Multilateral,A02_sector,CR,1,0,0,65000000,1,NA,1,1,0
+44000-P171912,EN: World Bank,Multilateral,A02_sector,CR,1,0,0,300000000,1,NA,1,1,0
+44000-P174786,EN: World Bank,Multilateral,A02_sector,CR,1,0,0,300000000,0.7727272727272727,0.2066115702479338,1.5,1,0
+44000-P145605,EN: World Bank,Multilateral,A02_sector,CO,1,0,0,600000000,0.54,0.21160000000000007,2,1,0
+44000-P154821,EN: World Bank,Multilateral,A02_sector,CO,1,0.00556022857142857,0,700000000,0.5389647152913328,0.18221694890916876,2.6666666666666665,1,0
+44000-P176505,EN: World Bank,Multilateral,A02_sector,CO,1,-0.00316975399999996,0,500000000,0.8823529411764706,0.01384083044982698,2,1,0
+44000-P158739,EN: World Bank,Multilateral,A02_sector,CO,1,-0.1661516000000001,0,600000000,0.5111575387015791,0.2121935254885434,2.5,1,0
+44000-P170728,EN: World Bank,Multilateral,A02_sector,CO,1,0,0,400000000,0.54,0.21160000000000007,2,1,0
+44000-P149609,EN: World Bank,Multilateral,A02_sector,CO,1,0,0,700000000,0.5822737433259302,0.16332622605287653,2.3333333333333335,1,0
+44000-P150475,EN: World Bank,Multilateral,A02_sector,CO,1,-0.00100680000000008,0,700000000,0.44372377051781337,0.27003253790911863,2.5,1,0
+44000-P174118,EN: World Bank,Multilateral,A02_sector,CO,1,0,0,700000000,0.54,0.21160000000000007,2,1,0
+44000-P180566,EN: World Bank,Multilateral,A02_sector,CO,1,0.01368845200000001,0,750000000,0.42857142857142855,0.3265306122448979,2,1,0
+44000-P161642,EN: World Bank,Multilateral,A02_sector,CO,1,0,0,500000000,0.565844383172661,0.15590032665873954,2.5,1,0
+44000-P173424,EN: World Bank,Multilateral,A02_sector,CO,1,0,0,500000000,0.7111764705882353,0.11272041522491352,2,1,0
+44000-P180033,EN: World Bank,Multilateral,A02_sector,CO,1,-0.01010866600000004,0,1000000000,0.7929821466839034,0.042856391591604925,2,1,0
+44000-P126583,EN: World Bank,Multilateral,A02_sector,CO,1,0,0,250000000,0.54,0.21160000000000007,2,1,0
+44000-P145766,EN: World Bank,Multilateral,A02_sector,CO,1,0,0,700000000,0.645,0.13705000000000003,2,1,0
+44000-P175801,EN: World Bank,Multilateral,A02_sector,CO,1,-0.00316975399999996,0,500000000,0.8823529411764706,0.01384083044982698,2,1,0
+44000-P158520,EN: World Bank,Multilateral,A02_sector,CO,1,0.063713625,0,800000000,0.5253496134770221,0.22167928311424223,2.5,1,0
+44000-P176650,EN: World Bank,Multilateral,A02_sector,CO,1,-0.00980237333333322,0,300000000,0.837667543930187,0.028348611020715953,2,1,0
+44000-P162858,EN: World Bank,Multilateral,A02_sector,CO,1,0,0,718500000,0.4853131555289182,0.2678931988298039,2,1,0
+44000-P176788,EN: World Bank,Multilateral,A02_sector,CO,1,-0.0032687973333334,0,750000000,0.7929821466839034,0.042856391591604925,2,1,0
+44000-P175126,EN: World Bank,Multilateral,A02_sector,CO,1,-0.00307070933333331,0,750000000,0.8823529411764706,0.01384083044982698,2,1,0
+44000-P130972,EN: World Bank,Multilateral,A02_sector,CO,1,0,0,150000000,0.54,0.21160000000000007,2,1,0
+44000-P174754,EN: World Bank,Multilateral,A02_sector,CV,1,0.01172666666666666,0,30000000,0.5713766784850958,0.183717951746469,2,1,0
+44000-P165631,EN: World Bank,Multilateral,A02_sector,CV,1,0.00893952499999994,0,40000000,0.6441768411793243,0.1266101203531239,2,1,0
+44000-P147015,EN: World Bank,Multilateral,A02_sector,CV,1,-0.01386799999999999,0,10000000,0.38757264300529426,0.3750672675955209,2,1,0
+44000-P160628,EN: World Bank,Multilateral,A02_sector,CV,1,-0.00426560000000009,0,10000000,0.5812310809327601,0.17932957630976246,2,1,0
+44000-P127411,EN: World Bank,Multilateral,A02_sector,CV,1,-0.00422670967741933,0,15499999.999999998,0.4731726774440835,0.2775470277914358,2,1,0
+44000-P176148,EN: World Bank,Multilateral,A02_sector,CV,1,-0.06281024761904752,0,52500000,0.6760332716974289,0.10495444104707191,2,1,0
+44000-P171080,EN: World Bank,Multilateral,A02_sector,CV,1,-0.03034124000000004,0,25000000,0.5182853206861959,0.232049032266401,2,1,0
+44000-P179265,EN: World Bank,Multilateral,A02_sector,CV,1,-0.0282444799999999,0,25000000,1,NA,1,1,0
+44000-P174927,EN: World Bank,Multilateral,A02_sector,DM,1,0,0,25000000,1,NA,1,1,0
+44000-P175847,EN: World Bank,Multilateral,A02_sector,DM,1,0,0,30000000,1,NA,1,1,0
+44000-P169822,EN: World Bank,Multilateral,A02_sector,EC,1,0,0,500000000,0.9250578834947998,0.005477564241694877,3,1,0
+44000-P171190,EN: World Bank,Multilateral,A02_sector,EC,1,0,0,500000000,0.6993006993006993,0.09042006944104847,2,1,0
+44000-P174115,EN: World Bank,Multilateral,A02_sector,EC,1,0,0,500000000,0.6993006993006993,0.09042006944104847,2,1,0
+44000-P176983,EN: World Bank,Multilateral,A02_sector,EC,1,0,0,700000000,0.6486486486486487,0.12344777209642072,2,1,0
+44000-P178636,EN: World Bank,Multilateral,A02_sector,EC,1,0,0,500000000,0.49673811742777263,0.2763493319459511,2,1,0
+44000-P180319,EN: World Bank,Multilateral,A02_sector,EC,1,0,0,500000000,0.3448275862068966,0.42925089179548154,2,1,0
+44000-P155425,EN: World Bank,Multilateral,A02_sector,DO,1,0,0,60000000,0.13043478260869565,0.7561436672967864,2,1,0
+44000-P159351,EN: World Bank,Multilateral,A02_sector,DO,1,0,0,150000000,0.3333333333333333,0.4444444444444445,2,1,0
+44000-P174145,EN: World Bank,Multilateral,A02_sector,DO,1,0,0,100000000,0.3333333333333333,0.4444444444444445,2,1,0
+44000-P175874,EN: World Bank,Multilateral,A02_sector,DO,1,0,0,400000000,0.6153846153846154,0.14792899408284022,2,1,0
+44000-P178570,EN: World Bank,Multilateral,A02_sector,DO,1,0,0,400000000,0.6153846153846154,0.14792899408284022,2,1,0
+44000-P112346,EN: World Bank,Multilateral,A02_sector,EG,1,0,0,300000000,0.9926079312114889,5.4642680974104074e-5,2,1,0
+44000-P164079,EN: World Bank,Multilateral,A02_sector,EG,1,0,0,1150000000,0.7041268657910138,0.08754091154664878,2,1,0
+44000-P171311,EN: World Bank,Multilateral,A02_sector,EG,1,0,0,360000000,1,NA,1,1,0
+44000-P159774,EN: World Bank,Multilateral,A02_sector,FJ,1,0,0,50000000,1,NA,1,1,0
+44000-P168402,EN: World Bank,Multilateral,A02_sector,FJ,1,0.0042172968750000504,0,64000000,0.19386753557727981,0.6498495501962483,2,1,0
+44000-P175543,EN: World Bank,Multilateral,A02_sector,FJ,1,0.01278044,0,100000000,0.3969169332200009,0.3637091854367689,2,1,0
+44000-P157406,EN: World Bank,Multilateral,A02_sector,CN,1,0,0,200000000,1,NA,1,1,0
+44000-P157404,EN: World Bank,Multilateral,A02_sector,CN,1,0,0,200000000,1,NA,1,1,0
+44000-P159508,EN: World Bank,Multilateral,A02_sector,GA,1,0.00384147000000001,0,200000000,0.2650388820037846,0.5401678449662467,2,1,0
+44000-P164201,EN: World Bank,Multilateral,A02_sector,GA,1,0.00546568999999996,0,200000000,0.6430496652112242,0.12741354150581913,2,1,0
+44000-P164289,EN: World Bank,Multilateral,A02_sector,GD,1,0,0,30000000,1,NA,1,1,0
+44000-P171465,EN: World Bank,Multilateral,A02_sector,GD,1,0,0,20000000,1,NA,1,1,0
+44000-P151821,EN: World Bank,Multilateral,A02_sector,GD,1,4.0266666666655127e-4,0,14999999.999999998,1,NA,1,1,0
+44000-P174527,EN: World Bank,Multilateral,A02_sector,GD,1,0,0,25000000,1,NA,1,1,0
+44000-P178930,EN: World Bank,Multilateral,A02_sector,GD,1,0,0,30000000,1,NA,1,1,0
+44000-P167748,EN: World Bank,Multilateral,A02_sector,GD,1,0,0,20000000,1,NA,1,1,0
+44000-P176663,EN: World Bank,Multilateral,A02_sector,GD,1,0,0,25000000,1,NA,1,1,0
+44000-P147152,EN: World Bank,Multilateral,A02_sector,GD,1,5.701999999999652e-4,0,15000000,1,NA,1,1,0
+44000-P156761,EN: World Bank,Multilateral,A02_sector,GD,1,0.02688650963597427,0,9340000,1,NA,1,1,0
+44000-P177797,EN: World Bank,Multilateral,A02_sector,GE,1,-0.00514498000000007,0,50000000,0.7205993091224225,0.05159463283184573,3,1,0
+44000-P149998,EN: World Bank,Multilateral,A02_sector,GE,1,0,0,60000000,0.6193318364535647,0.1449082507378157,2,1,0
+44000-P169913,EN: World Bank,Multilateral,A02_sector,GE,1,-0.0263096954314721,0,98500000,0.4799943348122019,0.24373696715710955,3,1,0
+44000-P155553,EN: World Bank,Multilateral,A02_sector,GE,1,-0.05370911999999994,0,50000000,1,NA,1,1,0
+44000-P149991,EN: World Bank,Multilateral,A02_sector,GE,1,0,0,60000000,0.6193318364535647,0.1449082507378157,2,1,0
+44000-P156444,EN: World Bank,Multilateral,A02_sector,GE,1,-0.07224381999999996,0,50000000,1,NA,1,1,0
+44000-P163285,EN: World Bank,Multilateral,A02_sector,GM,1,-0.0218657499999999,0,56000000,1,NA,1,1,0
+44000-P173150,EN: World Bank,Multilateral,A02_sector,GM,1,-0.00284217500000005,0,40000000,0.9878022987223064,1.4878391645989364e-4,2,1,0
+44000-P164545,EN: World Bank,Multilateral,A02_sector,GM,1,-0.02906640000000004,0,30000000,0.6540636326227272,0.11967197027418347,2,1,0
+44000-P133664,EN: World Bank,Multilateral,A02_sector,GH,1,-0.01171517333333338,0,150000000,0.6264361724126636,0.06142166042156655,4,1,0
+44000-P157343,EN: World Bank,Multilateral,A02_sector,GH,1,-0.0079926400000001,0,200000000,0.7679049200178606,0.035317933614988695,3,1,0
+44000-P168566,EN: World Bank,Multilateral,A02_sector,ET,1,0.00649760666666665,0,1200000000,0.8672300112063014,0.018648218500069758,3,1,0
+44000-P169079,EN: World Bank,Multilateral,A02_sector,ET,1,0.00346467466666666,0,750000000,0.7844519243282858,0.04478682500003217,3,1,0
+44000-P174063,EN: World Bank,Multilateral,A02_sector,GN,1,-0.03066509999999978,0,80000000.00000001,0.7169863810157774,0.08009670853054673,2,1,0
+44000-P151794,EN: World Bank,Multilateral,A02_sector,GN,1,-0.1907436012986008,0,48421660.99999999,0.850340987224923,0.022397820104810617,2,1,0
+44000-P156629,EN: World Bank,Multilateral,A02_sector,GN,1,0.01520952499999994,0,40000000,0.8485541941429716,0.022935832111684706,2,1,0
+44000-P166322,EN: World Bank,Multilateral,A02_sector,GN,1,-0.01653721111111106,0,90000000,1,NA,1,1,0
+44000-P161796,EN: World Bank,Multilateral,A02_sector,GN,1,0.01389149999999994,0,60000000,1,NA,1,1,0
+44000-P175979,EN: World Bank,Multilateral,A02_sector,GT,1,0,0,250000000,1,NA,1,1,0
+44000-P133738,EN: World Bank,Multilateral,A02_sector,GT,1,0,0,340000000,0.576271186440678,0.17954610744039068,2,1,0
+44000-P159710,EN: World Bank,Multilateral,A02_sector,GT,1,0,0,200000000,0.4444444444444444,0.308641975308642,2,1,0
+44000-P160667,EN: World Bank,Multilateral,A02_sector,GT,1,0,0,250000000,1,NA,1,1,0
+44000-P173698,EN: World Bank,Multilateral,A02_sector,GT,1,0,0,500000000,0.7222222222222222,0.308641975308642,1.5,1,0
+44000-P165425,EN: World Bank,Multilateral,A02_sector,GY,1,0.02245234285714281,0,35000000,0.8546241800254223,0.021134129033280824,2,1,0
+44000-P180216,EN: World Bank,Multilateral,A02_sector,GY,1,-0.02135891428571423,0,35000000,0.5437093165523005,0.20820118780116875,2,1,0
+44000-P127665,EN: World Bank,Multilateral,A02_sector,HR,1,0.02271518375241776,0,206800000,1,NA,1,1,0
+44000-P173996,EN: World Bank,Multilateral,A02_sector,HR,1,-0.11843756000000004,0,300000000,1,NA,1,1,0
+44000-P172567,EN: World Bank,Multilateral,A02_sector,HN,1,0,0,119000000,0.4094271460519525,0.34877629582034175,2,1,0
+44000-P151803,EN: World Bank,Multilateral,A02_sector,HN,1,0,0,55000000,0.2946694319627529,0.4851783800398214,3,1,0
+44000-P155920,EN: World Bank,Multilateral,A02_sector,HN,1,0,0,50000000,0.3291074163599306,0.4334074913808298,3,1,0
+44000-P162452,EN: World Bank,Multilateral,A02_sector,HT,1,0.00239624999999998,0,20000000,1,NA,1,1,0
+44000-P161167,EN: World Bank,Multilateral,A02_sector,IQ,1,0,0,1443820000,1,NA,1,1,0
+44000-P155962,EN: World Bank,Multilateral,A02_sector,IQ,1,0,0,1200000000,1,NA,1,1,0
+44000-P170223,EN: World Bank,Multilateral,A02_sector,JM,1,0,0,70000000,0.4117647058823529,0.34602076124567477,2,1,0
+44000-P163586,EN: World Bank,Multilateral,A02_sector,JM,1,0,0,70000000,1,NA,1,1,0
+44000-P174531,EN: World Bank,Multilateral,A02_sector,JM,1,0,0,150000000,0.6666666666666666,0.11111111111111116,2,1,0
+44000-P151448,EN: World Bank,Multilateral,A02_sector,JM,1,0,0,75000000,0.32608695652173914,0.45415879017013233,2,1,0
+44000-P154299,EN: World Bank,Multilateral,A02_sector,JO,1,0,0,250000000,0.9823760628206332,3.106031617022831e-4,2,1,0
+44000-P160236,EN: World Bank,Multilateral,A02_sector,JO,1,0,0,225000000,0.9810415037305981,3.5942458079696316e-4,2,1,0
+44000-P166360,EN: World Bank,Multilateral,A02_sector,JO,1,0,0,389000000,0.9993591451322856,3.848031172593025e-7,3,1,0
+44000-P168130,EN: World Bank,Multilateral,A02_sector,JO,1,0,0,953625000,0.9376903615381942,0.005635707145247915,3,1,0
+44000-P130048,EN: World Bank,Multilateral,A02_sector,ID,1,0,0,2000000000,0.5945724870232172,0.14972000393542578,3,1,0
+44000-P154291,EN: World Bank,Multilateral,A02_sector,ID,1,0,0,500000000,0.4623924348064091,0.29298426869966665,3,1,0
+44000-P158140,EN: World Bank,Multilateral,A02_sector,ID,1,0,0,400000000,0.4142553350469447,0.3422806500476431,3,1,0
+44000-P161475,EN: World Bank,Multilateral,A02_sector,ID,1,0,0,300000000,0.39914914375214416,0.36915638331568934,2.5,1,0
+44000-P163973,EN: World Bank,Multilateral,A02_sector,ID,1,0,0,300000000,0.3,0.49,2,1,0
+44000-P167297,EN: World Bank,Multilateral,A02_sector,ID,1,-0.020070896,0,1000000000,0.5049678692069033,0.24505681051755351,2,1,0
+44000-P170940,EN: World Bank,Multilateral,A02_sector,ID,1,-0.00311698666666671,0,600000000,0.2809297957729469,0.5170619586071359,2,1,0
+44000-P172439,EN: World Bank,Multilateral,A02_sector,ID,1,0,0,800000000,0.4444444444444444,0.308641975308642,2,1,0
+44000-P173232,EN: World Bank,Multilateral,A02_sector,ID,1,0,0,400000000,0.5225653700581543,0.2340467048864499,2,1,0
+44000-P173233,EN: World Bank,Multilateral,A02_sector,ID,1,0,0,1000000000,0.505280056959477,0.24474782204201845,2,1,0
+44000-P175742,EN: World Bank,Multilateral,A02_sector,ID,1,-0.0039336571428572,0,350000000,0.6006862956718643,0.1594514344642578,2,1,0
+44000-P177726,EN: World Bank,Multilateral,A02_sector,ID,1,-0.00389325333333334,0,750000000,0.6006862956718643,0.1594514344642578,2,1,0
+44000-P500689,EN: World Bank,Multilateral,A02_sector,ID,1,-0.02565626000000009,0,1000000000,0.505280056959477,0.24474782204201845,2,1,0
+44000-P152440,EN: World Bank,Multilateral,A02_sector,KG,1,0.02859687499999996,0,24000000,0.5033864188061086,0.2466250490262218,2,1,0
+44000-P163983,EN: World Bank,Multilateral,A02_sector,KG,1,0.04462158333333332,0,24000000,1,NA,1,1,0
+44000-P148099,EN: World Bank,Multilateral,A02_sector,KG,1,0.03438437500000002,0,24000000,0.658512117107147,0.11661397416264291,2,1,0
+44000-P126274,EN: World Bank,Multilateral,A02_sector,KG,1,0.00229592,0,25000000,0.5313425531886792,0.219639802451706,2,1,0
+44000-P179019,EN: World Bank,Multilateral,A02_sector,KH,1,0,0,274000000,0.7962271005693382,0.06402360018534803,2,1,0
+44000-P176756,EN: World Bank,Multilateral,A02_sector,KH,1,0.08588799999999996,0,200000000,0.9462277860443369,0.0028914509936935895,2,1,0
+44000-P144602,EN: World Bank,Multilateral,A02_sector,KI,1,-0.01525846153846144,0,5200000,0.6376524516918248,0.13129574576494524,2,1,0
+44000-P149888,EN: World Bank,Multilateral,A02_sector,KI,1,-3.6261566666666663,0,3000000,0.8188262258459125,0.13129574576494524,1.5,1,0
+44000-P155540,EN: World Bank,Multilateral,A02_sector,KI,1,-0.03740750000000004,0,2000000,0.5888752605605817,0.1690235513791295,2,1,0
+44000-P161794,EN: World Bank,Multilateral,A02_sector,KI,1,-0.0193350000000001,0,5000000,0.7944376302802909,0.1690235513791295,1.5,1,0
+44000-P167263,EN: World Bank,Multilateral,A02_sector,KI,1,0.00214442315977014,0,4999946,0.5026954522939382,0.989247252676523,1.5,1,0
+44000-P169179,EN: World Bank,Multilateral,A02_sector,KI,1,-0.00385279999999998,0,5000000,0.17666165267916664,0.6531437184642126,2.5,1,0
+44000-P179763,EN: World Bank,Multilateral,A02_sector,KM,1,0.02063343348247803,0,19952908.000000004,1,NA,1,1,0
+44000-P131688,EN: World Bank,Multilateral,A02_sector,KM,1,-0.01367105263157886,0,3800000,0.5868156931647642,0.17072127141491428,2,1,0
+44000-P174260,EN: World Bank,Multilateral,A02_sector,KM,1,-0.03699439999999998,0,10000000,0.5048481733203595,0.2451753314641847,2,1,0
+44000-P150924,EN: World Bank,Multilateral,A02_sector,KM,1,-0.03153707105533043,0,2997298,0.5327029281278377,0.21836655338029692,2,1,0
+44000-P154702,EN: World Bank,Multilateral,A02_sector,KZ,1,0,0,1000000000,1,NA,1,1,0
+44000-P174367,EN: World Bank,Multilateral,A02_sector,KZ,1,0.08787054999999999,0,400000000,1,NA,1,1,0
+44000-P159956,EN: World Bank,Multilateral,A02_sector,LA,1,-0.02758784659238133,0,38590000,1,NA,1,1,0
+44000-P166839,EN: World Bank,Multilateral,A02_sector,LA,1,-0.00400767499999998,0,40000000,0.4220279259922943,0.33405171833276887,2,1,0
+44000-P161562,EN: World Bank,Multilateral,A02_sector,KE,1,0.08931134500000004,0,200000000,0.9214476481996023,0.024681887893493792,1.5,1,0
+44000-P168204,EN: World Bank,Multilateral,A02_sector,KE,1,-0.00150728400602906,0,749999997,0.9214476481996023,0.024681887893493792,1.5,1,0
+44000-P172321,EN: World Bank,Multilateral,A02_sector,KE,1,0,0,1000000000,0.8428952963992046,0.024681887893493792,2,1,0
+44000-P175251,EN: World Bank,Multilateral,A02_sector,KE,1,0,0,750000000,0.8837480296699535,0.013514520605617975,2,1,0
+44000-P176903,EN: World Bank,Multilateral,A02_sector,KE,1,0,0,750000000,0.8608691459257861,0.019357394555420182,2,1,0
+44000-P180339,EN: World Bank,Multilateral,A02_sector,KE,1,0,0,1000000000,0.9173453667306039,0.006831788400898375,2,1,0
+44000-P174346,EN: World Bank,Multilateral,A02_sector,LC,1,0,0,30000000,1,NA,1,1,0
+44000-P147454,EN: World Bank,Multilateral,A02_sector,LK,1,0,0,102000000,1,NA,1,1,0
+44000-P157804,EN: World Bank,Multilateral,A02_sector,LK,1,0,0,100000000,1,NA,1,1,0
+DE-1-201468453,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,CO,1,0,0,85487047.869618,0.08671498162165622,0.41704482627940653,3,1,0
+DE-1-201468461,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,CO,1,0,0,85455000,0.1022855809110006,0.8058911782402997,2,1,0
+44000-P179808,EN: World Bank,Multilateral,A02_sector,LK,1,0.00875123200000005,0,500000000,0.5861046504543559,0.17130936037551103,2,1,0
+DE-1-201468479,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,CO,1,0,0,85487047.869618,0.08671498162165622,0.41704482627940653,3,1,0
+DE-1-201468487,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,CO,1,0,0,85455000,0.03666665044761118,0.5023181463418551,3,1,0
+44000-P157224,EN: World Bank,Multilateral,A02_sector,IN,1,0,0,250000000,1,NA,1,1,0
+44000-P159669,EN: World Bank,Multilateral,A02_sector,IN,1,0,0,250000000,0.3084220264317248,0.5719165335078298,2,1,0
+44000-P167246,EN: World Bank,Multilateral,A02_sector,IN,1,2.220446049250313e-16,0,40000000,0.6144227453573963,0.14866981929772727,2,1,0
+44000-P169907,EN: World Bank,Multilateral,A02_sector,IN,1,0.00625612799999997,0,250000000,0.6144227453573963,0.14866981929772727,2,1,0
+44000-P172732,EN: World Bank,Multilateral,A02_sector,IN,1,0,0,200000000,0.5310270666815531,0.21993561218530844,2,1,0
+44000-P173943,EN: World Bank,Multilateral,A02_sector,IN,1,0.00197499599978667,0,749960000,0.5310270666815531,0.21993561218530844,2,1,0
+44000-P174027,EN: World Bank,Multilateral,A02_sector,IN,1,-0.00650464999999989,0,400000000,0.7520361794075945,0.11033108423073473,2,1,0
+44000-P174292,EN: World Bank,Multilateral,A02_sector,IN,1,0,0,750000000,0.5310270666815531,0.21993561218530844,2,1,0
+44000-P176447,EN: World Bank,Multilateral,A02_sector,IN,1,2.401920000000279e-4,0,500000000,0.973045292133636,7.265562761610278e-4,2,1,0
+44000-P177985,EN: World Bank,Multilateral,A02_sector,IN,1,0,0,750000000,0.8846153846153846,0.053254437869822535,1.5,1,0
+44000-P178329,EN: World Bank,Multilateral,A02_sector,IN,1,0,0,190000000,1,NA,1,1,0
+44000-P181032,EN: World Bank,Multilateral,A02_sector,IN,1,0,0,1500000000,0.7692307692307693,0.053254437869822535,2,1,0
+44000-P162111,EN: World Bank,Multilateral,A02_sector,LR,1,-0.03487470000000003,0,20000000,0.7923423862512814,0.043121684547811956,2,1,0
+44000-P168218,EN: World Bank,Multilateral,A02_sector,LR,1,0.00369600000000014,0,40000000.00000001,0.690859273510429,0.09556798877449985,2,1,0
+44000-P175570,EN: World Bank,Multilateral,A02_sector,LR,1,0.00162450000000002,0,40000000,1,NA,1,1,0
+44000-P176993,EN: World Bank,Multilateral,A02_sector,LR,1,0.01016203636363655,0,55000000.00000001,1,NA,1,1,0
+44000-P180050,EN: World Bank,Multilateral,A02_sector,LR,1,0,0,65000000.00000001,0.9233595190901545,0.005873763314092395,2,1,0
+44000-P176937,EN: World Bank,Multilateral,A02_sector,MA,1,0.02578294400000003,0,500000000,0.48770096325894197,0.25638559604905,3,1,0
+44000-P174004,EN: World Bank,Multilateral,A02_sector,MA,1,0.04187007111111107,0,450000000,0.6861840288075621,0.13308226289559189,3,1,0
+44000-P168587,EN: World Bank,Multilateral,A02_sector,MA,1,0.02107618714285719,0,700000000,0.6338531422605248,0.1251218646124504,3,1,0
+44000-P144185,EN: World Bank,Multilateral,A02_sector,MA,1,0.06979504999999997,0,100000000,0.6977618306729559,0.09134791099816286,2,1,0
+44000-P174005,EN: World Bank,Multilateral,A02_sector,MA,1,-0.04029299777777773,0,450000000,0.5779891344183146,0.15863150888578287,3,1,0
+44000-P171587,EN: World Bank,Multilateral,A02_sector,MA,1,-0.08912987000000006,0,500000000,0.6964154852398818,0.0921635576021364,2,1,0
+44000-P148642,EN: World Bank,Multilateral,A02_sector,MA,1,0.10738414615384616,0,130000000,0.33094211142147595,0.4476384582691527,2,1,0
+44000-P147257,EN: World Bank,Multilateral,A02_sector,MA,1,0.0297535166666667,0,300000000,0.6977618306729559,0.09134791099816286,2,1,0
+44000-P178382,EN: World Bank,Multilateral,A02_sector,MA,1,-0.00895803599999989,0,500000000,0.5779891344183146,0.15863150888578287,3,1,0
+44000-P168580,EN: World Bank,Multilateral,A02_sector,MA,1,0.0109753818181818,0,275000000,0.6651343137502033,0.1086427111072934,2.5,1,0
+44000-P149747,EN: World Bank,Multilateral,A02_sector,MA,1,0,0,300000000,0.4503346469729106,0.3163865778637954,2,1,0
+44000-P180587,EN: World Bank,Multilateral,A02_sector,MK,1,-0.03421194999999999,0,100000000,1,NA,1,1,0
+44000-P171851,EN: World Bank,Multilateral,A02_sector,MK,1,0.00165148294434469,0,139250000,1,NA,1,1,0
+44000-P130847,EN: World Bank,Multilateral,A02_sector,MK,1,0.02872806000000005,0,50000000,1,NA,1,1,0
+44000-P149555,EN: World Bank,Multilateral,A02_sector,MD,1,0.00853400000000004,0,45000000,1,NA,1,1,0
+44000-P175640,EN: World Bank,Multilateral,A02_sector,MD,1,0.05044749999999998,0,150000000,1,NA,1,1,0
+44000-P179086,EN: World Bank,Multilateral,A02_sector,MD,1,-0.01254740000000009,0,100000000,1,NA,1,1,0
+44000-P143283,EN: World Bank,Multilateral,A02_sector,MD,1,-0.00734710000000005,0,30000000,1,NA,1,1,0
+44000-P156963,EN: World Bank,Multilateral,A02_sector,MD,1,0.02798699999999998,0,30000000,1,NA,1,1,0
+44000-P145275,EN: World Bank,Multilateral,A02_sector,ML,1,0.09723441269841272,0,63000000,0.4792487730248515,0.1423191124249303,4,1,0
+44000-P161619,EN: World Bank,Multilateral,A02_sector,ML,1,0.04364806787109221,0,59934795,0.85354213833079,0.019146992779641825,2.5,1,0
+44000-P167547,EN: World Bank,Multilateral,A02_sector,ML,1,2.717399999999648e-4,0,250000000,0.979879354163339,4.0484038888433105e-4,2,1,0
+44000-P150503,EN: World Bank,Multilateral,A02_sector,MG,1,0.01832022222222218,0,45000000,1,NA,1,1,0
+44000-P153084,EN: World Bank,Multilateral,A02_sector,MG,1,0.00650392727272741,0,55000000,0.6171140975612638,0.1466016142863255,2,1,0
+44000-P160866,EN: World Bank,Multilateral,A02_sector,MG,1,0.04107953846153844,0,65000000,0.7861875551045141,0.045715761592185156,2,1,0
+44000-P162279,EN: World Bank,Multilateral,A02_sector,MG,1,-0.00711844444444453,0,45000000,1,NA,1,1,0
+44000-P164137,EN: World Bank,Multilateral,A02_sector,MG,1,-0.00358817777777775,0,45000000,1,NA,1,1,0
+44000-P166425,EN: World Bank,Multilateral,A02_sector,MG,1,0.01461210000000001,0,60000000,1,NA,1,1,0
+44000-P166752,EN: World Bank,Multilateral,A02_sector,MG,1,0.01279352,0,100000000,1,NA,1,1,0
+44000-P167941,EN: World Bank,Multilateral,A02_sector,MG,1,0.05666181642730661,0,15921551,0.9471524773649322,0.011171442594655967,1.5,1,0
+44000-P168697,EN: World Bank,Multilateral,A02_sector,MG,1,0.00621280999999995,0,100000000,0.8943049547298644,0.011171442594655967,2,1,0
+44000-P174388,EN: World Bank,Multilateral,A02_sector,MG,1,-0.04021735999999998,0,75000000,0.775782205532741,0.06432126143300618,2,1,0
+44000-P180288,EN: World Bank,Multilateral,A02_sector,MG,1,0.00892716000000004,0,100000000,1,NA,1,1,0
+44000-P132510,EN: World Bank,Multilateral,A02_sector,MU,1,-0.07601473333333342,0,15000000,0.10968762759522138,0.7926561204570253,2,1,0
+44000-P167485,EN: World Bank,Multilateral,A02_sector,MN,1,-0.00251786999999992,0,100000000,0.19273854205658222,0.6886711514746446,2,1,0
+44000-P163939,EN: World Bank,Multilateral,A02_sector,MV,1,-0.00241880000000005,0,10000000,0.6431037887302341,0.5094996224748535,1.5,1,0
+44000-P163966,EN: World Bank,Multilateral,A02_sector,MV,1,-0.00391059999999998,0,20000000,1,NA,1,1,0
+44000-P160592,EN: World Bank,Multilateral,A02_sector,MR,1,0.02255961538461537,0,26000000,1,NA,1,1,0
+44000-P163057,EN: World Bank,Multilateral,A02_sector,MR,1,-0.01278430769230776,0,26000000,0.7434506742243584,0.06581755655593624,2,1,0
+44000-P167348,EN: World Bank,Multilateral,A02_sector,MR,1,0.00563272000000003,0,50000000,1,NA,1,1,0
+44000-P171238,EN: World Bank,Multilateral,A02_sector,MR,1,0.0189263999999999,0,30000000,1,NA,1,1,0
+44000-P171585,EN: World Bank,Multilateral,A02_sector,MR,1,-0.00236269999999994,0,30000000,1,NA,1,1,0
+44000-P174155,EN: World Bank,Multilateral,A02_sector,MR,1,-0.0269493999999999,0,70000000,0.8760526790899352,0.015362938360782619,2,1,0
+44000-P147244,EN: World Bank,Multilateral,A02_sector,MX,1,0,0,300751880,0.4671860220431512,0.2838907351062014,2,1,0
+44000-P167674,EN: World Bank,Multilateral,A02_sector,MX,1,0,0,500000000,0.29411764705882354,0.4982698961937717,2,1,0
+44000-P172863,EN: World Bank,Multilateral,A02_sector,MX,1,0,0,1000000000,0.6385869565217391,0.1308039933837429,2,1,0
+44000-P174000,EN: World Bank,Multilateral,A02_sector,MX,1,0,0,750000000,0.592391304347826,0.17053599558916194,2,1,0
+44000-P174150,EN: World Bank,Multilateral,A02_sector,MX,1,0,0,750000000,0.5760869565217391,0.1854914933837429,2,1,0
+44000-P178224,EN: World Bank,Multilateral,A02_sector,MX,1,0,0,700000000,0.25124688279301743,0.6225093438473641,2,1,0
+44000-P180496,EN: World Bank,Multilateral,A02_sector,MX,1,0,0,700000000,0.0024937655860349127,0.9950186876947283,2,1,0
+DE-1-201667484,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,CO,1,0,0,113940000,0.10733811098820313,0.6217778857889673,2.5,1,0
+44000-P153753,EN: World Bank,Multilateral,A02_sector,MW,1,-0.05333815000000008,0,80000000,0.9748716110988944,6.314359287652449e-4,2,1,0
+DE-1-201667492,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,CO,1,0,0,113940000,0.11239064106540567,0.4376645933376351,3,1,0
+44000-P165056,EN: World Bank,Multilateral,A02_sector,MW,1,0.00363587142857146,0,70000000,0.6992905077804565,0.3617047948437426,1.5,1,0
+44000-P132757,EN: World Bank,Multilateral,A02_sector,NE,1,-0.00275858529545725,0,49998454,0.8374562320532651,0.02642047649832202,2,1,0
+44000-P145251,EN: World Bank,Multilateral,A02_sector,NE,1,4.2077142857144256e-4,0,70000000,0.42059311495020263,0.5094871968439907,2,1,0
+44000-P151487,EN: World Bank,Multilateral,A02_sector,NE,1,0.03449349999999995,0,80000000,0.5018649989235701,0.9925539171896595,1.5,1,0
+44000-P159969,EN: World Bank,Multilateral,A02_sector,NE,1,-0.01327478485672117,0,49971582,0.8274866635635711,0.039651853259698444,2,1,0
+44000-P163318,EN: World Bank,Multilateral,A02_sector,NE,1,-0.01182904166666665,0,120000000,0.926940180400684,0.005337737239884621,2,1,0
+44000-P166124,EN: World Bank,Multilateral,A02_sector,NE,1,0.00995145454545454,0,110000000,0.7280331467264582,0.07396596927951227,2,1,0
+44000-P169830,EN: World Bank,Multilateral,A02_sector,NE,1,-0.00309602000000008,0,350000000,0.9282875264149982,0.0051426788676796065,2,1,0
+44000-P173113,EN: World Bank,Multilateral,A02_sector,NE,1,-0.05051845811693556,0,249689311,0.8685225744634266,0.031697588212657724,2,1,0
+44000-P175256,EN: World Bank,Multilateral,A02_sector,NE,1,0.01892867600000003,0,250000000,0.9234155502366087,0.005865177945561406,2,1,0
+44000-P178423,EN: World Bank,Multilateral,A02_sector,NE,1,-0.07230500000000006,0,350000000,0.9885695435502493,1.3065533464962087e-4,2,1,0
+44000-P146398,EN: World Bank,Multilateral,A02_sector,MZ,1,0.05296400000000001,0,50000000,0.6046070311359828,0.0494256446060346,5.5,1,0
+44000-P176762,EN: World Bank,Multilateral,A02_sector,MZ,1,0.05038816000000001,0,300000000,0.9675042993151455,9.606735170961667e-4,3,1,0
+44000-P133687,EN: World Bank,Multilateral,A02_sector,MZ,1,0.04963671999999997,0,25000000,0.4556497189430859,0.07024818260042798,7,1,0
+44000-P178668,EN: World Bank,Multilateral,A02_sector,MZ,1,-0.01671467333333343,0,300000000,0.916612649976621,0.004228734117396882,4,1,0
+44000-P154422,EN: World Bank,Multilateral,A02_sector,MZ,1,0.00542325714285718,0,70000000,0.7535643433288796,0.028603106611641227,4,1,0
+44000-P146537,EN: World Bank,Multilateral,A02_sector,MZ,1,0.01751800000000003,0,110000000,0.4556497189430859,0.07024818260042798,7,1,0
+44000-P146930,EN: World Bank,Multilateral,A02_sector,MZ,1,0.04346704000000001,0,50000000,0.7535643433288796,0.028603106611641227,4,1,0
+44000-P174152,EN: World Bank,Multilateral,A02_sector,MZ,1,-0.0153903500000001,0,100000000,0.7080409227169306,0.08051863084421551,4,1,0
+44000-P166159,EN: World Bank,Multilateral,A02_sector,PA,1,0,0,100000000,0.2,0.6400000000000001,2,1,0
+44000-P151804,EN: World Bank,Multilateral,A02_sector,PA,1,0,0,300000000,0.5,0.25,2,1,0
+44000-P122738,EN: World Bank,Multilateral,A02_sector,PA,1,0,0,66000000,0.344568881156899,0.5112403575918697,2,1,0
+44000-P127332,EN: World Bank,Multilateral,A02_sector,PA,1,0,0,100000000,0.4,0.36,2,1,0
+44000-P175930,EN: World Bank,Multilateral,A02_sector,PA,1,0,0,250000000,0.625,0.140625,2,1,0
+44000-P179817,EN: World Bank,Multilateral,A02_sector,PA,1,0,0,150000000,0.42857142857142855,0.3265306122448979,2,1,0
+44000-P146942,EN: World Bank,Multilateral,A02_sector,PA,1,0,0,200000000,0.4,0.36,2,1,0
+44000-P174107,EN: World Bank,Multilateral,A02_sector,PA,1,0,0,300000000,0.6303142329020333,0.1366675663948121,2,1,0
+44000-P130012,EN: World Bank,Multilateral,A02_sector,NG,1,-0.01760555000000008,0,100000000,1,NA,1,1,0
+44000-P123352,EN: World Bank,Multilateral,A02_sector,NG,1,0.01001624000000001,0,200000000,1,NA,1,1,0
+44000-P151480,EN: World Bank,Multilateral,A02_sector,NG,1,0.00804435999999997,0,75000000,1,NA,1,1,0
+44000-P177776,EN: World Bank,Multilateral,A02_sector,NP,1,0.04406553999999996,0,100000000,0.8622246369474375,0.008865736915121603,5,1,0
+44000-P159547,EN: World Bank,Multilateral,A02_sector,NP,1,0.00669744999999999,0,100000000,0.7972399677737497,0.024475113801229242,3,1,0
+44000-P170248,EN: World Bank,Multilateral,A02_sector,NP,1,-0.01213372999999995,0,100000000,0.30358223709515764,0.43534977341505837,3,1,0
+44000-P173044,EN: World Bank,Multilateral,A02_sector,NP,1,-0.05352892999999992,0,200000000,0.6435073823599112,0.2178121272779829,2.5,1,0
+44000-P176881,EN: World Bank,Multilateral,A02_sector,NP,1,0.03380297333333337,0,150000000,0.8622246369474375,0.008865736915121603,5,1,0
+44000-P173982,EN: World Bank,Multilateral,A02_sector,NP,1,0.00626073333333332,0,150000000,0.9834325276246648,2.7448114090744546e-4,2,1,0
+44000-P168869,EN: World Bank,Multilateral,A02_sector,NP,1,0.00859292,0,100000000,0.7972399677737497,0.024475113801229242,3,1,0
+44000-P166788,EN: World Bank,Multilateral,A02_sector,NP,1,0.01314817999999995,0,50000000,0.30358223709515764,0.43534977341505837,3,1,0
+44000-P170477,EN: World Bank,Multilateral,A02_sector,PE,1,0,0,50000000,0.6873253851005618,0.12100387577753138,2,1,0
+44000-P174440,EN: World Bank,Multilateral,A02_sector,PE,1,0,0,750000000,0.5348837209302325,0.21633315305570572,2,1,0
+44000-P101177,EN: World Bank,Multilateral,A02_sector,PE,1,0,0,330000000,0.9477484858953624,0.002730220726227084,2,1,0
+44000-P101471,EN: World Bank,Multilateral,A02_sector,PE,1,0,0,330000000,0.9477484858953624,0.002730220726227084,2,1,0
+44000-P149831,EN: World Bank,Multilateral,A02_sector,PE,1,0,0,70000000,0.9481944398404157,0.0026840149383693945,2,1,0
+44000-P154981,EN: World Bank,Multilateral,A02_sector,PE,1,0,0,1250000000,0.8397670492708912,0.02567459849935705,2,1,0
+44000-P156858,EN: World Bank,Multilateral,A02_sector,PE,1,0,0,1250000000,0.8653665835828893,0.021764885390192945,2,1,0
+44000-P176387,EN: World Bank,Multilateral,A02_sector,PE,1,0,0,350000000,0.5348837209302325,0.21633315305570572,2,1,0
+44000-P177765,EN: World Bank,Multilateral,A02_sector,PE,1,0,0,500000000,0.5,0.25,2,1,0
+44000-P178591,EN: World Bank,Multilateral,A02_sector,PE,1,0,0,750000000,0.6071428571428572,0.16581632653061223,2,1,0
+44000-P146243,EN: World Bank,Multilateral,A02_sector,PL,1,0.06915510457651686,0,965800000,1,NA,1,1,0
+44000-P151007,EN: World Bank,Multilateral,A02_sector,PY,1,0,0,100000000,0.32768401148539816,0.45580691781499805,2,1,0
+44000-P169505,EN: World Bank,Multilateral,A02_sector,PY,1,0,0,200000000,0.25,0.5625,2,1,0
+44000-P178285,EN: World Bank,Multilateral,A02_sector,PY,1,-2.220446049250313e-16,0,240000000,0.42149140282588043,0.5113081050456068,2,1,0
+44000-P165717,EN: World Bank,Multilateral,A02_sector,PG,1,0.01340295999999996,0,150000000,0.5967572118238721,0.16260474621605758,2,1,0
+44000-P174347,EN: World Bank,Multilateral,A02_sector,PG,1,0.01662361000000001,0,100000000,0.39265723566841093,0.3588026107261688,3,1,0
+44000-P130051,EN: World Bank,Multilateral,A02_sector,RO,1,-0.02763819095477382,0,1333300000,1,NA,1,1,0
+44000-P148957,EN: World Bank,Multilateral,A02_sector,RO,1,0.18448009277155009,0,1034800000,1,NA,1,1,0
+44000-P149776,EN: World Bank,Multilateral,A02_sector,RO,1,-0.06229960413420032,0,558270000,1,NA,1,1,0
+44000-P166303,EN: World Bank,Multilateral,A02_sector,RO,1,0.1135967225084168,0,493060000,1,NA,1,1,0
+44000-P178912,EN: World Bank,Multilateral,A02_sector,RO,1,0.01318373071528755,0,641700000,1,NA,1,1,0
+44000-P179297,EN: World Bank,Multilateral,A02_sector,RO,1,0.01799236923076919,0,650000000,1,NA,1,1,0
+44000-P127408,EN: World Bank,Multilateral,A02_sector,RS,1,-0.01458113000000005,0,100000000,1,NA,1,1,0
+44000-P149750,EN: World Bank,Multilateral,A02_sector,RS,1,0.03055140999999994,0,100000000,1,NA,1,1,0
+44000-P155694,EN: World Bank,Multilateral,A02_sector,RS,1,-0.0375833000000001,0,200000000,1,NA,1,1,0
+44000-P157489,EN: World Bank,Multilateral,A02_sector,RS,1,-0.0700494285714286,0,70000000,1,NA,1,1,0
+44000-P161184,EN: World Bank,Multilateral,A02_sector,RS,1,0.08720249999999996,0,200000000,1,NA,1,1,0
+44000-P164575,EN: World Bank,Multilateral,A02_sector,RS,1,0.06916697000000005,0,100000000,1,NA,1,1,0
+44000-P177410,EN: World Bank,Multilateral,A02_sector,RS,1,-0.00285629999999992,0,160000000,1,NA,1,1,0
+44000-P126580,EN: World Bank,Multilateral,A02_sector,PH,1,-2.220446049250313e-16,0,799999999.9999999,0.583404258849847,0.18328885320607383,2,1,0
+44000-P147803,EN: World Bank,Multilateral,A02_sector,PH,1,0,0,300000000,0.583404258849847,0.18328885320607383,2,1,0
+44000-P155656,EN: World Bank,Multilateral,A02_sector,PH,1,0,0,500000000,0.3779965962994344,0.45968837949968283,2,1,0
+44000-P167651,EN: World Bank,Multilateral,A02_sector,PH,1,0,0,450000000,0.5322201003686103,0.2386752838137787,2,1,0
+44000-P170052,EN: World Bank,Multilateral,A02_sector,PH,1,0,0,400000000,0.4538012234327905,0.3238703102530175,2,1,0
+44000-P170914,EN: World Bank,Multilateral,A02_sector,PH,1,0,0,600000000,0.5053756884071129,0.26906378137904863,2,1,0
+44000-P171440,EN: World Bank,Multilateral,A02_sector,PH,1,0,0,500000000,0.48504966123614224,0.3005502668918135,2,1,0
+44000-P174120,EN: World Bank,Multilateral,A02_sector,PH,1,0,0,500000000,0.48504966123614224,0.3005502668918135,2,1,0
+44000-P175008,EN: World Bank,Multilateral,A02_sector,PH,1,0,0,400000000,0.6095817978300939,0.15646549050282543,2,1,0
+44000-P175360,EN: World Bank,Multilateral,A02_sector,PH,1,0,0,600000000,0.6731358529111338,0.10684017065213197,2,1,0
+44000-P176891,EN: World Bank,Multilateral,A02_sector,PH,1,0,0,600000000,0.5076536880048728,0.2658763153584504,2,1,0
+44000-P177125,EN: World Bank,Multilateral,A02_sector,PH,1,0,0,500000000,0.5076536880048728,0.2658763153584504,2,1,0
+44000-P178634,EN: World Bank,Multilateral,A02_sector,PH,1,0,0,750000000,0.6731358529111338,0.10684017065213197,2,1,0
+44000-P179361,EN: World Bank,Multilateral,A02_sector,PH,1,0,0,600000000,0.6731358529111338,0.10684017065213197,2,1,0
+44000-P148861,EN: World Bank,Multilateral,A02_sector,SC,1,0,0,7000000,0.8477432653408763,0.09272845299623511,1.5,1,0
+44000-P125202,EN: World Bank,Multilateral,A02_sector,SC,1,0,0,7000000,1,NA,1,1,0
+44000-P178209,EN: World Bank,Multilateral,A02_sector,SC,1,0,0,24999999.999999996,1,NA,1,1,0
+44000-P174198,EN: World Bank,Multilateral,A02_sector,SC,1,0,0,15000000,0.8477432653408763,0.09272845299623511,1.5,1,0
+44000-P153269,EN: World Bank,Multilateral,A02_sector,SC,1,0,0,5000000,0.7804238676424065,0.43392310111007526,1.3333333333333333,1,0
+44000-P176420,EN: World Bank,Multilateral,A02_sector,SC,1,0,0,35000000,0.6460564145844853,0.12527606165678978,2,1,0
+44000-P175139,EN: World Bank,Multilateral,A02_sector,SD,1,0.00637424585522061,0,1317585200,0.869619453885344,0.01699908680515594,2,1,0
+44000-P149886,EN: World Bank,Multilateral,A02_sector,SB,1,0.08380120000000002,0,5000000,0.24648308558758064,0.5677877403056134,2,1,0
+44000-P167465,EN: World Bank,Multilateral,A02_sector,SB,1,-0.02203620000000006,0,15000000,0.326228542677794,0.22700974477578645,3,1,0
+44000-P172454,EN: World Bank,Multilateral,A02_sector,SB,1,0.02448296666666671,0,30000000,0.8703984852589682,0.06718621049267959,1.5,1,0
+44000-P146726,EN: World Bank,Multilateral,A02_sector,SL,1,0.00232826666666674,0,30000000.000000004,0.6855170576012266,0.0655432274121604,3,1,0
+44000-P168259,EN: World Bank,Multilateral,A02_sector,SL,1,0.00823065,0,40000000,0.6610438086004687,0.11489129968807577,2,1,0
+44000-P169498,EN: World Bank,Multilateral,A02_sector,SL,1,-0.01555484000000007,0,100000000,0.8062176671815721,0.03755159251255202,2,1,0
+44000-P175342,EN: World Bank,Multilateral,A02_sector,SL,1,0.01095639999999997,0,75000000,1,NA,1,1,0
+44000-P178321,EN: World Bank,Multilateral,A02_sector,SL,1,-0.03957516000000005,0,100000000,0.9808083522053689,3.683193450731981e-4,2,1,0
+44000-P178322,EN: World Bank,Multilateral,A02_sector,SL,1,-0.01813123076923073,0,65000000,0.9962144640965016,1.4330282076646661e-5,2,1,0
+44000-P178113,EN: World Bank,Multilateral,A02_sector,RW,1,0,0,200000000,0.9293877419240688,0.01991909311934914,2,1,0
+44000-P180196,EN: World Bank,Multilateral,A02_sector,RW,1,0,0,125000000,0.8587754838481376,0.01991909311934914,3,1,0
+44000-P146452,EN: World Bank,Multilateral,A02_sector,RW,1,-0.01185499999999994,0,70000000,0.5117633820616705,0.12391647944030759,5,1,0
+44000-P151279,EN: World Bank,Multilateral,A02_sector,RW,1,0.05370128571428567,0,70000000,0.9656601957564139,0.0011792221554878246,2,1,0
+44000-P155024,EN: World Bank,Multilateral,A02_sector,RW,1,0.01091725263157894,0,95000000,0.9656601957564139,0.0011792221554878246,2,1,0
+44000-P158698,EN: World Bank,Multilateral,A02_sector,RW,1,0.03789901052631583,0,95000000,0.5501947838297967,0.17382563245862415,3,1,0
+44000-P162671,EN: World Bank,Multilateral,A02_sector,RW,1,-0.00247135999999992,0,125000000,0.9565134155769449,0.0018910830247834687,2,1,0
+44000-P166458,EN: World Bank,Multilateral,A02_sector,RW,1,0.00785561599999995,0,125000000,0.4991491864529606,0.25085153743073124,2,1,0
+44000-P169040,EN: World Bank,Multilateral,A02_sector,RW,1,-0.00797306666666664,0,225000000,0.4695040788775644,0.2818576784329434,2,1,0
+44000-P171554,EN: World Bank,Multilateral,A02_sector,RW,1,-0.01498537333333338,0,150000000,0.6650166978819856,0.15899576540041976,2,1,0
+44000-P173680,EN: World Bank,Multilateral,A02_sector,RW,1,0.03732006857142855,0,175000000,0.9406540292783632,0.01408777696357355,1.5,1,0
+44000-P171570,EN: World Bank,Multilateral,A02_sector,SO,1,-0.00153984807906337,0,458701095.00000006,0.7972527080567198,0.04110646439033372,2,1,0
+44000-P174889,EN: World Bank,Multilateral,A02_sector,SO,1,0.02338792999999994,0,100000000,1,NA,1,1,0
+44000-P179307,EN: World Bank,Multilateral,A02_sector,SO,1,0.00421717333333349,0,75000000.00000001,0.9985795863648022,2.0175748950412853e-6,2,1,0
+44000-P174275,EN: World Bank,Multilateral,A02_sector,ST,1,0.00938173333333336,0,15000000,1,NA,1,1,0
+44000-P159010,EN: World Bank,Multilateral,A02_sector,ST,1,0.03208239999999995,0,5000000,1,NA,1,1,0
+44000-P168335,EN: World Bank,Multilateral,A02_sector,ST,1,-0.02259169999999999,0,10000000,0.3762681334966009,0.3890414412918141,2,1,0
+44000-P174274,EN: World Bank,Multilateral,A02_sector,ST,1,0.00872659192572122,0,11999759,1,NA,1,1,0
+44000-P164321,EN: World Bank,Multilateral,A02_sector,ST,1,-0.02329420000000004,0,5000000,1,NA,1,1,0
+44000-P174447,EN: World Bank,Multilateral,A02_sector,SZ,1,0,0,40000000,1,NA,1,1,0
+44000-P175317,EN: World Bank,Multilateral,A02_sector,SZ,1,0,0,75000000,0.49131163674604844,0.25876385090998416,2,1,0
+44000-P159023,EN: World Bank,Multilateral,A02_sector,SN,1,-0.07805299999999993,0,60000000,0.7899978720041633,0.04019936142339697,3,1,0
+44000-P164525,EN: World Bank,Multilateral,A02_sector,SN,1,-3.517777777777287e-4,0,180000000,0.8336211354360186,0.02510820810003267,3,1,0
+44000-P170366,EN: World Bank,Multilateral,A02_sector,SN,1,-0.00913135081436444,0,279824645,0.6577999684517906,0.12057960271629432,3.5,1,0
+44000-P172723,EN: World Bank,Multilateral,A02_sector,SN,1,0.06391274999999996,0,300000000,0.9060391940948445,0.00882863304634629,2,1,0
+44000-P175293,EN: World Bank,Multilateral,A02_sector,SN,1,-0.00627103333333334,0,300000000,0.6001942813988426,0.15984461262618788,2,1,0
+44000-P152021,EN: World Bank,Multilateral,A02_sector,PK,1,0.02121939200000011,0,500000000,0.5025141794364835,0.1723005337579921,3,1,0
+44000-P172648,EN: World Bank,Multilateral,A02_sector,PK,1,0,0,350000000,0.7777536899732543,0.04937965828706248,3,1,0
+44000-P147557,EN: World Bank,Multilateral,A02_sector,PK,1,-0.0060173750000001,0,400000000,0.6696094347901114,0.07475477436736183,3,1,0
+44000-P161136,EN: World Bank,Multilateral,A02_sector,PK,1,7.412831564986844e-4,0,301600000,0.3138440718034592,0.39416370919108046,3,1,0
+44000-P128258,EN: World Bank,Multilateral,A02_sector,PK,1,-0.00631514666666666,0,600000000,0.6696094347901114,0.07475477436736183,3,1,0
+44000-P157207,EN: World Bank,Multilateral,A02_sector,PK,1,0.01507412799999996,0,500000000,0.5285146589383517,0.12551419250057766,3,1,0
+44000-P174553,EN: World Bank,Multilateral,A02_sector,PK,1,0.00710784499999994,0,400000000,0.7207621063823108,0.07410906593457689,3,1,0
+44000-P172628,EN: World Bank,Multilateral,A02_sector,PK,1,0.00649847000000003,0,400000000,0.7207621063823108,0.07410906593457689,3,1,0
+44000-P171850,EN: World Bank,Multilateral,A02_sector,PK,1,-0.01221195600000002,0,500000000,0.47766713468706895,0.269427837329843,3,1,0
+44000-P170568,EN: World Bank,Multilateral,A02_sector,PK,1,-0.01237052804948213,0,499999998,0.5992146205346899,0.17176845163220994,3,1,0
+44000-P155480,EN: World Bank,Multilateral,A02_sector,TD,1,0.0162765461538461,0,130000000,0.707341397253495,0.08625825248228072,2,1,0
+44000-P168606,EN: World Bank,Multilateral,A02_sector,TD,1,-0.00391319000000001,0,100000000,0.6219417017116358,0.14292807690469378,2,1,0
+44000-P163968,EN: World Bank,Multilateral,A02_sector,TD,1,-0.02018200000000014,0,65000000,0.493033377517775,0.25701515631103466,2,1,0
+44000-P172023,EN: World Bank,Multilateral,A02_sector,TG,1,0.05442946000000004,0,100000000,0.9820575557777332,0.0012877252186765942,1.5,1,0
+44000-P174376,EN: World Bank,Multilateral,A02_sector,TG,1,-0.04762528571428581,0,70000000,0.73001006441868,0.07289456531520533,2,1,0
+44000-P166739,EN: World Bank,Multilateral,A02_sector,TG,1,0.00509471279283435,0,39918050,0.7422460037400852,0.06658684079903326,2,1,0
+44000-P179294,EN: World Bank,Multilateral,A02_sector,TG,1,0.03153119999999998,0,150000000,0.9641151115554665,0.0012877252186765942,2,1,0
+44000-P132208,EN: World Bank,Multilateral,A02_sector,TG,1,0.03927028571428559,0,13999999.999999998,1,NA,1,1,0
+44000-P169867,EN: World Bank,Multilateral,A02_sector,TG,1,-0.00397883333333326,0,150000000,1,NA,1,1,0
+44000-P144601,EN: World Bank,Multilateral,A02_sector,TO,1,-0.04927400000000004,0,5000000,1,NA,1,1,0
+44000-P149963,EN: World Bank,Multilateral,A02_sector,TO,1,-1.9937452,0,5000000,1,NA,1,1,0
+44000-P159263,EN: World Bank,Multilateral,A02_sector,TO,1,-0.01193454545454542,0,5500000,0.436166787657694,0.18311974197961836,3,1,0
+44000-P171071,EN: World Bank,Multilateral,A02_sector,TO,1,-0.02678909090909087,0,5500000,0.8163308770676673,0.02056568261495606,3,1,0
+44000-P172742,EN: World Bank,Multilateral,A02_sector,TO,1,0.03038623076923075,0,39000000,0.7082781875227127,0.08548866221025789,2,1,0
+44000-P174683,EN: World Bank,Multilateral,A02_sector,TO,1,-0.02259169999999999,0,30000000,0.8163308770676673,0.02056568261495606,3,1,0
+44000-P173324,EN: World Bank,Multilateral,A02_sector,TN,1,-0.10121792571428578,0,175000000,0.48683667472169456,0.263336598410688,2,1,0
+44000-P158111,EN: World Bank,Multilateral,A02_sector,TN,1,-0.07472815200000005,0,500000000,0.9937419381133782,3.1986125658689524e-5,3,1,0
+44000-P132709,EN: World Bank,Multilateral,A02_sector,TN,1,0.02996912399999995,0,250000000,1,NA,1,1,0
+44000-P150950,EN: World Bank,Multilateral,A02_sector,TN,1,0.00473113400000013,0,500000000,0.7179964440837697,0.07952600554939848,2,1,0
+44000-P161483,EN: World Bank,Multilateral,A02_sector,TN,1,0.03095298800000001,0,500000000,0.7777652464639956,0.04938828567920861,2,1,0
+44000-P170558,EN: World Bank,Multilateral,A02_sector,TV,1,-0.02971234842025993,0,13495702,0.8687399630219632,0.036020373979927744,2,1,0
+44000-P155066,EN: World Bank,Multilateral,A02_sector,TV,1,-0.04510424242424249,0,3300000,0.6386950721231457,0.1364568558782782,2,1,0
+44000-P145488,EN: World Bank,Multilateral,A02_sector,TV,1,-0.02780666666666675,0,3000000,0.602032643233915,0.1583780170513845,2,1,0
+44000-P150194,EN: World Bank,Multilateral,A02_sector,TV,1,-0.02322977777777768,0,4500000,0.4616091346199614,0.21981707924290456,2.5,1,0
+44000-P177930,EN: World Bank,Multilateral,A02_sector,TJ,1,-0.05499680000000007,0,50000000,0.9786601397494336,4.5538963551372547e-4,2,1,0
+44000-P150313,EN: World Bank,Multilateral,A02_sector,UA,1,0,0,750000000,1,NA,1,1,0
+44000-P177931,EN: World Bank,Multilateral,A02_sector,UA,1,0.02355268673621458,0,838750000,0.8963519085432277,0.0429717074505257,1.5,1,0
+44000-P150677,EN: World Bank,Multilateral,A02_sector,UA,1,0,0,500000000,1,NA,1,1,0
+44000-P181023,EN: World Bank,Multilateral,A02_sector,UA,1,0,0,1500000000,1,NA,1,1,0
+44000-P172597,EN: World Bank,Multilateral,A02_sector,UA,1,0,0,350000000,1,NA,1,1,0
+44000-P131440,EN: World Bank,Multilateral,A02_sector,UY,1,0,0,260000000,1,NA,1,1,0
+44000-P172796,EN: World Bank,Multilateral,A02_sector,UY,1,7.512474999999963e-4,0,400000000,1,NA,1,1,0
+44000-P133798,EN: World Bank,Multilateral,A02_sector,TZ,1,5.670999999995985e-5,0,100000000,0.615994327702601,0.06297658410701834,5,1,0
+44000-P180504,EN: World Bank,Multilateral,A02_sector,TZ,1,0,0,750000000,0.8067617578819591,0.03148939543626528,3,1,0
+44000-P178156,EN: World Bank,Multilateral,A02_sector,TZ,1,0,0,500000000,0.9033140335508487,0.015744706654744978,2.5,1,0
+44000-P120536,EN: World Bank,Multilateral,A02_sector,TZ,1,-0.00575141176470594,0,85000000,0.6492950541789584,0.04743973644983013,6,1,0
+44000-P145254,EN: World Bank,Multilateral,A02_sector,TZ,1,-0.00430167999999997,0,100000000,0.6492950541789584,0.04743973644983013,6,1,0
+44000-P150009,EN: World Bank,Multilateral,A02_sector,TZ,1,0.00629919999999994,0,80000000,0.615994327702601,0.06297658410701834,5,1,0
+44000-P169956,EN: World Bank,Multilateral,A02_sector,VC,1,0,0,90000000,1,NA,1,1,0
+44000-P146322,EN: World Bank,Multilateral,A02_sector,TR,1,0.07507050000000004,0,500000000,1,NA,1,1,0
+44000-P162071,EN: World Bank,Multilateral,A02_sector,TR,1,-0.02151376249999992,0,400000000,1,NA,1,1,0
+44000-P168749,EN: World Bank,Multilateral,A02_sector,VU,1,0.00741899999999995,0,10000000,0.9047613791780483,0.009070394896067535,2,1,0
+44000-P176930,EN: World Bank,Multilateral,A02_sector,VU,1,0.04444479999999995,0,10000000,1,NA,1,1,0
+44000-P155118,EN: World Bank,Multilateral,A02_sector,WS,1,-0.01658239999999988,0,5000000.000000001,0.5041115106429571,0.24590539387681004,2,1,0
+44000-P165928,EN: World Bank,Multilateral,A02_sector,WS,1,0.00530277372262777,0,13700000,0.7362206809574853,0.2783181166181311,1.5,1,0
+44000-P149770,EN: World Bank,Multilateral,A02_sector,WS,1,0.07646106666666652,0,7500000,0.563081991511881,0.11822464403936161,3,1,0
+44000-P171764,EN: World Bank,Multilateral,A02_sector,WS,1,-0.00363139999999995,0,25000000,0.6400252018495458,0.1576661987106776,2,1,0
+44000-P174498,EN: World Bank,Multilateral,A02_sector,WS,1,0.01232135714285698,0,14000000,0.8076090417841211,0.03701428080322411,2,1,0
+44000-P180120,EN: World Bank,Multilateral,A02_sector,WS,1,-4.249999999994536e-5,0,10000000,1,NA,1,1,0
+44000-P173906,EN: World Bank,Multilateral,A02_sector,UG,1,-0.0136963699999999,0,300000000,0.9404665512270064,0.0035442315228066956,2,1,0
+44000-P170113,EN: World Bank,Multilateral,A02_sector,XK,1,0.04559787234042556,0,56400000,1,NA,1,1,0
+44000-P174246,EN: World Bank,Multilateral,A02_sector,ZA,1,0,0,750000000,1,NA,1,1,0
+44000-P179007,EN: World Bank,Multilateral,A02_sector,UZ,1,0,0,950000000,0.6109324758842444,0.15137353832156408,2,1,0
+44000-P168280,EN: World Bank,Multilateral,A02_sector,UZ,1,0,0,700000000,0.5581140350877193,0.19973693828870423,2,1,0
+44000-P166019,EN: World Bank,Multilateral,A02_sector,UZ,1,0,0,500000000,0.625,0.140625,2,1,0
+44000-P171751,EN: World Bank,Multilateral,A02_sector,UZ,1,0,0,500000000,0.49122807017543857,0.25884887657740846,2,1,0
+44000-P176353,EN: World Bank,Multilateral,A02_sector,UZ,1,0,0,400000000,1,NA,1,1,0
+44000-P180470,EN: World Bank,Multilateral,A02_sector,UZ,1,0,0,800000000,1,NA,1,1,0
+44000-P174911,EN: World Bank,Multilateral,A02_sector,ZM,1,0,0,275000000,1,NA,1,1,0
+44000-P181011,EN: World Bank,Multilateral,A02_sector,ZM,1,-0.02212812800000008,0,125000000,1,NA,1,1,0
+44000-P131775,EN: World Bank,Multilateral,A02_sector,VN,1,0.05635959999999995,0,70000000,0.7240603015088756,0.05385286650556875,5,1,0
+44000-P144675,EN: World Bank,Multilateral,A02_sector,VN,1,0,0,200000000,0.5674512580666309,0.18515626269424484,5,1,0
+44000-P146095,EN: World Bank,Multilateral,A02_sector,VN,1,0.05418839200000003,0,250000000,0.7240603015088756,0.05385286650556875,5,1,0
+44000-P155824,EN: World Bank,Multilateral,A02_sector,VN,1,0.02666173333333332,0,90000000,0.9937682850282639,2.2361260229253332e-5,4,1,0
+44000-P157405,EN: World Bank,Multilateral,A02_sector,VN,1,0,0,150000000,0.9937682850282639,2.2361260229253332e-5,4,1,0
+44000-P160480,EN: World Bank,Multilateral,A02_sector,VN,1,0,0,125000000,0.5555555091636928,0.19753083120777015,3,1,0
+44000-P171006,EN: World Bank,Multilateral,A02_sector,VN,1,-0.01906374407582944,0,84400000,0.7777777545818464,0.19753083120777015,2,1,0
+44000-P176717,EN: World Bank,Multilateral,A02_sector,VN,1,0.07464583295711058,0,221500000,1,NA,1,1,0
+46002-P-ML-KA0-003,African Development Bank,Multilateral,both,ML,1,0,184,19803175.180056605,0.338278139765138,0.25756639902779377,4,1,0
+46002-P-ML-KA0-006,African Development Bank,Multilateral,A01_general,ML,1,0,730,20341548.15454695,0.338278139765138,0.25756639902779377,4,1,0
+46002-P-NA-KA0-002,African Development Bank,Multilateral,A01_general,NA,1,-0.13630819213006196,915,178396215.15662315,0.7672825932915259,0.054157391385117326,2,1,0
+46002-P-NA-K00-007,African Development Bank,Multilateral,A01_general,NA,1,-0.27498602284595597,730,178396215.15662315,0.7925123869557995,0.04305110956677993,2,1,0
+46002-P-NA-KA0-004,African Development Bank,Multilateral,A01_general,NA,1,0.05099353726711231,0,119584929.55721876,0.22648985928084828,0.5983179377953619,2,1,0
+46002-P-NA-K00-004,African Development Bank,Multilateral,A01_general,NA,1,-0.15860357363390465,0,89198107.57153106,0.283271467006228,0.5136997900074044,2,1,0
+46002-P-NA-K00-005,African Development Bank,Multilateral,A01_general,NA,1,0.0068283271590529,164,136770431.6205298,0.09138414857520238,0.8255827654604099,2,1,0
+46002-P-MZ-K00-010,African Development Bank,Multilateral,A01_general,MZ,1,0,365,26220255.571211018,0.09062475603732832,0.2696520025665159,7,1,0
+46002-P-MZ-K00-011,African Development Bank,Multilateral,A01_general,MZ,1,0,60,20341548.15454695,0.5092321148813349,0.1682521408315102,4,1,0
+46002-P-MZ-K00-012,African Development Bank,Multilateral,A01_general,MZ,1,0,30,40683096.3090939,0.283686929363398,0.5013623051944245,4,1,0
+46002-P-MZ-AA0-041,African Development Bank,Multilateral,A02_sector,MZ,1,0,-670,1356103.21030313,0.03208411329161777,0.8887539819842103,3.5,1,0
+46002-P-MZ-KA0-007,African Development Bank,Multilateral,A01_general,MZ,1,0,-434,20341548.15454695,0.06262901716368731,0.8404850904236709,4,1,0
+46002-P-NE-KA0-015,African Development Bank,Multilateral,both,NE,1,0,0,108488256.8242504,0.1640544221933937,0.7064560051313262,2,1,0
+46002-P-NE-KA0-013,African Development Bank,Multilateral,A01_general,NE,1,0,0,27122064.206062596,0.17183966342927176,0.6958749972150524,2,1,0
+46002-P-NE-KA0-012,African Development Bank,Multilateral,A01_general,NE,1,0,548,40683096.30909389,0.27196685327354186,0.5300322627324286,2,1,0
+46002-P-NE-KA0-011,African Development Bank,Multilateral,A01_general,NE,1,0,184,13561032.103031298,0.07305981959931586,0.8592180980412527,2,1,0
+46002-P-NE-KA0-008,African Development Bank,Multilateral,A01_general,NE,1,-1.3688358070496065e-4,184,29237585.21413548,0.16254376794673492,0.7013329406048523,2,1,0
+46002-P-NE-KA0-010,African Development Bank,Multilateral,A01_general,NE,1,0,365,27122064.206062596,0.9962700021528599,1.3912883939704024e-5,2,1,0
+46002-P-NE-A00-012,African Development Bank,Multilateral,A02_sector,NE,1,-2.220446049250313e-16,-92,5424412.841212519,0.011430456449750657,0.9772697424351482,2,1,0
+46002-P-MA-K00-014,African Development Bank,Multilateral,A01_general,MA,1,0.04681278543894807,0,307139974.45101553,0.3534995182695191,0.4019297611492094,3,1,0
+46002-P-MA-AA0-003,African Development Bank,Multilateral,A02_sector,MA,1,0.02731609020755077,0,229910350.32214233,0.6767497591347595,0.4019297611492094,2,1,0
+46002-P-MA-I00-006,African Development Bank,Multilateral,A02_sector,MA,1,0.03287402268107708,-373,95288353.7720689,0.31515210180842484,0.4769441335564487,2.75,1,0
+46002-P-MA-HAZ-002,African Development Bank,Multilateral,A01_general,MA,1,0.03560687398007656,730,156966804.54620042,0.4302728174756547,0.32458906250712866,2,1,0
+46002-P-MA-IBD-011,African Development Bank,Multilateral,A02_sector,MA,1,0.01566614946903166,1096,134621530.14549634,0.7151364087378274,0.32458906250712866,1.5,1,0
+46002-P-MA-H00-004,African Development Bank,Multilateral,A01_general,MA,1,0.03107252608520605,0,111497194.4394344,0.6690578885785241,0.10952268111210456,2,1,0
+46002-P-MA-HZ0-011,African Development Bank,Multilateral,A01_general,MA,1,0.00366619810089996,0,115243361.71205318,0.30223816932704395,0.48687157234407485,2,1,0
+46002-P-MA-IAZ-004,African Development Bank,Multilateral,A02_sector,MA,1,-0.01994710487266249,365,133682299.58489682,0.6690578885785241,0.10952268111210456,2,1,0
+46002-P-MA-IBD-010,African Development Bank,Multilateral,A01_general,MA,1,-0.03003836286737637,0,132529865.97631972,0.30223816932704395,0.48687157234407485,2,1,0
+46002-P-MA-A00-003,African Development Bank,Multilateral,A02_sector,MA,1,0.00875278793663059,0,270959520.0479518,0.6997769020180596,0.2170558718096166,1.6666666666666667,1,0
+46002-P-MA-K00-013,African Development Bank,Multilateral,A01_general,MA,1,0.0291957855835393,0,198217234.5665284,1,NA,1,1,0
+46002-P-MA-K00-021,African Development Bank,Multilateral,A01_general,MA,1,0.03579164183228767,0,303481662.4198035,0.30358451476011816,0.4849945280819001,2,1,0
+46002-P-MA-I00-016,African Development Bank,Multilateral,A01_general,MA,1,0.0488633592881097,-266,137198667.50654662,0.3336857274667804,0.45184095326456036,3,1,0
+46002-P-MA-H00-020,African Development Bank,Multilateral,A01_general,MA,1,0.05438450944162176,-69,138612435.35795024,0.30176218710203107,0.5104261224973426,3,1,0
+46002-P-MA-I00-012,African Development Bank,Multilateral,A01_general,MA,1,0.07387627602963054,-66,100494015.63858224,0.5063099114447944,0.23788809918551423,3,1,0
+46002-P-MA-AA0-023,African Development Bank,Multilateral,A01_general,MA,1,0.07509900128071423,563,230169505.86311227,0.5063099114447944,0.23788809918551423,3,1,0
+46002-P-MA-IA0-008,African Development Bank,Multilateral,A01_general,MA,1,0.04293400978888839,-172,172337971.7306725,0.39753280819627906,0.33467061479899574,3,1,0
+46002-P-NG-KA0-002,African Development Bank,Multilateral,A01_general,NG,1,-0.02780936705860748,0,592283953.0544192,1,NA,1,1,0
+DE-1-200570218,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A01_general,GH,1,0,0,569700,0.01740625880004379,0.8318341634006398,2.5,1,0
+DE-1-201265420,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,GH,1,0,0,19723014,0.08141428025237735,0.4472156534995823,4,1,0
+46002-P-NG-FA0-002,African Development Bank,Multilateral,A02_sector,NG,1,0.00864316070000004,0,135610321.030313,1,NA,1,1,0
+46002-P-NG-K00-005,African Development Bank,Multilateral,A02_sector,NG,1,0.05967022006027067,0,296141976.520429,1,NA,1,1,0
+46002-P-NG-KA0-006,African Development Bank,Multilateral,A01_general,NG,1,0.05957656330846195,184,288500682.97425985,1,NA,1,1,0
+46002-P-NG-AAG-016,African Development Bank,Multilateral,A01_general,NG,1,-0.01468752461650413,942,134000317.21966296,1,NA,1,1,0
+46002-P-RW-IZ0-004,African Development Bank,Multilateral,A02_sector,RW,1,0.12842923039572707,916,55857891.23238592,0.41551119421340604,0.30389038009548996,3,1,0
+46002-P-RW-IZ0-006,African Development Bank,Multilateral,A02_sector,RW,1,0,0,81366192.6181878,0.5260627381698972,0.22525216929420405,2,1,0
+46002-P-RW-IZ0-003,African Development Bank,Multilateral,A02_sector,RW,1,0,0,66449057.304853365,0.3743247400683233,0.2893637506035611,4,1,0
+46002-P-RW-K00-013,African Development Bank,Multilateral,A01_general,RW,1,0,0,96283327.93152222,0.33498330211801447,0.4890291611643909,2,1,0
+46002-P-ST-K00-012,African Development Bank,Multilateral,A01_general,ST,1,0,0,6780516.051515649,0.6237318665033992,0.1415777082850158,2,1,0
+46002-P-ST-K00-015,African Development Bank,Multilateral,A01_general,ST,1,0,365,10170774.077273477,0.6237318665033992,0.1415777082850158,2,1,0
+DE-1-201767805,"DE: Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ), EN: Federal Ministry for Economic Cooperation and Development (BMZ)",Bilateral,A02_sector,JO,1,0,0,170910000,0.5260617885536335,0.3979486833535158,2.5,1,0

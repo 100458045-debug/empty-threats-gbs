@@ -1,0 +1,277 @@
+---
+title: "Network position"
+subtitle: "The donor-recipient bipartite structure, and whether interruptions cluster"
+author: "Gaspar Vigneaux"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    theme: flatly
+execute:
+  warning: false
+  message: false
+---
+
+S1, S2 and S3 describe a donor's position **inside one recipient's pool**. They
+say nothing about where that donor sits in the system as a whole, and the
+theory needs both: a donor present in forty countries faces a different
+calculus when considering withdrawal from one of them than a donor present in
+three.
+
+This document adds the system-level view, and tests one hypothesis the
+activity-year models cannot reach — whether interruptions cluster across donors
+within a recipient more than chance allows.
+
+**The edges are built on commitments, for the same reason S1 is**: a donor
+that withholds a disbursement has not withdrawn its commitment, so a
+commitment-based tie is not erased by the behaviour under study. A
+disbursement-based network would delete precisely the edges of interest.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(igraph)
+library(conflicted)
+conflict_prefer("filter", "dplyr")
+conflict_prefer("select", "dplyr")
+conflict_prefer("simplify", "igraph")
+conflict_prefer("union", "dplyr")
+
+structural <- read_csv("../data/interim/structural.csv", show_col_types = FALSE)
+model_data <- read_csv("../data/processed/model_data_year.csv", show_col_types = FALSE)
+```
+
+## 1. The bipartite structure
+
+Two node classes, links only between them: donors on one side, recipients on
+the other. A donor is tied to a recipient in a given year if it holds a live
+cumulative commitment there.
+
+```{r}
+#| label: edges
+edges <- structural |>
+  filter(cum_commit > 0) |>
+  transmute(donor = donor_ref, recipient = country, year,
+            weight = cum_commit)
+
+edges |>
+  summarise(
+    ties       = n(),
+    donors     = n_distinct(donor),
+    recipients = n_distinct(recipient),
+    years      = n_distinct(year)
+  )
+```
+
+```{r}
+#| label: fig-density
+#| fig-cap: "Ties, donors and recipients present in each year"
+edges |>
+  summarise(donors = n_distinct(donor), recipients = n_distinct(recipient),
+            ties = n(), .by = year) |>
+  pivot_longer(-year) |>
+  ggplot(aes(year, value, colour = name)) +
+  geom_line(linewidth = 0.7) +
+  geom_point(size = 1.4) +
+  labs(x = NULL, y = NULL, colour = NULL) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom")
+```
+
+## 2. Donor position, year by year
+
+One graph per year, so position varies over the panel rather than being frozen
+at a single snapshot. Centrality answers different questions depending on the
+metric, and **choosing the metric is the hypothesis**:
+
+| Question | Metric | What it means here |
+|---|---|---|
+| How many recipients? | Degree | Portfolio breadth — how diversified the donor's exposure is |
+| Does it bridge? | Betweenness | Whether the donor links recipient groups that share no other funder |
+| Tied to well-connected recipients? | Eigenvector | Whether the donor operates where the crowded pools are |
+
+```{r}
+#| label: donor-centrality
+donor_year <- edges |>
+  group_split(year) |>
+  map(\(d) {
+    g <- graph_from_data_frame(d |> select(donor, recipient), directed = FALSE)
+    V(g)$type <- V(g)$name %in% d$recipient   # bipartite marker
+    tibble(
+      donor       = V(g)$name,
+      is_donor    = !V(g)$type,
+      year        = d$year[1],
+      net_degree  = degree(g),
+      net_between = betweenness(g, normalized = TRUE),
+      net_eigen   = eigen_centrality(g)$vector
+    ) |>
+      filter(is_donor) |>
+      select(-is_donor)
+  }) |>
+  list_rbind()
+
+donor_year |>
+  summarise(across(c(net_degree, net_between, net_eigen),
+                   list(median = median, max = max))) |>
+  pivot_longer(everything())
+```
+
+```{r}
+#| label: fig-degree
+#| fig-cap: "Portfolio breadth: recipients per donor, by year"
+donor_year |>
+  ggplot(aes(factor(year), net_degree)) +
+  geom_boxplot(fill = "grey85", outlier.size = 0.8) +
+  labs(x = NULL, y = "Recipients funded") +
+  theme_minimal(base_size = 11)
+```
+
+- Degree is the measure the theory most directly needs. A donor funding many
+  recipients spreads its reputational and relational exposure; withdrawing from
+  one is a smaller share of its total engagement than for a donor with two or
+  three partners. Neither S1 nor S2 sees this, because both are computed inside
+  a single recipient.
+
+## 3. The donor-donor projection, and what it does not mean
+
+Projecting the bipartite graph onto its donor side ties two donors whenever
+they fund the same recipient.
+
+**A caution carried from the Marvel co-appearance project**: co-presence in a
+recipient is *not* an observed relationship between donors. The projection is
+an artefact of the data-generating process — two donors funding Malawi have not
+thereby been shown to coordinate. What the measure captures is **exposure to the
+same peers**, which is the observable footprint of the collective-action
+structure the theory describes, not evidence of collaboration.
+
+```{r}
+#| label: projection
+donor_peers <- edges |>
+  group_split(year) |>
+  map(\(d) {
+    g <- graph_from_data_frame(d |> select(donor, recipient), directed = FALSE)
+    V(g)$type <- V(g)$name %in% d$recipient
+    proj <- bipartite_projection(g, which = "false")   # donor side
+    tibble(
+      donor          = V(proj)$name,
+      year           = d$year[1],
+      net_peers      = degree(proj),
+      net_peer_str   = strength(proj)
+    )
+  }) |>
+  list_rbind()
+
+donor_peers |>
+  summarise(median_peers = median(net_peers), max_peers = max(net_peers),
+            .by = year) |>
+  arrange(year)
+```
+
+## 4. The donor-year variable set
+
+```{r}
+#| label: assemble
+network_vars <- donor_year |>
+  left_join(donor_peers, by = c("donor", "year")) |>
+  rename(donor_ref = donor)
+
+network_vars |> glimpse()
+
+write_csv(network_vars, "../data/processed/network_donor_year.csv")
+```
+
+These attach to the activity-year panel on `donor_ref` x `year`, alongside
+S1-S3 rather than in place of them: the two sets answer different questions,
+one about a donor's weight inside a recipient, the other about its position
+across recipients.
+
+```{r}
+#| label: join-check
+model_data |>
+  left_join(network_vars, by = c("donor_ref", "year")) |>
+  summarise(
+    rows            = n(),
+    net_degree_ok   = sum(!is.na(net_degree)),
+    pct_matched     = round(100 * mean(!is.na(net_degree)))
+  )
+```
+
+## 5. Do interruptions cluster within a recipient?
+
+The collective-action account implies donors watch each other. If it holds,
+interruptions inside a recipient-year should co-occur across donors more often
+than independent decisions would produce.
+
+**The null is constructed, not assumed.** Each donor's interruptions are
+reshuffled across the years it was actually present, which preserves how often
+each donor interrupts and how many donors each recipient has, while destroying
+any within-recipient synchrony. Anything left is the effect.
+
+```{r}
+#| label: contagion
+set.seed(20260824)   # fixed: a permutation test is stochastic
+
+obs_panel <- model_data |>
+  filter(!is.na(interrupted_flag)) |>
+  distinct(donor_ref, recipient_main, year, interrupted_flag)
+
+# Observed: mean number of donors interrupting in the same recipient-year,
+# counting only recipient-years where more than one donor is present.
+co_occurrence <- function(df) {
+  df |>
+    summarise(n_donors = n(), n_interrupted = sum(interrupted_flag),
+              .by = c(recipient_main, year)) |>
+    filter(n_donors > 1) |>
+    summarise(mean_share = mean(n_interrupted / n_donors)) |>
+    pull(mean_share)
+}
+
+observed <- co_occurrence(obs_panel)
+
+null_dist <- map_dbl(1:1000, \(i) {
+  obs_panel |>
+    mutate(interrupted_flag = sample(interrupted_flag), .by = donor_ref) |>
+    co_occurrence()
+})
+
+tibble(
+  observed   = round(observed, 4),
+  null_mean  = round(mean(null_dist), 4),
+  null_sd    = round(sd(null_dist), 4),
+  p_value    = round(mean(null_dist >= observed), 4)
+)
+```
+
+```{r}
+#| label: fig-contagion
+#| fig-cap: "Observed within-recipient co-interruption against a permutation null"
+tibble(null = null_dist) |>
+  ggplot(aes(null)) +
+  geom_histogram(bins = 40, fill = "grey70") +
+  geom_vline(xintercept = observed, colour = "firebrick", linewidth = 0.9) +
+  labs(x = "Mean share of a recipient's donors interrupting in the same year",
+       y = "Permutations",
+       caption = "Red line: observed value. 1,000 permutations, seed 20260824") +
+  theme_minimal(base_size = 11)
+```
+
+**Reading the result.** A p-value near zero means interruptions synchronise
+beyond what independent donor behaviour would produce — consistent with donors
+responding to the same recipient-level shock, or to each other. The test cannot
+distinguish those two: both produce clustering. Establishing which would need
+the timing of the decisions rather than their annual co-occurrence, which the
+data do not carry. A non-significant result is equally informative, and would
+say that the collective-action account has no observable footprint here.
+
+## 6. Save
+
+```{r}
+#| label: save
+write_csv(network_vars, "../data/processed/network_donor_year.csv")
+```
+
+**Output.** `data/processed/network_donor_year.csv`, one row per donor-year,
+carrying portfolio breadth, brokerage and peer exposure. 04_eda_clean
+describes these alongside the rest of the variable set.

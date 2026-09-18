@@ -1,0 +1,661 @@
+---
+title: "EDA II — The analytical sample"
+subtitle: "What the models see, once the cleaning is settled"
+author: "Gaspar Vigneaux"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    toc-title: "Contents"
+    number-sections: true
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+    theme: cosmo
+    fontsize: 1.02em
+    linestretch: 1.5
+    max-width: 1100px
+    fig-width: 8
+    fig-height: 4.5
+    fig-align: center
+    fig-cap-location: bottom
+    tbl-cap-location: top
+    df-print: kable
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+  echo: true
+---
+
+Three documents come before this one. 01_eda_raw diagnosed the data and
+chose the outcome measure. 02_feature_engineering cleaned the variables.
+03_network built the network measures. This document describes the result
+and produces the figures for the data chapter.
+
+**This document makes no decisions.** They were all made earlier, using criteria
+set in advance. That order matters: choosing a measure
+after seeing how it behaves is not a test.
+
+**How to read the axes.** The unit of observation is the **activity-year**: one
+operation in one year. Two things are easy to confuse, so they are labelled
+differently.
+
+- *"(count)"* means a number of activity-years.
+- *"share of..."* means a percentage of some group's activity-years.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(scales)
+library(patchwork)
+library(kableExtra)
+library(conflicted)
+conflict_prefer("filter", "dplyr")
+conflict_prefer("select", "dplyr")
+
+md <- read_csv("../data/processed/model_data_year.csv", show_col_types = FALSE)
+nv <- read_csv("../data/processed/network_donor_year.csv", show_col_types = FALSE)
+
+# One theme for every figure: a reader should not have to re-learn the visual
+# conventions between panels.
+theme_set(
+  theme_minimal(base_size = 11) +
+    theme(
+      panel.grid.minor = element_blank(),
+      plot.title       = element_text(face = "bold", size = 11),
+      plot.subtitle    = element_text(colour = "grey35", size = 9.5),
+      plot.caption     = element_text(colour = "grey45", size = 8, hjust = 0),
+      strip.text       = element_text(face = "bold", size = 9.5),
+      legend.position  = "bottom"
+    )
+)
+
+PAL_TYPE <- c(Bilateral = "#C0504D", Multilateral = "#4F6D8C")
+INK      <- "grey25"
+
+pc <- function(x) round(100 * mean(x, na.rm = TRUE))
+
+# Tables are rendered rather than printed. A console tibble shows type headers,
+# row numbers and truncated strings, none of which the reader needs.
+show_tbl <- function(df, caption = NULL, full = FALSE) {
+  df |>
+    knitr::kable(caption = caption, format.args = list(big.mark = ","),
+                 align = "l") |>
+    kableExtra::kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed"),
+      full_width = full, position = "left", font_size = 13
+    )
+}
+
+d_all <- md |> left_join(nv, by = c("donor_ref", "year"))
+```
+
+# Part 0 — The disclosure filter
+
+The outcome measures something that did **not** happen: a year where money was
+owed and no payment arrived.
+
+This only works if we would have seen the payment, had there been one. Some
+donors publish their commitments to IATI but never publish their payments. For
+those donors every year looks like a year with no payment, whatever they
+actually did. The measure tells us nothing about them, so they are removed.
+
+```{r}
+#| label: tbl-disclosure
+d_all |>
+  summarise(`Activity-years` = n(),
+            `Reports a payment` = round(100 * mean(disbursement_usd > 0)),
+            `Flagged interrupted` = pc(interrupted_flag),
+            .by = c(donor, x1_donor_type)) |>
+  arrange(`Reports a payment`) |>
+  rename(Donor = donor, Type = x1_donor_type) |>
+  mutate(across(c(`Reports a payment`, `Flagged interrupted`),
+                ~ paste0(.x, "%"))) |>
+  show_tbl("Donors ordered by how often they publish a payment. The first six are removed.")
+```
+
+```{r}
+#| label: apply-filter
+# Donor-level, not activity-level. An activity with no disbursement under a
+# donor that generally reports them is signal — possibly total withholding.
+# Under a donor that never reports them it is an artefact.
+MIN_DISCLOSURE <- 0.25
+
+donors_keep <- d_all |>
+  summarise(rate = mean(disbursement_usd > 0), .by = donor_ref) |>
+  filter(rate >= MIN_DISCLOSURE) |>
+  pull(donor_ref)
+
+d <- d_all |> filter(donor_ref %in% donors_keep)
+```
+
+```{r}
+#| label: fig-filter
+#| fig-cap: "Donors ordered by how often they report a disbursement. The six below the line are excluded: for them a year without a disbursement is not evidence of anything, because they do not publish disbursements at all."
+#| fig-height: 5.5
+disc <- d_all |>
+  summarise(n = n(),
+            disclosing  = 100 * mean(disbursement_usd > 0),
+            interrupted = 100 * mean(interrupted_flag),
+            has_commit  = any(!is.na(balance_share)),
+            .by = c(donor, x1_donor_type)) |>
+  mutate(
+    donor  = fct_reorder(str_trunc(donor, 34), disclosing),
+    status = case_when(
+      disclosing >= 25              ~ "kept",
+      has_commit                    ~ "excluded: commitments but no disbursements",
+      TRUE                          ~ "excluded: neither reported"
+    )
+  )
+
+PAL_ST <- c("kept" = "grey35",
+            "excluded: commitments but no disbursements" = "#C0504D",
+            "excluded: neither reported" = "grey70")
+
+p_disc <- disc |>
+  ggplot(aes(disclosing, donor, colour = status)) +
+  geom_segment(aes(x = 0, xend = disclosing, yend = donor), linewidth = 0.5) +
+  geom_point(size = 2.6) +
+  geom_vline(xintercept = 25, linetype = "dashed", colour = "grey45") +
+  scale_colour_manual(values = PAL_ST) +
+  scale_x_continuous(labels = label_percent(scale = 1), limits = c(0, 100)) +
+  labs(x = "Years with a disbursement reported",
+       y = NULL, colour = NULL,
+       title = "How often each donor publishes a disbursement")
+
+p_int <- disc |>
+  ggplot(aes(interrupted, donor, colour = status)) +
+  geom_segment(aes(x = 0, xend = interrupted, yend = donor), linewidth = 0.5) +
+  geom_point(size = 2.6) +
+  geom_text(aes(x = 100, label = paste0("n=", n)), hjust = 1, size = 2.6,
+            colour = "grey50") +
+  scale_colour_manual(values = PAL_ST, guide = "none") +
+  scale_x_continuous(labels = label_percent(scale = 1), limits = c(0, 100)) +
+  labs(x = "Years flagged as interrupted", y = NULL,
+       title = "and how often it is flagged") +
+  theme(axis.text.y = element_blank())
+
+p_disc + p_int + plot_layout(guides = "collect", widths = c(1.35, 1))
+```
+
+**How to read it.** Each donor has one row. The row stays in the same place in
+both panels, so only the horizontal position changes.
+
+- **Red donors** publish commitments but almost never a payment. They are
+  flagged in 94 to 100 per cent of their years. That number describes how they
+  report, not what they do.
+- **Grey donors** publish neither. They never owe anything, so they are never
+  flagged. They are removed too, because they add nothing either way.
+
+**Check the `n` labels.** New Zealand and Denmark have one activity-year each.
+Their rates of 100 and 0 per cent come from a single observation, not a pattern.
+Sample size is written as text, not as point size: donors range from 1 to 857
+observations, and size would make the small ones disappear.
+
+```{r}
+#| label: tbl-filter-effect
+bind_rows(
+  d_all |> summarise(Sample = "Before filter", rate = pc(interrupted_flag),
+                     n = n(), .by = x1_donor_type),
+  d     |> summarise(Sample = "After filter",  rate = pc(interrupted_flag),
+                     n = n(), .by = x1_donor_type)
+) |>
+  transmute(Type = x1_donor_type, Sample,
+            `Activity-years` = n, `Interrupted` = paste0(rate, "%")) |>
+  arrange(Type, desc(Sample)) |>
+  show_tbl("What the filter changes")
+```
+
+- **The gap between donor types was about twice as large before the filter.**
+  Two publishers caused that on their own.
+- This belongs in the results chapter, not only in the limitations. Without the
+  filter, a comparison between bilateral and multilateral donors partly measures
+  how they report rather than how they behave.
+
+# Part 1 — The sample
+
+```{r}
+#| label: tbl-sample
+d |>
+  summarise(`Activity-years` = n(),
+            Activities = n_distinct(iatiidentifier),
+            Donors = n_distinct(donor_ref),
+            Countries = n_distinct(recipient_main),
+            Window = paste(min(year), max(year), sep = "-"),
+            Interrupted = paste0(pc(interrupted_flag), "%")) |>
+  show_tbl("The analytical sample")
+
+d |>
+  summarise(`Activity-years` = n(),
+            Activities = n_distinct(iatiidentifier),
+            Donors = n_distinct(donor_ref),
+            Countries = n_distinct(recipient_main),
+            Interrupted = paste0(pc(interrupted_flag), "%"),
+            .by = x1_donor_type) |>
+  rename(Type = x1_donor_type) |>
+  show_tbl("By institutional type")
+```
+
+- **`r pc(d$x1_donor_type == "Multilateral")` per cent of activity-years are
+  multilateral.** The research question compares the two donor types, and one
+  type holds four fifths of the data. No modelling choice fixes this. It limits
+  how precise the comparison can be.
+
+## The donor level
+
+```{r}
+#| label: fig-donors
+#| fig-cap: "Observations per donor and their interruption rate. The horizontal scale is logarithmic because on a linear axis the five largest donors compress the remaining twelve into an unreadable band."
+#| fig-height: 5.5
+donor_tab <- d |>
+  summarise(activity_years = n(),
+            countries = n_distinct(recipient_main),
+            interrupted = pc(interrupted_flag),
+            .by = c(donor, x1_donor_type)) |>
+  mutate(donor = str_trunc(donor, 38)) |>
+  arrange(desc(activity_years))
+
+donor_tab |>
+  transmute(Donor = donor, Type = x1_donor_type,
+            `Activity-years` = activity_years, Countries = countries,
+            Interrupted = paste0(interrupted, "%")) |>
+  show_tbl("Every donor in the analytical sample")
+
+p_n <- donor_tab |>
+  mutate(donor = fct_reorder(donor, activity_years)) |>
+  ggplot(aes(activity_years, donor, fill = x1_donor_type)) +
+  geom_col(width = 0.72) +
+  scale_fill_manual(values = PAL_TYPE) +
+  scale_x_log10() +
+  labs(x = "Activity-years observed (count, log scale)", y = NULL, fill = NULL,
+       title = "Sample weight")
+
+p_r <- donor_tab |>
+  mutate(donor = fct_reorder(donor, activity_years)) |>
+  ggplot(aes(interrupted, donor, colour = x1_donor_type)) +
+  geom_segment(aes(x = 0, xend = interrupted, yend = donor), linewidth = 0.5) +
+  geom_point(size = 2.4) +
+  scale_colour_manual(values = PAL_TYPE) +
+  scale_x_continuous(labels = label_percent(scale = 1)) +
+  labs(x = "Share of the donor's years interrupted", y = NULL, colour = NULL,
+       title = "Interruption rate") +
+  theme(axis.text.y = element_blank())
+
+p_n + p_r + plot_layout(guides = "collect", widths = c(1.4, 1))
+```
+
+- **Donors range from one observation to several hundred.** This is why the
+  model uses random donor effects rather than fixed effects. With fixed
+  effects, a donor with one observation is fitted perfectly and tells us
+  nothing. Random effects weight each donor by how much data it actually has.
+
+# Part 2 — The outcome
+
+```{r}
+#| label: fig-outcome
+#| fig-cap: "Interruption over time, overall and by institutional type. Point size carries the number of activity-years behind each rate, so that a rate computed on twenty observations is not read as equivalent to one computed on four hundred."
+#| fig-height: 4
+p_year <- d |>
+  summarise(rate = 100 * mean(interrupted_flag), n = n(), .by = year) |>
+  ggplot(aes(year, rate)) +
+  geom_col(fill = INK, width = 0.68) +
+  scale_x_continuous(breaks = 2014:2023) +
+  scale_y_continuous(labels = label_percent(scale = 1),
+                     expand = expansion(mult = c(0, 0.1))) +
+  labs(x = NULL, y = "Share of activity-years interrupted", title = "All donors")
+
+p_type <- d |>
+  summarise(rate = 100 * mean(interrupted_flag), n = n(),
+            .by = c(year, x1_donor_type)) |>
+  ggplot(aes(year, rate, colour = x1_donor_type)) +
+  geom_line(linewidth = 0.6) +
+  geom_point(aes(size = n)) +
+  scale_colour_manual(values = PAL_TYPE) +
+  scale_size_continuous(range = c(1, 4.5), guide = "none") +
+  scale_x_continuous(breaks = 2014:2023) +
+  scale_y_continuous(labels = label_percent(scale = 1)) +
+  labs(x = NULL, y = NULL, colour = NULL, title = "By institutional type")
+
+p_year + p_type + plot_layout(widths = c(1, 1.2))
+```
+
+# Part 3 — Structural position
+
+## What these three variables mean
+
+Before the shapes, what the numbers are. All three describe one donor in one
+country in one year, and all three are built from **commitments** — money
+promised — rather than from money actually paid.
+
+Take Malawi in 2019. Three donors have promised budget support, and these are
+their running totals:
+
+| Donor | Promised so far | Share of the total |
+|---|---|---|
+| World Bank | 200 M | **53%** |
+| Germany | 100 M | 26% |
+| European Union | 80 M | 21% |
+| **Total promised to Malawi** | **380 M** | 100% |
+
+For the World Bank's row in 2019:
+
+- **S1 = 0.53.** Just over half of everything promised to Malawi comes from the
+  World Bank. This is what the hypothesis calls leverage: if the World Bank
+  stops paying, Malawi cannot easily replace that money.
+- **S2 = 0.11.** How concentrated the *other* donors are among themselves,
+  ignoring the World Bank. Germany and the EU are similar in size, so the rest
+  of the pool is spread out rather than dominated by one player.
+- **S3 = 3.** Three donors are present.
+
+Germany's row in the same country-year would read S1 = 0.26, and its S2 would
+describe how the World Bank and the EU are distributed. Every donor sees a
+different picture of the same country.
+
+**Reading the bands later in this document:** a `<25%` band means the donor
+supplies less than a quarter of what the country has been promised; a `>75%`
+band means it supplies almost all of it.
+
+## Are these distributions a problem?
+
+They are not bell-shaped, and that is fine. Here is why.
+
+**Normality is an assumption of the linear model.** It applies to the
+*residuals*, not to the predictors. And the outcome here is binary — interrupted
+or not — so the model is a logistic GLM. That model exists precisely because
+real data break the linear model's assumptions. **No variable below needs to
+follow any particular distribution.**
+
+The shapes still matter for interpretation. Two are worth noting.
+
+```{r}
+#| label: fig-structural
+#| fig-cap: "The structural variables. s1_share is a proportion with a deliberate mass at 1; s3_n_donors is a small count; neither is meant to be bell-shaped."
+#| fig-height: 3.6
+lbl <- c(s1_share = "S1 — the donor's share of all money\npromised to that country",
+         s2_hhi_net = "S2 — how concentrated the\nother donors are",
+         s3_n_donors = "S3 — how many donors\nthe country has")
+
+d |>
+  select(s1_share, s2_hhi_net, s3_n_donors) |>
+  pivot_longer(everything(), names_to = "v", values_to = "value") |>
+  filter(!is.na(value)) |>
+  mutate(v = factor(lbl[v], levels = unname(lbl))) |>
+  ggplot(aes(value)) +
+  geom_histogram(bins = 30, fill = INK) +
+  facet_wrap(~v, scales = "free", nrow = 1) +
+  labs(x = NULL, y = "Activity-years (count)")
+```
+
+- **The spike at 1 in S1 is real, not a problem.** These are the
+  `r pc(d$single_donor == 1)` per cent of years where the donor is the country's
+  only budget support provider, so its share is 1 by definition. This is the
+  strongest case for H2: maximum leverage. They are kept on purpose and marked
+  with `single_donor`.
+- **S3 counts donors and runs from 1 to 8.** A count is not supposed to look
+  normal. But this range is narrow. The fragmentation literature studies
+  countries with a dozen donors or more, and our data cannot reach that range.
+  The write-up says so.
+
+## The collinearity that must be handled before estimation
+
+```{r}
+#| label: fig-corr
+#| fig-cap: "Correlation between the explanatory variables. The -0.87 between S1 and S2 is mechanical: S2 is calculated by subtracting S1 squared."
+#| fig-height: 4.4
+cm <- d |>
+  select(`S1 donor share` = s1_share, `S2 others concentration` = s2_hhi_net,
+         `S3 donors in country` = s3_n_donors, `Network degree` = net_degree,
+         `log commitment` = log_commitment) |>
+  cor(use = "pairwise.complete.obs")
+
+cm |>
+  as_tibble(rownames = "a") |>
+  pivot_longer(-a, names_to = "b", values_to = "r") |>
+  mutate(across(c(a, b), ~ factor(.x, levels = rownames(cm)))) |>
+  ggplot(aes(a, b, fill = r)) +
+  geom_tile(colour = "white", linewidth = 1) +
+  geom_text(aes(label = number(r, accuracy = 0.01)), size = 3.1,
+            colour = if_else(abs(as.vector(t(cm))) > 0.6, "white", "grey20")) +
+  scale_fill_gradient2(low = "#C0504D", mid = "white", high = "#4F6D8C",
+                       midpoint = 0, limits = c(-1, 1)) +
+  labs(x = NULL, y = NULL, fill = NULL) +
+  coord_fixed() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1),
+        panel.grid = element_blank())
+```
+
+- **S1 and S2 correlate at about -0.87, and this is by construction.** S2 is
+  calculated as `s2_hhi - s1_share^2`, so it literally subtracts S1. Put both in
+  one model and the standard errors inflate: both can look non-significant even
+  when both matter. The models handle this with principal components, reported
+  next to the single-variable models rather than replacing them.
+- **Network degree correlates weakly with all three.** This is why it was worth
+  building. It measures something the within-country variables do not.
+
+# Part 4 — Donor size, as a control
+
+S1, S2 and S3 describe a donor **inside one country**. This section adds one
+variable describing the donor **overall**: how many countries it funds.
+
+**It is a control, not a hypothesis.** The theory has two mechanisms,
+substitutability and signalling, and neither says anything about a donor's total
+size. The variable is here for a narrower reason: **multilaterals are usually
+the bigger donors**, so institutional type and size are entangled. A result
+reading "multilaterals behave differently" may really be "big donors behave
+differently", with the institutional label doing no work of its own. Separating
+them requires measuring both.
+
+**The variable.** `net_degree` counts how many countries a donor funds in a
+given year. It describes a donor in a year, not a single activity, so all of
+that donor's activities in that year share the same value.
+
+```{r}
+#| label: fig-network
+#| fig-cap: "Portfolio breadth by institutional type. Each point is one donor in one year."
+#| fig-height: 4
+nd <- d |> distinct(donor_ref, donor, year, x1_donor_type, net_degree) |>
+  filter(!is.na(net_degree))
+
+p_box <- nd |>
+  ggplot(aes(x1_donor_type, net_degree, colour = x1_donor_type)) +
+  geom_boxplot(outlier.shape = NA, width = 0.45, linewidth = 0.5) +
+  geom_jitter(width = 0.13, alpha = 0.35, size = 1.3) +
+  scale_colour_manual(values = PAL_TYPE, guide = "none") +
+  labs(x = NULL, y = "Recipient countries the donor funds that year",
+       title = "Multilaterals fund more countries")
+
+p_hist <- nd |>
+  ggplot(aes(net_degree, fill = x1_donor_type)) +
+  geom_histogram(bins = 22, alpha = 0.75, position = "identity") +
+  scale_fill_manual(values = PAL_TYPE) +
+  labs(x = "Recipient countries the donor funds that year",
+       y = "Donor-years (count)", fill = NULL,
+       title = "but the two groups overlap")
+
+p_box + p_hist
+```
+
+- **Multilaterals do fund more countries on average**, but the groups overlap:
+  some multilaterals fund only a handful, some bilaterals fund many. The two
+  variables are related without being the same thing, which is what makes the
+  separation possible.
+
+**What it buys for H1.** Put institutional type and donor size in the same
+model, and see which one survives.
+
+| If the surviving variable is... | Then the conclusion is |
+|---|---|
+| Institutional type | Something about how these organisations are governed matters |
+| Donor size | The bilateral/multilateral label was standing in for size |
+| Both | Each contributes something the other does not |
+
+# Part 5 — Controls
+
+```{r}
+#| label: fig-controls
+#| fig-cap: "Recipient-side controls. Aid dependence is right-skewed and enters logged; the governance indices are already standardised by their source."
+#| fig-height: 5
+ctrl_lbl <- c(voice_account = "Voice & accountability",
+              corruption_ctrl = "Control of corruption",
+              pol_stability = "Political stability",
+              aid_dependence = "Aid dependence (ODA/GNI, %)",
+              log_aid_dep = "Aid dependence (log)",
+              log_gdp_pc = "GDP per capita (log)")
+
+d |>
+  # if_else evaluates both branches, so log() must not see the non-positive
+  # values even though they are discarded. Negative ODA is net repayment.
+  mutate(log_aid_dep = if_else(aid_dependence > 0,
+                               log(pmax(aid_dependence, 1e-6)), NA_real_)) |>
+  select(all_of(names(ctrl_lbl))) |>
+  pivot_longer(everything(), names_to = "v", values_to = "value") |>
+  filter(!is.na(value)) |>
+  mutate(v = factor(ctrl_lbl[v], levels = unname(ctrl_lbl))) |>
+  ggplot(aes(value)) +
+  geom_histogram(bins = 30, fill = INK) +
+  facet_wrap(~v, scales = "free", nrow = 2) +
+  labs(x = NULL, y = "Activity-years (count)")
+```
+
+- **Aid dependence is heavily right-skewed.** Most countries receive modest aid
+  relative to the size of their economy; a few receive very large amounts.
+- Both versions are shown. The raw one makes the skew visible; the logged one
+  goes into the models. Without the log, a handful of extreme countries would
+  pull the estimates much harder than their numbers justify. This is about
+  influence, not about any normality requirement.
+
+```{r}
+#| label: tbl-political
+d |>
+  summarise(`Coup years` = sum(coup, na.rm = TRUE),
+            `Election years` = sum(election_year, na.rm = TRUE),
+            `Share with a coup` = paste0(pc(coup), "%"),
+            `Share with an election` = paste0(pc(election_year), "%")) |>
+  show_tbl("Political events in the sample")
+```
+
+- **Coups are rare**, so that indicator will always be sparse. **Elections cover
+  about a quarter of activity-years**, which is enough variation to be useful.
+- Both describe the recipient country, so they apply equally to bilateral and
+  multilateral donors. That is why they work as controls where donor-recipient
+  voting affinity did not.
+
+# Part 6 — First look at the hypotheses
+
+These are raw patterns. **Nothing here controls for anything.** They exist so
+the controlled estimates can be compared against them later.
+
+## What each mechanism predicts
+
+The two hypotheses use different variables, and the same mechanism can appear
+with opposite signs depending on which one. Both S1 and S3 measure the **same
+underlying thing** — how strong the donor's position is — but from opposite
+directions:
+
+| | Strong position | Weak position |
+|---|---|---|
+| **S1 — donor share** | High: the donor dominates | Low |
+| **S3 — donors in the country** | **Few**: little competition | Many |
+
+A high share means **few** competitors, not many. If one donor supplies 80 per
+cent of what a country receives, there is hardly anyone else there.
+
+**Substitutability** asks *"can I be replaced?"* A donor in a strong position
+cannot, so its threat is credible and it uses it:
+
+- more share → more interruption
+- **fewer** donors → more interruption
+
+One prediction, two expressions.
+
+**Signalling** asks *"who is watching?"* The audience is the other donors, so:
+
+- **more** donors → more interruption
+
+The two mechanisms therefore disagree **only about S3**. Signalling says nothing
+about share, because its logic concerns audience rather than weight. That is why
+H2 is directional and H3 is an adjudication between rivals.
+
+```{r}
+#| label: fig-hypotheses
+#| fig-cap: "Interruption against donor share and against pool size. Bands are ordered along the horizontal axis because the underlying variables are ordered — an unordered display of ordered data would misrepresent it."
+#| fig-height: 4
+h2 <- d |>
+  filter(!is.na(s1_share)) |>
+  mutate(band = cut(s1_share, c(0, .25, .5, .75, 1),
+                    labels = c("<25%", "25-50%", "50-75%", ">75%"),
+                    include.lowest = TRUE, ordered_result = TRUE)) |>
+  summarise(rate = 100 * mean(interrupted_flag), n = n(), .by = band)
+
+h3 <- d |>
+  filter(!is.na(s3_n_donors)) |>
+  mutate(band = cut(s3_n_donors, c(0, 1, 2, 3, 20),
+                    labels = c("1", "2", "3", "4+"), ordered_result = TRUE)) |>
+  summarise(rate = 100 * mean(interrupted_flag), n = n(), .by = band)
+
+bar <- function(df, ttl, xlab) {
+  df |>
+    arrange(band) |>
+    ggplot(aes(band, rate)) +
+    geom_col(fill = INK, width = 0.62) +
+    geom_text(aes(label = paste0("n=", n)), vjust = -0.45, size = 2.8,
+              colour = "grey40") +
+    scale_y_continuous(labels = label_percent(scale = 1),
+                       expand = expansion(mult = c(0, 0.16))) +
+    labs(x = xlab, y = "Share of activity-years interrupted", title = ttl)
+}
+
+bar(h2, "H2 — donor share",
+    "The donor's share of all money promised to that country") +
+  bar(h3, "H3 — pool size",
+      "Number of budget support donors the country has")
+```
+
+```{r}
+#| label: tbl-hypotheses
+bind_rows(
+  h2 |> arrange(band) |> transmute(Hypothesis = "H2 - donor share",
+                                   Band = as.character(band),
+                                   `Activity-years` = n,
+                                   Interrupted = paste0(round(rate), "%")),
+  h3 |> arrange(band) |> transmute(Hypothesis = "H3 - pool size",
+                                   Band = as.character(band),
+                                   `Activity-years` = n,
+                                   Interrupted = paste0(round(rate), "%"))
+) |>
+  show_tbl("Raw interruption rates by band")
+```
+
+**Reading the two panels against the table above:**
+
+- **H2.** The interruption rate rises with the donor's share. That is what
+  substitutability predicts.
+- **H3.** The interruption rate falls as the country gains donors. That is
+  substitutability again — not signalling, which predicts the opposite.
+
+**Both panels point to the same mechanism.** The signs are opposite because the
+variables are opposite, not because the story is.
+
+This also runs against Molenaers et al. (2015), who find that more donors
+produce *more* suspensions. H3 was written as an adjudication between two rival
+accounts, and the raw pattern adjudicates for substitutability, against the
+published finding.
+
+- **But these are descriptions, not tests.** Countries differ in governance and
+  aid dependence. Donors differ in size. Both change systematically along the
+  horizontal axis, and neither is held constant here. The models exist to check
+  whether the pattern survives.
+
+# Save
+
+```{r}
+#| label: save
+d |> write_csv("../data/processed/model_data_with_network.csv")
+```
+
+**Output.** `data/processed/model_data_with_network.csv` — the activity-year
+panel, disclosure-filtered, with network position attached. This is what
+05_models and 06_prediction estimate on.

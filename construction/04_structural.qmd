@@ -1,0 +1,216 @@
+---
+title: "Structural position of donors in recipient budget support"
+subtitle: "S1 (share), S2 (fragmentation) and S3 (pool size), built on commitments"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: show
+execute:
+  warning: false
+  message: false
+---
+
+Builds the principal explanatory variables for H1, H2 and H3. Reads
+`analysis.csv` and `panel_year.csv` from the construction step upstream — no
+database connection, so this renders on a clean clone with no access to the
+32 GB source.
+
+**The three variables are built on commitments, not disbursements**. Measured
+from disbursements, a donor's share is determined by the outcome: a donor that
+withholds records a share of zero in that same year, and the regressor would
+restate the thing it is meant to explain. Commitments are not reduced by a
+decision to withhold — the outstanding commitment is precisely what makes
+withholding observable — so the measure is structurally prior to the outcome.
+
+It is also the better construct. The theory defines structural position as how
+far a recipient depends on a given donor, which is a question about promised
+financing rather than about the timing of cash.
+
+**H2** — withholding becomes more likely as the donor's share rises, because
+only then is the loss hard to substitute. **H3** — withholding becomes less
+likely as the donor pool fragments, or more likely under the signalling
+mechanism; the sign is what adjudicates between them.
+
+```{r}
+#| label: setup
+library(tidyverse)
+
+analysis   <- read_csv("../data/interim/analysis.csv", show_col_types = FALSE)
+panel_year <- read_csv("../data/interim/panel_year.csv", show_col_types = FALSE)
+```
+
+## 1. Donor x country x year
+
+An activity may list several recipient countries; 01_build_tables §2
+assigns each to its single main recipient, so that is already resolved here.
+
+```{r}
+#| label: donor-country-year
+dcy <- panel_year |>
+  left_join(
+    analysis |> select(iatiidentifier, donor_ref, donor, country = recipient_main),
+    by = "iatiidentifier"
+  ) |>
+  filter(!is.na(country)) |>
+  summarise(
+    # Negative annual sums are refunds and reversals netted within a year. A
+    # share cannot rest on a negative numerator, so they are floored rather
+    # than dropped — dropping would delete the cell entirely, which is what
+    # produced the endogeneity diagnosed earlier.
+    commit_year  = sum(pmax(commitment_usd, 0), na.rm = TRUE),
+    disb_year    = sum(pmax(disbursement_usd, 0), na.rm = TRUE),
+    n_activities = n_distinct(iatiidentifier),
+    .by = c(donor_ref, donor, country, year)
+  )
+
+dcy
+```
+
+## 2. Cumulative commitment — the standing promise
+
+Commitments arrive in lumps: a donor signs for a whole operation once and
+disburses over several years. An annual commitment share would therefore read
+100 per cent in the signing year and nothing afterwards, describing the
+paperwork rather than the relationship. The **cumulative** commitment to date is
+what stands in any given year, and that is what "structural" means here.
+
+```{r}
+#| label: cumulative
+dcy <- dcy |>
+  arrange(donor_ref, country, year) |>
+  mutate(cum_commit = cumsum(commit_year), .by = c(donor_ref, country))
+
+country_year <- dcy |>
+  summarise(
+    total_commit = sum(cum_commit),
+    n_donors     = n_distinct(donor_ref),
+    .by = c(country, year)
+  )
+```
+
+## 3. S1, S2, S3
+
+```{r}
+#| label: structural
+structural <- dcy |>
+  left_join(country_year, by = c("country", "year")) |>
+  mutate(
+    # A recipient-year with nothing committed by anyone has no share to
+    # compute; that is undefined rather than zero.
+    s1_share = if_else(total_commit > 0, cum_commit / total_commit, NA_real_)
+  ) |>
+  mutate(
+    s2_hhi = sum(s1_share^2, na.rm = TRUE),
+    # What matters to a donor considering withholding is how substitutable IT
+    # is, which depends on the others — hence the pool net of its own weight.
+    s2_hhi_net  = if_else(n_donors > 1, s2_hhi - s1_share^2, NA_real_),
+    s3_n_donors = n_donors,
+    .by = c(country, year)
+  ) |>
+  select(donor_ref, donor, country, year, commit_year, disb_year, cum_commit,
+         total_commit, s1_share, s2_hhi, s2_hhi_net, s3_n_donors, n_activities)
+
+structural
+```
+
+## 4. Coverage, and the balance that matters
+
+The diagnostic that decided this specification. If the measure were still
+endogenous, it would be missing far more often in years the outcome marks as
+withheld than elsewhere.
+
+```{r}
+#| label: balance
+structural |>
+  mutate(no_disbursement = disb_year <= 0) |>
+  summarise(
+    cells          = n(),
+    s1_missing_pct = round(100 * mean(is.na(s1_share))),
+    .by = no_disbursement
+  )
+```
+
+- Missingness is the same on both sides of the outcome. That is the point of
+  building on commitments: a year in which the donor sent nothing still has a
+  fully observed structural position.
+
+```{r}
+#| label: coverage
+structural |>
+  summarise(
+    donor_country_years = n(),
+    s1_available        = sum(!is.na(s1_share)),
+    s2_net_available    = sum(!is.na(s2_hhi_net)),
+    single_donor        = sum(s3_n_donors == 1),
+    pct_single          = round(100 * mean(s3_n_donors == 1)),
+    median_share        = round(median(s1_share, na.rm = TRUE), 3)
+  )
+```
+
+- `s2_hhi_net` is undefined wherever the pool holds one donor: a pool net of its
+  only member is empty, not zero. Those cells are kept for H2, where a share of
+  one is the theoretical extreme of maximal leverage, and dropped from H3, which
+  has no fragmentation to measure there.
+
+## 5. Does the key variable vary?
+
+```{r}
+#| label: variation
+structural |>
+  mutate(band = cut(s1_share, c(0, .1, .25, .5, .75, .99, 1),
+                    labels = c("<10%", "10-25%", "25-50%", "50-75%", "75-99%", "100%"),
+                    include.lowest = TRUE)) |>
+  count(band)
+
+structural |> count(s3_n_donors) |> arrange(s3_n_donors)
+```
+
+```{r}
+#| label: fig-share
+#| fig-cap: "Donor share of recipient committed budget support, excluding single-donor cells"
+structural |>
+  filter(s3_n_donors > 1, !is.na(s1_share)) |>
+  ggplot(aes(s1_share)) +
+  geom_histogram(bins = 30, fill = "grey30") +
+  scale_x_continuous(labels = scales::percent) +
+  labs(x = "Donor share of recipient committed budget support",
+       y = "Donor-country-years") +
+  theme_minimal(base_size = 12)
+```
+
+```{r}
+#| label: fig-commit-vs-disb
+#| fig-cap: "Commitment share against realised disbursement share, same cells"
+structural |>
+  # if_else needs a scalar condition; the group total is one value but the
+  # branches are vectors, so the guard goes on the denominator instead.
+  mutate(total_disb = sum(disb_year), .by = c(country, year)) |>
+  mutate(share_disb = if_else(total_disb > 0, disb_year / total_disb, NA_real_)) |>
+  filter(!is.na(s1_share), !is.na(share_disb)) |>
+  ggplot(aes(s1_share, share_disb)) +
+  geom_abline(slope = 1, intercept = 0, colour = "grey70", linetype = "dashed") +
+  geom_point(alpha = 0.25, size = 1) +
+  scale_x_continuous(labels = scales::percent) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(x = "Share of committed funds", y = "Share of funds actually disbursed") +
+  theme_minimal(base_size = 11)
+```
+
+- Points below the diagonal are donor-country-years where the donor disbursed a
+  smaller share than it had promised — which is what the outcome is built to
+  detect. That the two axes diverge is the evidence that they are not the same
+  variable, and the reason the commitment side can serve as a predictor of the
+  disbursement side.
+
+## 6. Save
+
+```{r}
+#| label: save
+write_csv(structural, "../data/interim/structural.csv")
+```
+
+**Output.** `data/interim/structural.csv`, one row per donor-country-year. The
+models use `s1_share`, `s2_hhi_net` and `s3_n_donors`, all built on commitments;
+`disb_year` travels with them for the diagnostic above and for the descriptive
+tables in analysis/04_eda_clean.

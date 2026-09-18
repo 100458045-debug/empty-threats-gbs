@@ -1,0 +1,141 @@
+---
+title: "Document harvest"
+subtitle: "Downloading the programme documents behind the IATI document links"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: show
+execute:
+  warning: false
+  message: false
+  eval: false
+---
+
+Drives the harvester in `_harvest_functions.R`. `eval: false` by design: a full
+run takes hours and must not fire on every render. Run the chunks interactively.
+
+Two passes were made, differing only in which document categories they target.
+Set `CATEGORIES` and re-run.
+
+The first pass covers the whole frame and pulls categories A01, A04 and A08 —
+conditions as demanded, from appraisal, legal agreement and results framework
+documents. The second narrows to the analytical sample and pulls A05 and A07 —
+conditions as resolved, from implementation review and evaluation documents.
+
+The second pass exists because the first could not answer the question. A01/A04/A08
+are drafted before or during an operation and record intent; whether a tranche was
+actually released would appear in implementation and completion reporting. That
+turned out not to be there either, which is a finding in its own right.
+
+```{r}
+library(tidyverse)
+library(DBI)
+library(RSQLite)
+
+source("_harvest_functions.R")
+
+CATEGORIES <- c("A05", "A07")
+
+# Pass 2 restricts to activities with a computable outcome: documents we cannot
+# cross-reference against a disbursement record are not worth the crawl delay.
+RESTRICT_TO_SAMPLE <- TRUE
+```
+
+## 1. What is available
+
+```{r}
+con <- dbConnect(SQLite(), DB_PATH)
+
+dbGetQuery(con, "
+  SELECT category, COUNT(DISTINCT url) AS n_urls,
+         COUNT(DISTINCT iatiidentifier) AS n_activities
+  FROM documents WHERE url IS NOT NULL
+  GROUP BY category ORDER BY n_urls DESC")
+
+ids <- if (RESTRICT_TO_SAMPLE) {
+  dbGetQuery(con, "
+    SELECT iatiidentifier FROM analysis
+    WHERE complete_flag = 1 AND y1_gap_full IS NOT NULL")$iatiidentifier
+} else {
+  NULL
+}
+
+dbDisconnect(con)
+```
+
+## 2. Build the download list
+
+```{r}
+links <- build_document_index(categories = CATEGORIES, ids = ids)
+
+links |> count(domain, sort = TRUE)
+
+# Runtime is bounded by politeness, not bandwidth: the AfDB's robots.txt sets
+# Crawl-delay 10 and the harvester is sequential by design.
+links |>
+  mutate(delay = map_dbl(domain, .delay_for)) |>
+  summarise(n_urls = n(), hours = sum(delay) / 3600)
+```
+
+## 3. Smoke test
+
+Twenty-five documents exercise every resolver — AfDB unwrapping, the World Bank
+API, the EC landing-page hop — and surface a broken selector in two minutes
+rather than at hour six.
+
+```{r}
+harvest_documents(links, limit = 25)
+harvest_report()
+```
+
+Check `pct_ok` per domain before continuing. A domain returning `not_pdf` across
+the board means its resolver needs work, not that its documents are missing.
+
+## 4. Full run
+
+Resumable. If interrupted, re-run this chunk: anything already resolved is
+skipped.
+
+```{r}
+harvest_documents(links)
+harvest_report()
+```
+
+## 5. Coverage by donor
+
+A donor with no retrievable documents cannot enter a text-based measure at all,
+and that exclusion has to be reported rather than absorbed.
+
+```{r}
+con <- dbConnect(SQLite(), DB_PATH)
+frame <- dbGetQuery(con, "SELECT iatiidentifier, donor FROM analysis")
+dbDisconnect(con)
+
+manifest_read() |>
+  mutate(ok = status %in% c("ok", "cached")) |>
+  group_by(iati_identifier) |>
+  summarise(got_pdf = any(ok), .groups = "drop") |>
+  right_join(frame, by = c("iati_identifier" = "iatiidentifier")) |>
+  group_by(donor) |>
+  summarise(
+    n_activities = n(),
+    with_pdf     = sum(got_pdf, na.rm = TRUE),
+    pct          = round(100 * mean(got_pdf, na.rm = TRUE)),
+    .groups = "drop"
+  ) |>
+  arrange(desc(n_activities))
+```
+
+## 6. Failures
+
+```{r}
+manifest_read() |>
+  filter(!status %in% c("ok", "cached")) |>
+  count(domain, status, sort = TRUE)
+```
+
+`error` and timeouts are transient and clear on a re-run of section 4. `not_pdf`,
+`http_404` and `unresolvable` are terminal and are never retried — if a whole
+domain lands there, fix its resolver in `_harvest_functions.R` and delete those
+rows from `data/interim/document_manifest.csv` first.

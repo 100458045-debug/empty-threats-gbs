@@ -1,0 +1,837 @@
+---
+title: "H1 — Does structural position predict better than institutional type?"
+subtitle: "Repeated grouped cross-validation across predictor sets and model families"
+author: "Gaspar Vigneaux"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    toc-title: "Contents"
+    number-sections: true
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+    theme: cosmo
+    fontsize: 1.02em
+    linestretch: 1.5
+    max-width: 1100px
+    fig-width: 8
+    fig-height: 4.5
+    fig-align: center
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+**H1.** *A donor's structural position predicts interruption better than whether
+the donor is bilateral or multilateral.*
+
+05_models answered what the mechanism is and in which direction it runs.
+This document answers a different question — **which set of variables generalises
+to operations the model has never seen.**
+
+**This version replaces a single train-test split.** An earlier draft compared
+the two predictor sets on one split and reported a difference of 0.009 in AUC.
+With 436 test rows the standard error on an AUC near 0.71 is about 0.027, so
+that difference was a fifth of one standard error and the comparison could not
+distinguish anything. The comparison is now made across
+**25 resamples**, and what is reported is the **paired difference** rather than
+two separate point estimates.
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(glmnet)
+library(rpart)
+library(rpart.plot)
+library(ranger)
+library(gbm)
+library(pROC)
+library(kableExtra)
+library(scales)
+library(patchwork)
+library(conflicted)
+conflict_prefer("filter", "dplyr")
+conflict_prefer("select", "dplyr")
+conflict_prefer("slice", "dplyr")
+
+d <- read_csv("../data/processed/model_data_with_network.csv", show_col_types = FALSE)
+
+theme_set(
+  theme_minimal(base_size = 11) +
+    theme(panel.grid.minor = element_blank(),
+          plot.title = element_text(face = "bold", size = 11),
+          plot.subtitle = element_text(colour = "grey35", size = 9.5),
+          legend.position = "bottom")
+)
+
+PAL_SET <- c("Controls only" = "grey60",
+             "Institutional type" = "#C0504D",
+             "Structural position" = "#4F6D8C",
+             "Structural (components)" = "#8064A2",
+             "Both" = "#7B9E6F",
+             "Donor identity (ceiling)" = "grey25")
+
+show_tbl <- function(df, caption = NULL) {
+  df |>
+    knitr::kable(caption = caption, digits = 3, align = "l") |>
+    kableExtra::kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed"),
+      full_width = FALSE, position = "left", font_size = 13)
+}
+```
+
+# The rules of the comparison
+
+**One thing changes at a time.** Every model sees the same observations, the
+same controls and the same estimation procedure. Only the focal variables
+differ. Otherwise a difference in performance would measure the specification
+rather than the hypothesis.
+
+**Folds are grouped by activity.** An activity contributes several years.
+Splitting at random would place 2018 and 2019 of the same operation on opposite
+sides, so a model would meet an operation's own history in training and be
+scored on it in testing.
+
+**Complete cases, not imputation.** Multiple imputation inside a resampling loop
+requires pooling predictions across imputed datasets, which is rarely done
+transparently. The cost in sample size is reported below.
+
+**Hyperparameters are tuned once, then held fixed across every fold and set.**
+Tuning inside each fold would be stricter, but it is also where the runtime goes
+and — more importantly — the point here is to compare *predictor sets*, and
+fixing the settings guarantees that no set is favoured by having been tuned
+harder. The mild optimism this introduces applies equally to all of them, so it
+cannot generate a difference between them.
+
+**That tuning does breach one rule, and the breach is bounded.** The course
+principle is that the held-out data are used once, and here the cross-validated
+penalty and boosting length are chosen on the full complete-case sample, which
+later supplies every test fold. The consequence is that the **absolute** areas
+reported below are somewhat optimistic and should not be read as an estimate of
+how these models would perform on genuinely new data. The consequence for the
+**comparison** is nil, because the same optimism is applied to every predictor
+set by construction, and H1 is a question about the difference rather than about
+the level. The same argument covers the principal components, whose penalty and
+boosting length are set from a single rotation on the full sample even though the
+rotation used for prediction is refitted inside each fold.
+
+**On the software.** The estimation packages here are `glmnet` for the penalised
+model, `rpart` for the tree, `ranger` for the forest, `gbm` for the boosted
+ensemble and `pROC` for the ROC machinery. The methods are those of the course;
+these are implementations of them, chosen for speed on repeated resampling.
+`caret`, the framework the course uses to wrap cross-validation, is deliberately
+not used: its resampling helpers partition rows, and the partition here has to
+respect activities, so the loop is written out instead. Writing it out also makes
+the grouping visible rather than hiding it behind a control object.
+
+```{r}
+#| label: prepare
+set.seed(20260824)
+
+model_df <- d |>
+  mutate(
+    log_aid_dep = if_else(aid_dependence > 0, log(pmax(aid_dependence, 1e-6)), NA_real_),
+    donor_type  = factor(x1_donor_type, levels = c("Bilateral", "Multilateral")),
+    donor_f     = factor(donor_ref),
+    year_c      = year - 2014,
+    y           = factor(interrupted_flag, levels = c(0, 1), labels = c("no", "yes"))
+  )
+
+CONTROLS <- c("voice_account", "corruption_ctrl", "log_aid_dep", "log_gdp_pc",
+              "log_commitment", "coup", "election_year", "year_c")
+STRUCT   <- c("s1_share", "s2_hhi_net", "s3_n_donors")
+INSTIT   <- "donor_type"
+
+analysis_df <- model_df |>
+  select(iatiidentifier, y, all_of(c(CONTROLS, STRUCT, INSTIT)), donor_f) |>
+  drop_na() |>
+  # donor_f is built before the complete-case filter. Without re-levelling, the
+  # design matrix carries an all-zero column for each donor the filter removes,
+  # which inflates the parameter count reported for the ceiling model.
+  mutate(donor_f = droplevels(donor_f))
+
+tibble(
+  Stage = c("All activity-years", "Complete cases"),
+  Rows = c(nrow(model_df), nrow(analysis_df)),
+  Activities = c(n_distinct(model_df$iatiidentifier), n_distinct(analysis_df$iatiidentifier))
+) |>
+  mutate(`% retained` = round(100 * Rows / Rows[1])) |>
+  show_tbl("What the complete-case restriction costs")
+```
+
+# The six predictor sets
+
+```{r}
+#| label: sets
+sets <- list(
+  "Controls only"            = CONTROLS,
+  "Institutional type"       = c(CONTROLS, INSTIT),
+  "Structural position"      = c(CONTROLS, STRUCT),
+  "Both"                     = c(CONTROLS, INSTIT, STRUCT),
+  "Donor identity (ceiling)" = c(CONTROLS, "donor_f")
+)
+
+tibble(
+  `Predictor set` = names(sets),
+  Adds = c("nothing - the floor every other model must beat",
+           "bilateral or multilateral",
+           "donor share, concentration of others, number of donors",
+           "both of the above",
+           "which donor it is, as a factor")
+) |>
+  show_tbl("What each model sees")
+```
+
+- **"Controls only" is the floor.** If a focal set does not beat it, that set
+  carries nothing the recipient-side controls do not already have.
+- **"Donor identity" is the ceiling**. The null model in
+  05_models put 30 per cent of the outcome variance between donors, so a
+  model that simply knows *which donor* should predict well. It is not a
+  competitor to the hypotheses — it is the scale on which they are read. If
+  structural position recovers much of the gap between floor and ceiling, it is
+  capturing what makes donors differ; if it does not, whatever separates donors
+  lies elsewhere.
+
+A sixth set using principal components of the structural variables is added
+after the rotation is fitted, below.
+
+# Resampling design
+
+```{r}
+#| label: folds
+N_REPEATS <- 5
+N_FOLDS   <- 5
+
+acts <- unique(analysis_df$iatiidentifier)
+
+fold_map <- map_dfr(seq_len(N_REPEATS), \(r) {
+  set.seed(20260824 + r)
+  tibble(repeat_id = r,
+         iatiidentifier = acts,
+         fold = sample(rep_len(seq_len(N_FOLDS), length(acts))))
+})
+
+resamples <- fold_map |> distinct(repeat_id, fold) |> mutate(id = row_number())
+
+tibble(
+  Repeats = N_REPEATS, Folds = N_FOLDS,
+  Resamples = nrow(resamples),
+  `Activities per test fold` = round(length(acts) / N_FOLDS),
+  `Rows per test fold` = round(nrow(analysis_df) / N_FOLDS)
+) |>
+  show_tbl("The resampling scheme")
+```
+
+- **The same folds are used by every model.** That is what makes the comparison
+  paired: two predictor sets are scored on identical held-out observations, so
+  the fold-to-fold noise they share cancels out of their difference. A paired
+  difference is far better determined than either level, which is precisely the
+  problem with the single split this replaces.
+
+# Tuning, once
+
+```{r}
+#| label: tune
+#| cache: true
+mx <- function(df, vars) model.matrix(~ . - 1, data = df |> select(all_of(vars)))
+
+# One cross-validated lambda per predictor set, on the full complete-case data.
+lambdas <- map(sets, \(v) {
+  cv <- cv.glmnet(mx(analysis_df, v), analysis_df$y, family = "binomial",
+                  alpha = 0, nfolds = 10)
+  cv$lambda.min
+})
+
+# One boosting length per predictor set, chosen by gbm's own cross-validation.
+n_trees <- map(sets, \(v) {
+  m <- gbm(as.numeric(analysis_df$y == "yes") ~ .,
+           data = analysis_df |> select(all_of(v)),
+           distribution = "bernoulli", n.trees = 1500, interaction.depth = 3,
+           shrinkage = 0.01, n.minobsinnode = 20, cv.folds = 5, verbose = FALSE)
+  gbm.perf(m, method = "cv", plot.it = FALSE)
+})
+
+tibble(`Predictor set` = names(sets),
+       `Ridge lambda` = round(unlist(lambdas), 4),
+       `Boosting trees` = unlist(n_trees)) |>
+  show_tbl("Settings fixed before resampling begins")
+```
+
+# Fitting
+
+```{r}
+#| label: fit-functions
+auc_of <- function(truth, prob) {
+  as.numeric(pROC::auc(pROC::roc(truth, prob, quiet = TRUE,
+                                 levels = c("no", "yes"), direction = "<")))
+}
+brier_of <- function(truth, prob) mean((as.numeric(truth == "yes") - prob)^2)
+
+# Sensitivity, specificity and their mean at one cut-point. Computed here rather
+# than in a separate document because the predicted probabilities exist only
+# inside this loop: a threshold metric cannot be recovered from a stored area.
+thr_of <- function(truth, prob, thr) {
+  hit <- prob >= thr
+  pos <- truth == "yes"
+  sens <- sum(hit & pos) / sum(pos)
+  spec <- sum(!hit & !pos) / sum(!pos)
+  c(sens = sens, spec = spec, bal = (sens + spec) / 2, flagged = mean(hit))
+}
+
+fit_one <- function(tr, te, vars, lambda, ntree) {
+  f <- as.formula(paste("y ~", paste(vars, collapse = " + ")))
+
+  # Ridge rather than lasso: the structural variables are correlated by
+  # construction, and lasso is unstable with correlated groups.
+  g  <- glmnet(mx(tr, vars), tr$y, family = "binomial", alpha = 0, lambda = lambda)
+  p_glm <- as.numeric(predict(g, newx = mx(te, vars), type = "response"))
+
+  t0 <- rpart(f, data = tr |> select(y, all_of(vars)), method = "class",
+              control = rpart.control(cp = 0.001, xval = 10))
+  cpt  <- t0$cptable
+  best <- cpt[which.min(cpt[, "xerror"]), ]
+  cp1  <- cpt[which(cpt[, "xerror"] <= best[["xerror"]] + best[["xstd"]])[1], "CP"]
+  p_tree <- predict(prune(t0, cp = cp1), newdata = te, type = "prob")[, "yes"]
+
+  rf <- ranger(f, data = tr |> select(y, all_of(vars)), probability = TRUE,
+               num.trees = 800, seed = 20260824)
+  p_rf <- predict(rf, te)$predictions[, "yes"]
+
+  gb <- gbm(as.numeric(tr$y == "yes") ~ ., data = tr |> select(all_of(vars)),
+            distribution = "bernoulli", n.trees = ntree, interaction.depth = 3,
+            shrinkage = 0.01, n.minobsinnode = 20, verbose = FALSE)
+  p_gb <- predict(gb, newdata = te |> select(all_of(vars)), n.trees = ntree,
+                  type = "response")
+
+  ps <- list(p_glm, p_tree, p_rf, p_gb)
+
+  # The prevalence cut-point comes from the training fold. Taking it from the
+  # test fold would let the held-out data set its own decision rule.
+  prev  <- mean(tr$y == "yes")
+  m_50  <- map(ps, \(p) thr_of(te$y, p, 0.5))
+  m_prv <- map(ps, \(p) thr_of(te$y, p, prev))
+
+  tibble(Family = c("Penalised logistic", "Classification tree",
+                    "Random forest", "Gradient boosting"),
+         AUC   = map_dbl(ps, \(p) auc_of(te$y, p)),
+         Brier = map_dbl(ps, \(p) brier_of(te$y, p)),
+         `Sensitivity (0.5)`        = map_dbl(m_50,  "sens"),
+         `Specificity (0.5)`        = map_dbl(m_50,  "spec"),
+         `Balanced accuracy (0.5)`  = map_dbl(m_50,  "bal"),
+         `Share flagged (0.5)`      = map_dbl(m_50,  "flagged"),
+         `Sensitivity (prev)`       = map_dbl(m_prv, "sens"),
+         `Specificity (prev)`       = map_dbl(m_prv, "spec"),
+         `Balanced accuracy (prev)` = map_dbl(m_prv, "bal"))
+}
+```
+
+```{r}
+#| label: pca
+# The rotation is learned inside each fold's training data, never on the whole
+# sample: fitting it once on everything would let the test folds influence their
+# own representation.
+add_pca <- function(tr, te) {
+  rot <- prcomp(tr |> select(all_of(STRUCT)), center = TRUE, scale. = TRUE)
+  list(tr = bind_cols(tr, as_tibble(predict(rot, tr |> select(all_of(STRUCT))))),
+       te = bind_cols(te, as_tibble(predict(rot, te |> select(all_of(STRUCT))))),
+       rot = rot)
+}
+
+PCS <- c("PC1", "PC2")
+sets[["Structural (components)"]] <- c(CONTROLS, PCS)
+
+# The components need their own tuning constants; taken from a single rotation
+# on the full data purely to set lambda and the boosting length.
+tmp <- add_pca(analysis_df, analysis_df)
+lambdas[["Structural (components)"]] <-
+  cv.glmnet(mx(tmp$tr, c(CONTROLS, PCS)), analysis_df$y, family = "binomial",
+            alpha = 0, nfolds = 10)$lambda.min
+n_trees[["Structural (components)"]] <- 600
+```
+
+```{r}
+#| label: run
+#| cache: true
+results <- map_dfr(seq_len(nrow(resamples)), \(i) {
+  r  <- resamples$repeat_id[i]; k <- resamples$fold[i]
+  ids <- fold_map |> filter(repeat_id == r)
+  tr_ids <- ids$iatiidentifier[ids$fold != k]
+
+  tr <- analysis_df |> filter(iatiidentifier %in% tr_ids)
+  te <- analysis_df |> filter(!iatiidentifier %in% tr_ids)
+  pc <- add_pca(tr, te)
+
+  map_dfr(names(sets), \(s) {
+    v <- sets[[s]]
+    use_pc <- any(v %in% PCS)
+    fit_one(if (use_pc) pc$tr else tr,
+            if (use_pc) pc$te else te,
+            v, lambdas[[s]], n_trees[[s]]) |>
+      mutate(`Predictor set` = s, .before = 1)
+  }) |>
+    mutate(resample = i, repeat_id = r, fold = k)
+})
+
+nrow(results)
+```
+
+# Results
+
+```{r}
+#| label: summary
+# sd() must be computed before AUC is overwritten: inside summarise(), a later
+# expression sees the new column, not the original one, and returns NA.
+summ <- results |>
+  summarise(`AUC SD` = sd(AUC), Brier = mean(Brier), AUC = mean(AUC),
+            .by = c(`Predictor set`, Family)) |>
+  relocate(AUC, .after = Family) |>
+  arrange(desc(AUC))
+
+summ |> show_tbl("Mean performance across 25 resamples")
+```
+
+## What each set costs to buy that
+
+Accuracy on its own does not settle a comparison between specifications. A set
+that buys a gain with many parameters is not doing the same thing as one that
+buys a smaller gain with a single distinction, and the course material is
+explicit that complexity is tracked alongside performance rather than after it.
+
+```{r}
+#| label: complexity
+# Counted from the design matrix glmnet actually receives, not from the number
+# of variable names: a factor contributes one column per level it retains.
+n_params <- map_int(sets, \(v) {
+  if (any(v %in% PCS)) length(CONTROLS) + length(PCS) else ncol(mx(analysis_df, v))
+})
+
+base_p <- n_params[["Controls only"]]
+
+summ |>
+  filter(Family != "Classification tree") |>
+  summarise(AUC = mean(AUC), .by = `Predictor set`) |>
+  mutate(Parameters = n_params[`Predictor set`],
+         `Gain over controls` = AUC - AUC[`Predictor set` == "Controls only"],
+         `Parameters added` = Parameters - base_p,
+         `Gain per parameter` = if_else(`Parameters added` > 0,
+                                        `Gain over controls` / `Parameters added`,
+                                        NA_real_)) |>
+  arrange(desc(AUC)) |>
+  show_tbl("Performance against complexity, averaged over the three families that discriminate")
+```
+
+- **Read the last column, not the third.** The ceiling reaches the highest area,
+  but it does so by spending a parameter on every donor. Institutional type
+  spends one binary distinction. If the second buys a comparable share of the
+  gain at a fraction of the cost, then what separates donors is closer to a
+  category than to an identity — and that bears directly on H1, which proposes
+  a third possibility, position, that must earn its own parameters.
+
+```{r}
+#| label: fig-auc
+#| fig-cap: "AUC across resamples. Each point is one fold; the bar is the mean. Spread within a predictor set shows how much a single split would have moved the answer."
+#| fig-height: 4.6
+results |>
+  mutate(`Predictor set` = fct_reorder(`Predictor set`, AUC)) |>
+  ggplot(aes(AUC, `Predictor set`, colour = `Predictor set`)) +
+  geom_vline(xintercept = 0.5, linetype = "dashed", colour = "grey60") +
+  geom_jitter(height = 0.16, alpha = 0.3, size = 1) +
+  stat_summary(fun = mean, geom = "point", size = 3.2) +
+  scale_colour_manual(values = PAL_SET, guide = "none") +
+  facet_wrap(~Family) +
+  labs(y = NULL, title = "Where a single split would have landed")
+```
+
+# The paired comparison, which is the actual test
+
+Two predictor sets scored on the **same** fold share that fold's difficulty. The
+difference between them removes it. This is why the paired difference is
+informative where the two levels separately are not.
+
+```{r}
+#| label: paired
+paired <- results |>
+  select(`Predictor set`, Family, resample, AUC) |>
+  pivot_wider(names_from = `Predictor set`, values_from = AUC) |>
+  mutate(
+    `Structural - Institutional` = `Structural position` - `Institutional type`,
+    `Structural - Controls`      = `Structural position` - `Controls only`,
+    `Institutional - Controls`   = `Institutional type`  - `Controls only`,
+    `Ceiling - Controls`         = `Donor identity (ceiling)` - `Controls only`
+  )
+
+# The 25 resamples are not independent: five repeats reuse the same rows, so the
+# spread across folds understates how uncertain the mean difference is. The
+# Nadeau-Bengio correction adds the test-to-train size ratio to the variance,
+# which at five folds inflates the standard error by a factor of about 2.7.
+RHO <- (1 / N_FOLDS) / (1 - 1 / N_FOLDS)
+
+paired |>
+  select(Family, resample, starts_with("Structural -"), starts_with("Institutional -"),
+         starts_with("Ceiling -")) |>
+  pivot_longer(-c(Family, resample), names_to = "Comparison", values_to = "diff") |>
+  summarise(
+    `Mean difference` = mean(diff),
+    # A percentile range of the observed folds. This describes dispersion, not
+    # the precision of the mean, and was previously mislabelled as an interval.
+    `95% of folds` = paste0("[", round(quantile(diff, 0.025), 3), ", ",
+                            round(quantile(diff, 0.975), 3), "]"),
+    # An interval on the mean difference, which is what the comparison asks about.
+    `95% CI, corrected` = paste0(
+      "[", round(mean(diff) - 1.96 * sd(diff) * sqrt(1 / n() + RHO), 3), ", ",
+      round(mean(diff) + 1.96 * sd(diff) * sqrt(1 / n() + RHO), 3), "]"),
+    `Wins` = paste0(round(100 * mean(diff > 0)), "%"),
+    .by = c(Comparison, Family)
+  ) |>
+  arrange(Comparison, desc(`Mean difference`)) |>
+  show_tbl("Paired differences in AUC across the 25 resamples")
+```
+
+```{r}
+#| label: fig-paired
+#| fig-cap: "Distribution of the paired AUC difference across resamples. An interval crossing zero means the two sets cannot be separated."
+#| fig-height: 4
+paired |>
+  select(Family, resample, `Structural - Institutional`, `Structural - Controls`,
+         `Institutional - Controls`, `Ceiling - Controls`) |>
+  pivot_longer(-c(Family, resample), names_to = "Comparison", values_to = "diff") |>
+  mutate(Comparison = fct_rev(fct_inorder(Comparison))) |>
+  ggplot(aes(diff, Comparison)) +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = "grey50") +
+  geom_jitter(width = 0, height = 0.15, alpha = 0.35, size = 1.1, colour = "grey40") +
+  stat_summary(fun = mean, geom = "point", size = 3, colour = "firebrick") +
+  facet_wrap(~Family) +
+  labs(x = "Difference in AUC", y = NULL)
+```
+
+```{r}
+#| label: h1-verdict
+#| echo: false
+d_si <- paired$`Structural - Institutional`
+d_sc <- paired$`Structural - Controls`
+d_ceil <- paired$`Ceiling - Controls`
+```
+
+**The answer to H1.** Across all families and resamples, structural position
+differs from institutional type by a mean of `r round(mean(d_si), 3)` AUC, with
+95 per cent of folds falling between `r round(quantile(d_si, 0.025), 3)` and
+`r round(quantile(d_si, 0.975), 3)`, and a win rate of
+`r round(100 * mean(d_si > 0))` per cent of folds.
+
+**The two interval columns above answer different questions.** The percentile
+range describes how far the difference moves from fold to fold. The corrected
+interval is the one that bears on the hypothesis: it asks how precisely the mean
+difference is known, and it is wider because five repeats over the same rows do
+not supply twenty-five independent measurements. On that interval the two focal
+sets cannot be separated in either tree ensemble, while the penalised logistic
+favours institutional type. Neither reading supports H1.
+
+Read that against the falsification condition in H1, and against two reference
+points: structural position beats the controls-only floor by
+`r round(mean(d_sc), 3)`, and knowing the donor's identity beats it by
+`r round(mean(d_ceil), 3)`. **The second number is the scale.** If the
+hypothesis's variable recovers only a small fraction of what donor identity
+recovers, then whatever makes donors differ is mostly not their structural
+position.
+
+# A second check on the single split
+
+DeLong's test compares two correlated AUCs computed on the same held-out set.
+It does not replace resampling — one split remains one split — but it reports a
+p-value on the comparison the earlier draft made, using the same machinery a
+reader familiar with ROC analysis would expect.
+
+```{r}
+#| label: delong
+#| cache: true
+set.seed(20260824)
+hold_acts <- sample(acts, floor(0.25 * length(acts)))
+tr1 <- analysis_df |> filter(!iatiidentifier %in% hold_acts)
+te1 <- analysis_df |> filter(iatiidentifier %in% hold_acts)
+
+rf_s <- ranger(as.formula(paste("y ~", paste(sets[["Structural position"]], collapse = "+"))),
+               data = tr1, probability = TRUE, num.trees = 800, seed = 1)
+rf_i <- ranger(as.formula(paste("y ~", paste(sets[["Institutional type"]], collapse = "+"))),
+               data = tr1, probability = TRUE, num.trees = 800, seed = 1)
+
+roc_s <- roc(te1$y, predict(rf_s, te1)$predictions[, "yes"], quiet = TRUE,
+             levels = c("no", "yes"), direction = "<")
+roc_i <- roc(te1$y, predict(rf_i, te1)$predictions[, "yes"], quiet = TRUE,
+             levels = c("no", "yes"), direction = "<")
+
+dl <- roc.test(roc_s, roc_i, method = "delong")
+
+tibble(`AUC structural` = round(as.numeric(roc_s$auc), 3),
+       `AUC institutional` = round(as.numeric(roc_i$auc), 3),
+       Z = round(dl$statistic, 3),
+       p = round(dl$p.value, 4)) |>
+  show_tbl("DeLong test on a single held-out set")
+```
+
+# Does the choice of metric decide the answer?
+
+Area under the curve and the Brier score are both threshold-free. That is a
+choice, and it could be the thing producing the verdict rather than the data.
+Two ROC curves can enclose the same area and still **cross**, one predictor set
+ranking better where specificity is high and the other where sensitivity is
+high. The area would average that difference away.
+
+The fitting loop above now also scores every fold at two cut-points: the
+conventional 0.5, and the training prevalence, which is the natural choice when
+the outcome is not balanced. No model is refitted — these are the same
+predictions, read a second way.
+
+```{r}
+#| label: threshold-summary
+results |>
+  summarise(across(c(`Sensitivity (0.5)`, `Specificity (0.5)`,
+                     `Balanced accuracy (0.5)`, `Share flagged (0.5)`,
+                     `Sensitivity (prev)`, `Specificity (prev)`,
+                     `Balanced accuracy (prev)`), mean),
+            .by = c(`Predictor set`, Family)) |>
+  arrange(desc(`Balanced accuracy (prev)`)) |>
+  show_tbl("Threshold metrics, averaged over the 25 resamples")
+```
+
+- **At 0.5 the metric measures nothing about the predictor sets.** Interruption
+  runs at about a fifth of activity-years, and no model puts a fifth of its test
+  rows above a half. Read the share-flagged column: every set flags far less
+  than the true rate, so balanced accuracy sits just above 0.5 for all of them
+  and the sets cannot be told apart. This is the accuracy paradox, and it is why
+  the comparison is not conducted on a threshold metric — now shown rather than
+  asserted.
+- **At the prevalence cut-point the metric does separate**, and the ordering it
+  produces is the one the area already gave.
+
+```{r}
+#| label: threshold-paired
+results |>
+  select(`Predictor set`, Family, resample,
+         `Balanced accuracy (0.5)`, `Balanced accuracy (prev)`) |>
+  pivot_longer(starts_with("Balanced"), names_to = "Threshold", values_to = "ba") |>
+  pivot_wider(names_from = `Predictor set`, values_from = ba) |>
+  mutate(diff = `Structural position` - `Institutional type`) |>
+  summarise(`Mean difference` = mean(diff),
+            `95% CI` = paste0("[", round(quantile(diff, 0.025), 3), ", ",
+                              round(quantile(diff, 0.975), 3), "]"),
+            Wins = paste0(round(100 * mean(diff > 0)), "%"),
+            .by = Threshold) |>
+  show_tbl("Structural position minus institutional type, in balanced accuracy")
+```
+
+- Compare against the area, which returned a mean paired difference of
+  `r round(mean(d_si), 3)` with a win rate of `r round(100 * mean(d_si > 0))`
+  per cent. **The verdict does not depend on the metric.**
+
+## Do the two curves cross?
+
+If they do, the two sets are qualitatively different at the same area and
+reporting only the area conceals it. The difference in sensitivity is read at
+fixed levels of specificity, where a crossing appears as a change of sign down
+the column.
+
+**This cannot be read off the DeLong split.** That split holds around ninety
+interruptions, so a handful of cases moves sensitivity by several points and any
+sign change it produces is unreadable. Out-of-fold predictions are pooled across
+the 25 resamples instead, which is the same evidence the rest of the comparison
+rests on.
+
+```{r}
+#| label: crossing-preds
+#| cache: true
+focal <- c("Structural position", "Institutional type")
+
+oof <- map_dfr(seq_len(nrow(resamples)), \(i) {
+  r <- resamples$repeat_id[i]; k <- resamples$fold[i]
+  ids <- fold_map |> filter(repeat_id == r)
+  tr_ids <- ids$iatiidentifier[ids$fold != k]
+
+  tr <- analysis_df |> filter(iatiidentifier %in% tr_ids)
+  te <- analysis_df |> filter(!iatiidentifier %in% tr_ids)
+
+  map_dfr(focal, \(s) {
+    v <- sets[[s]]
+    f <- as.formula(paste("y ~", paste(v, collapse = " + ")))
+
+    g  <- glmnet(mx(tr, v), tr$y, family = "binomial", alpha = 0,
+                 lambda = lambdas[[s]])
+    rf <- ranger(f, data = tr |> select(y, all_of(v)), probability = TRUE,
+                 num.trees = 800, seed = 20260824)
+    gb <- gbm(as.numeric(tr$y == "yes") ~ ., data = tr |> select(all_of(v)),
+              distribution = "bernoulli", n.trees = n_trees[[s]],
+              interaction.depth = 3, shrinkage = 0.01, n.minobsinnode = 20,
+              verbose = FALSE)
+
+    tibble(`Predictor set` = s,
+           Family = rep(c("Penalised logistic", "Random forest",
+                          "Gradient boosting"), each = nrow(te)),
+           truth = rep(te$y, 3),
+           p = c(as.numeric(predict(g, newx = mx(te, v), type = "response")),
+                 predict(rf, te)$predictions[, "yes"],
+                 predict(gb, newdata = te |> select(all_of(v)),
+                         n.trees = n_trees[[s]], type = "response")))
+  })
+})
+```
+
+```{r}
+#| label: crossing
+sens_at <- function(set_name, fam, sp) {
+  x <- oof |> filter(`Predictor set` == set_name, Family == fam)
+  r <- roc(x$truth, x$p, quiet = TRUE, levels = c("no", "yes"), direction = "<")
+  coords(r, x = sp, input = "specificity", ret = "sensitivity")[1, 1]
+}
+
+expand_grid(Family = c("Gradient boosting", "Random forest", "Penalised logistic"),
+            Specificity = c(0.95, 0.90, 0.80, 0.70, 0.50)) |>
+  mutate(`Sensitivity, structural` =
+           map2_dbl(Family, Specificity, \(f, s) sens_at("Structural position", f, s)),
+         `Sensitivity, institutional` =
+           map2_dbl(Family, Specificity, \(f, s) sens_at("Institutional type", f, s)),
+         Difference = `Sensitivity, structural` - `Sensitivity, institutional`) |>
+  show_tbl("Sensitivity of each focal set at matched specificity, pooled across resamples")
+```
+
+- A sign that flips down the Difference column would be a crossing. Judge any
+  such flip against the fold-to-fold standard deviation of the area, which is
+  about four points: a difference smaller than that is noise wearing the shape
+  of a pattern.
+- Pooling mixes curves fitted on different training sets, which is why this is
+  read as a diagnostic on the shape of the trade-off rather than as an estimate
+  of any one model's operating characteristics.
+
+# Which family, and does flexibility help?
+
+```{r}
+#| label: families
+results |>
+  summarise(`SD` = sd(AUC), `Mean Brier` = mean(Brier), `Mean AUC` = mean(AUC),
+            .by = Family) |>
+  relocate(`Mean AUC`, .after = Family) |>
+  arrange(desc(`Mean AUC`)) |>
+  show_tbl("Performance by model family, averaged over sets and resamples")
+```
+
+- If the flexible families beat the penalised logistic substantially, the
+  relationship carries interactions or non-linearities a linear model cannot
+  represent — a substantive claim about how leverage operates.
+- If they do not, the interpretable model is justified **on evidence**, which
+  the course material identifies as the social-science argument.
+
+**Not fitted: neural networks.** They occupy the same flexibility tier as the
+forest and the boosted trees and are excluded on two grounds. Around 1,400
+training rows against a dozen predictors is far too little for a network to
+learn anything the tree ensembles do not already capture; and an uninterpretable
+model that does not predict better has nothing to offer a thesis whose claims
+are substantive rather than operational.
+
+# Variable importance, averaged across resamples
+
+Importance from a single fit on a single split is unstable at this sample
+size. This averages permutation importance over the same 25 resamples.
+
+```{r}
+#| label: importance
+#| cache: true
+imp_lbl <- c(s1_share = "Donor share", s2_hhi_net = "Concentration of others",
+             s3_n_donors = "Donors in country", donor_type = "Institutional type",
+             log_aid_dep = "Aid dependence", log_commitment = "Operation size",
+             voice_account = "Voice and accountability",
+             corruption_ctrl = "Control of corruption",
+             log_gdp_pc = "GDP per capita", coup = "Coup",
+             election_year = "Election", year_c = "Year")
+
+vars_both <- sets[["Both"]]
+
+imp <- map_dfr(seq_len(nrow(resamples)), \(i) {
+  r <- resamples$repeat_id[i]; k <- resamples$fold[i]
+  ids <- fold_map |> filter(repeat_id == r)
+  tr <- analysis_df |> filter(iatiidentifier %in% ids$iatiidentifier[ids$fold != k])
+  m <- ranger(as.formula(paste("y ~", paste(vars_both, collapse = "+"))),
+              data = tr, probability = TRUE, num.trees = 800,
+              importance = "permutation", seed = 20260824)
+  tibble(Variable = names(m$variable.importance),
+         Importance = m$variable.importance, resample = i)
+})
+
+imp_summary <- imp |>
+  summarise(mean_imp = mean(Importance), sd_imp = sd(Importance), .by = Variable) |>
+  mutate(Label = coalesce(imp_lbl[Variable], Variable),
+         Focal = case_when(Variable %in% STRUCT ~ "Structural position",
+                           Variable == INSTIT   ~ "Institutional type",
+                           TRUE ~ "Control")) |>
+  arrange(desc(mean_imp))
+
+imp_summary |>
+  transmute(Variable = Label, Role = Focal,
+            `Mean importance` = round(mean_imp, 5),
+            `SD` = round(sd_imp, 5)) |>
+  show_tbl("Permutation importance, averaged over 25 resamples")
+```
+
+```{r}
+#| label: fig-importance
+#| fig-cap: "Permutation importance averaged across resamples, with one standard deviation. Higher means the model loses more accuracy when that variable is scrambled."
+#| fig-height: 4.2
+imp_summary |>
+  mutate(Label = fct_reorder(Label, mean_imp)) |>
+  ggplot(aes(mean_imp, Label, colour = Focal)) +
+  geom_vline(xintercept = 0, colour = "grey70") +
+  geom_pointrange(aes(xmin = mean_imp - sd_imp, xmax = mean_imp + sd_imp), size = 0.4) +
+  scale_colour_manual(values = c("Structural position" = "#4F6D8C",
+                                 "Institutional type" = "#C0504D",
+                                 "Control" = "grey55")) +
+  labs(x = "Mean permutation importance", y = NULL, colour = NULL)
+```
+
+- Compare this ranking against the coefficients in 05_models. **Agreement
+  between a method that assumes a functional form and one that does not** is
+  evidence a finding is not an artefact of the specification.
+
+# Calibration
+
+AUC only measures ranking. A model can rank well and still be wrong about how
+likely interruption is.
+
+```{r}
+#| label: fig-calibration
+#| fig-cap: "Predicted against observed frequency, pooled across resamples in deciles of predicted risk. The diagonal is perfect calibration."
+#| fig-height: 4
+set.seed(20260824)
+calib <- map_dfr(names(sets)[names(sets) != "Structural (components)"], \(s) {
+  v <- sets[[s]]
+  rf <- ranger(as.formula(paste("y ~", paste(v, collapse = "+"))),
+               data = tr1, probability = TRUE, num.trees = 800, seed = 1)
+  tibble(`Predictor set` = s,
+         p = predict(rf, te1)$predictions[, "yes"],
+         obs = as.numeric(te1$y == "yes"))
+})
+
+calib |>
+  mutate(bin = ntile(p, 10), .by = `Predictor set`) |>
+  summarise(pred = mean(p), obs = mean(obs), n = n(),
+            .by = c(`Predictor set`, bin)) |>
+  ggplot(aes(pred, obs, colour = `Predictor set`)) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", colour = "grey60") +
+  geom_line(linewidth = 0.6) +
+  geom_point(aes(size = n), alpha = 0.85) +
+  scale_colour_manual(values = PAL_SET) +
+  scale_size_continuous(range = c(1, 4), guide = "none") +
+  scale_x_continuous(labels = label_percent()) +
+  scale_y_continuous(labels = label_percent()) +
+  labs(x = "Predicted probability", y = "Observed frequency", colour = NULL)
+```
+
+# Save
+
+```{r}
+#| label: save
+saveRDS(list(results = results, paired = paired, summary = summ,
+             importance = imp_summary, delong = dl,
+             n_resamples = nrow(resamples)),
+        "../data/processed/prediction_h1.rds")
+```

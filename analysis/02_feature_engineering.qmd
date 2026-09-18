@@ -1,0 +1,431 @@
+---
+title: "Feature engineering"
+subtitle: "Cleaning the variables, and refining the enforcement measure"
+author: "Gaspar Vigneaux"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    theme: flatly
+execute:
+  warning: false
+  message: false
+---
+
+Two jobs, both driven by what 01_eda_raw found.
+
+**Part I** applies the fixes listed in that document's closing table — every
+variable that was found not to measure what it should.
+
+**Part II** refines the enforcement measure. 01_eda_raw chose the
+year-level interruption on the selection criteria, but flagged one problem: at a
+base rate near 40 per cent of activity-years, it almost certainly mixes genuine
+withholding with the ordinary lumpiness of tranche disbursement. Candidate
+refinements are tested against the same criteria that selected the measure —
+this is not a fresh search.
+
+```{r}
+library(tidyverse)
+library(scales)
+library(conflicted)
+conflict_prefer("select", "dplyr")
+conflict_prefer("filter", "dplyr")
+conflict_prefer("lag", "dplyr")
+
+analysis   <- read_csv("../data/interim/analysis.csv", show_col_types = FALSE)
+panel_year <- read_csv("../data/interim/panel_year.csv", show_col_types = FALSE)
+structural <- read_csv("../data/interim/structural.csv", show_col_types = FALSE)
+controls   <- read_csv("../data/external/controls_country_year.csv", show_col_types = FALSE)
+political  <- read_csv("../data/external/controls_political.csv", show_col_types = FALSE)
+```
+
+# Part I — Cleaning
+
+## 1. Variables dropped
+
+Two are removed outright, each for a reason established in the EDA rather than
+for convenience.
+
+```{r}
+# budget_orig: 71% missing, and every negative value belongs to the World Bank —
+# a publisher-specific sign convention in revised budget lines, not noise. The
+# variable cannot be repaired without re-extracting original-committed lines
+# only, and at 71% missing it would not earn its place even then.
+# tied_status: 89% a single value (untied). A control with no variation
+# identifies nothing; that budget support is untied is expected, not a finding.
+dropped <- c("budget_orig", "n_budget_lines", "budget_ccy", "tied_status")
+
+clean <- analysis |> select(-all_of(dropped))
+
+tibble(dropped = dropped)
+```
+
+## 2. Implausible values bounded
+
+```{r}
+# A planned end before the planned start is impossible; a planned duration
+# beyond 20 years is not a budget support operation. Both become NA rather than
+# being winsorised: they are reporting errors, not extreme true values.
+MAX_DURATION_DAYS <- 7300
+
+# Early closure is genuine information in both tails — closing late is as
+# meaningful as closing early — so this is winsorised rather than nulled, to
+# keep the sign while removing leverage from a handful of extremes.
+EARLY_BOUND_DAYS <- 730
+
+clean <- clean |>
+  mutate(
+    planned_duration_days = if_else(
+      planned_duration_days < 0 | planned_duration_days > MAX_DURATION_DAYS,
+      NA_integer_, planned_duration_days
+    ),
+    y2_early_days_raw = y2_early_days,
+    y2_early_days = pmin(pmax(y2_early_days, -EARLY_BOUND_DAYS), EARLY_BOUND_DAYS)
+  )
+
+clean |>
+  summarise(
+    duration_nulled = sum(is.na(planned_duration_days)) - sum(is.na(analysis$planned_duration_days)),
+    early_winsorised = sum(y2_early_days != y2_early_days_raw, na.rm = TRUE)
+  )
+```
+
+## 3. Recoding
+
+```{r}
+# hierarchy 0 is not in the IATI codelist. It is concentrated in the IADB and
+# a few bilaterals, and marks a standalone operation rather than a component of
+# one, which is what level 1 means. Recoded to 1.
+#
+# finance_type and flow_type are missing for about a third of activities.
+# Whether a publisher declares them is plausibly a fact about its reporting
+# practice, not about the activity, so the missingness is kept as a level
+# rather than imputed away.
+clean <- clean |>
+  mutate(
+    hierarchy = if_else(hierarchy == 0, 1, hierarchy),
+    # The codes stay numeric; the labels get the explicit level. IATI's own
+    # `_codename` values are used rather than transcribed ones, so the labels
+    # are authoritative — including where they reveal a publisher error:
+    # finance_type 1, 2 and 4 resolve to "GNI", "ODA % GNI" and "Population",
+    # which belong to a different codelist and are flagged rather than recoded.
+    across(any_of(c("finance_type_name", "flow_type_name",
+                    "collaboration_type_name")),
+           ~ fct_na_value_to_level(factor(.x), level = "not declared"))
+  )
+
+clean |> count(hierarchy)
+if ("finance_type_name" %in% names(clean)) {
+  clean |> count(finance_type, finance_type_name, sort = TRUE)
+  clean |> count(flow_type, flow_type_name, sort = TRUE)
+} else {
+  clean |> count(finance_type, sort = TRUE)
+}
+```
+
+## 4. Log transforms
+
+```{r}
+# The monetary variables are approximately log-normal once zeros and negatives
+# are removed (EDA §3). log1p on the positive part keeps zeros at zero rather
+# than dropping them.
+clean <- clean |>
+  mutate(
+    # if_else evaluates both branches, so log() must not see the non-positive
+    # values even though they are discarded — hence the guarded input.
+    log_commitment   = if_else(commitment_usd_full > 0,
+                               log(pmax(commitment_usd_full, 1)), NA_real_),
+    log_disbursement = if_else(disbursement_usd_full > 0,
+                               log(pmax(disbursement_usd_full, 1)), NA_real_)
+  )
+```
+
+## 5. Coverage exclusions
+
+```{r}
+# 9 activities carry no recipient country and can receive no country-level
+# control. A further set names countries the World Bank does not report on —
+# small Pacific and French overseas territories. Both are coverage losses to
+# report, not to patch.
+before <- nrow(clean)
+
+clean <- clean |>
+  filter(!is.na(recipient_main), recipient_main %in% controls$iso2)
+
+tibble(
+  activities_before = before,
+  dropped_no_country_coverage = before - nrow(clean),
+  activities_after = nrow(clean)
+)
+```
+
+# Part II — Refining the enforcement measure
+
+## 6. The baseline measure
+
+As defined in 01_eda_raw: an activity-year in which the operation was
+live, an undisbursed balance remained, and no disbursement arrived.
+
+```{r}
+activity_span <- panel_year |>
+  filter(iatiidentifier %in% clean$iatiidentifier) |>
+  summarise(first_year = min(year), last_year = max(year), .by = iatiidentifier)
+
+year_events <- activity_span |>
+  reframe(year = first_year:last_year, .by = iatiidentifier) |>
+  left_join(panel_year, by = c("iatiidentifier", "year")) |>
+  mutate(
+    disbursement_usd = replace_na(disbursement_usd, 0),
+    commitment_usd   = replace_na(commitment_usd, 0)
+  ) |>
+  arrange(iatiidentifier, year) |>
+  mutate(
+    cum_commit   = cumsum(commitment_usd),
+    cum_disb     = cumsum(disbursement_usd),
+    balance_owed = cum_commit - cum_disb,
+    # Share of the activity's committed money still outstanding. A balance of
+    # 2% left over is not the same event as a balance of 80%.
+    balance_share = if_else(cum_commit > 0, balance_owed / cum_commit, NA_real_),
+    interrupted   = as.integer(disbursement_usd <= 0 & balance_owed > 0),
+    .by = iatiidentifier
+  )
+
+year_events |>
+  summarise(activity_years = n(), activities = n_distinct(iatiidentifier),
+            base_rate = round(100 * mean(interrupted)))
+```
+
+## 7. Candidate refinements
+
+Three variants, each targeting the same suspicion: that a single
+zero-disbursement year reflects a biennial tranche schedule rather than a
+decision to withhold.
+
+```{r}
+year_events <- year_events |>
+  arrange(iatiidentifier, year) |>
+  mutate(
+    prev_interrupted = lag(interrupted, default = 0L),
+    next_interrupted = lead(interrupted, default = 0L),
+    # V1 — the interruption persists: a year that is interrupted and adjacent
+    # to another interrupted year. A one-off gap is treated as scheduling.
+    int_consecutive = as.integer(interrupted == 1 &
+                                  (prev_interrupted == 1 | next_interrupted == 1)),
+    # V2 — the money at stake is substantial: at least a quarter of committed
+    # funds still outstanding. Withholding 2% of a nearly-complete operation is
+    # not the sanction the theory describes.
+    # balance_share is NA where no commitment has yet been recorded in the
+    # window; %in% TRUE collapses that to FALSE rather than propagating NA
+    # through the whole variant.
+    int_substantial = as.integer((interrupted == 1 & balance_share >= 0.25) %in% TRUE),
+    # V3 — both conditions.
+    int_strict = as.integer((int_consecutive == 1 & int_substantial == 1) %in% TRUE),
+    .by = iatiidentifier
+  )
+
+variants <- c(baseline = "interrupted", consecutive = "int_consecutive",
+              substantial = "int_substantial", strict = "int_strict")
+
+map_dfr(names(variants), \(v) {
+  col <- variants[[v]]
+  year_events |>
+    summarise(variant = v,
+              base_rate = round(100 * mean(.data[[col]])),
+              activity_years_flagged = sum(.data[[col]]))
+})
+```
+
+## 8. The same test that selected the measure
+
+Convergent validity against early closure — the second selection criterion,
+applied identically. A refinement earns its place only if it holds or improves the
+direction the baseline established.
+
+```{r}
+early <- clean |>
+  filter(!is.na(y2_early_days)) |>
+  transmute(iatiidentifier, closed_early = as.integer(y2_early_days > 30))
+
+convergent_test <- map_dfr(names(variants), \(v) {
+  col <- variants[[v]]
+  year_events |>
+    summarise(flagged = as.integer(sum(.data[[col]]) > 0), .by = iatiidentifier) |>
+    inner_join(early, by = "iatiidentifier") |>
+    summarise(
+      variant          = v,
+      n_flagged        = sum(flagged),
+      early_if_flagged = round(100 * mean(closed_early[flagged == 1])),
+      early_if_not     = round(100 * mean(closed_early[flagged == 0])),
+      margin           = early_if_flagged - early_if_not
+    )
+})
+
+convergent_test
+```
+
+```{r}
+#| label: fig-variants
+#| fig-cap: "Convergent-validity margin and base rate, by candidate refinement"
+convergent_test |>
+  left_join(
+    map_dfr(names(variants), \(v) tibble(variant = v,
+      base_rate = 100 * mean(year_events[[variants[[v]]]]))),
+    by = "variant"
+  ) |>
+  ggplot(aes(base_rate, margin, label = variant)) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey60") +
+  geom_point(size = 3, colour = "grey20") +
+  geom_text(vjust = -0.9, size = 3.2) +
+  scale_x_continuous(labels = label_percent(scale = 1)) +
+  labs(x = "Base rate (% of activity-years flagged)",
+       y = "Convergent-validity margin (pp)",
+       caption = "Upper-left is better: a plausible base rate with a wide margin in the predicted direction") +
+  theme_minimal(base_size = 11)
+```
+
+## 9. Selection
+
+```{r}
+#| echo: false
+best <- convergent_test |> slice_max(margin, n = 1)
+```
+
+The variant carried forward is **`r best$variant`** — an activity-year with no
+disbursement in which at least a quarter of committed funds remained
+outstanding — with a convergent-validity margin of `r best$margin` percentage
+points in the direction enforcement implies.
+
+**What the comparison shows.** The discriminating filter is the *amount at
+stake*, not persistence over time. Requiring the interruption to last two
+consecutive years produces the weakest margin of the four (+3) while discarding
+most of the flagged cases; requiring a substantial outstanding balance produces
+the strongest (+10). The initial suspicion — that single zero-disbursement years
+were artefacts of a biennial tranche schedule — is not what the data support.
+What separates a meaningful interruption from a trivial one is whether real
+money was still owed, which is why an operation that disbursed 98 per cent and
+left a residual is correctly excluded while one that left 40 per cent unpaid is
+not.
+
+**Two alternative operationalisations were tested and rejected**, on the same
+criterion rather than on judgement. Deviation from an activity's own
+disbursement rhythm returns a margin of **−8**, the wrong direction entirely;
+an unusually long interval since the last disbursement flags nothing at all.
+Both fail for the same reason: only 273 of 2,213 activities span four or more
+years, so there is no established rhythm to deviate from. The panel is too
+short per activity to support a within-activity relative measure, and that is a
+property of the data rather than of the idea.
+
+**Naming, and what is being claimed.** The variable is called `interrupted`
+rather than `withheld`. The theoretical construct is withholding — a donor's
+decision not to disburse when a benchmark is missed — but the measure observes
+an interruption, and not every interruption is a sanction. The convergent
+validity test establishes that the set correlates with an independent signal of
+enforcement; it does not establish that each flagged year is a sanction.
+Claiming the latter would overstate what the data can carry. The measure is an
+observable proxy for the construct and is described as one throughout.
+
+```{r}
+OUTCOME_VAR <- best$variant
+
+year_events <- year_events |>
+  mutate(interrupted_flag = .data[[variants[[OUTCOME_VAR]]]])
+```
+
+# Part III — The model dataset
+
+## 10. Assembling the activity-year panel
+
+```{r}
+model_data <- year_events |>
+  select(iatiidentifier, year, interrupted_flag, balance_owed, balance_share,
+         disbursement_usd, commitment_usd) |>
+  # Activity-level attributes repeat across the activity's years.
+  left_join(
+    clean |> select(iatiidentifier, donor_ref, donor, x1_donor_type, modality,
+                    recipient_main, status_code, status_name,
+                    finance_type, flow_type, collaboration_type,
+                    any_of(c("finance_type_name", "flow_type_name",
+                             "collaboration_type_name")),
+                    hierarchy, log_commitment,
+                    planned_duration_days, y2_early_days, y1_gap_full),
+    by = "iatiidentifier"
+  ) |>
+  # Structural position is already donor-country-year, so it joins on the
+  # outcome's own unit rather than being averaged over an activity's life —
+  # the averaging step the activity-level outcome used to require.
+  # Built on commitments, so no lag is needed: a donor that withholds does not
+  # thereby reduce what it has committed, and the measure is structurally prior
+  # to the outcome. `disb_year` travels along only for
+  # the descriptive comparison in 04_eda_clean.
+  left_join(
+    structural |> select(donor_ref, country, year, s1_share, s2_hhi_net,
+                         s3_n_donors, cum_commit, disb_year),
+    by = c("donor_ref", "recipient_main" = "country", "year")
+  ) |>
+  left_join(
+    controls |> select(iso2, year, voice_account, corruption_ctrl, pol_stability,
+                       aid_dependence, gdp_pc, population, region, income_group),
+    by = c("recipient_main" = "iso2", "year")
+  ) |>
+  left_join(
+    political |> select(iso2, year, coup, coup_attempt, election_year),
+    by = c("recipient_main" = "iso2", "year")
+  ) |>
+  mutate(
+    # S1 = 1 in a single-donor cell is maximal leverage, not an artefact
+    #. Flagged rather than excluded; H3 drops these
+    # because a pool net of its only member has no fragmentation to measure.
+    single_donor = as.integer(s3_n_donors == 1),
+    log_gdp_pc   = log(gdp_pc),
+    log_pop      = log(population)
+  )
+
+model_data |>
+  summarise(
+    activity_years = n(),
+    activities     = n_distinct(iatiidentifier),
+    donors         = n_distinct(donor_ref),
+    countries      = n_distinct(recipient_main),
+    years          = paste(min(year), max(year), sep = "-"),
+    interrupted_rate = round(100 * mean(interrupted_flag))
+  )
+```
+
+## 11. Missingness in the assembled panel
+
+The split between the two treatments declared earlier: what multiple imputation
+will handle for H2 and H3, and what listwise deletion costs H1.
+
+```{r}
+model_data |>
+  summarise(across(c(s1_share, s2_hhi_net, s3_n_donors, voice_account,
+                     corruption_ctrl, pol_stability, aid_dependence,
+                     log_gdp_pc, coup, election_year),
+                   ~ round(100 * mean(is.na(.x))))) |>
+  pivot_longer(everything(), names_to = "variable", values_to = "pct_missing") |>
+  arrange(desc(pct_missing))
+```
+
+```{r}
+model_data |>
+  summarise(
+    complete_for_h1 = sum(complete.cases(pick(s1_share, voice_account,
+                                              aid_dependence, log_gdp_pc))),
+    total           = n()
+  ) |>
+  mutate(pct_retained = round(100 * complete_for_h1 / total))
+```
+
+## 12. Save
+
+```{r}
+write_csv(model_data, "../data/processed/model_data_year.csv")
+write_csv(clean,      "../data/processed/activities_clean.csv")
+```
+
+**Output.** `data/processed/model_data_year.csv`, one row per activity-year,
+with the refined outcome, structural position joined on its own unit, and both
+control blocks attached. This is what 04_eda_clean describes and what the
+models consume.

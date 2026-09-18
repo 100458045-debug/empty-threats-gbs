@@ -1,0 +1,150 @@
+---
+title: "Political-rupture controls"
+subtitle: "Coups and election timing for the recipient country-year"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: show
+execute:
+  warning: false
+  message: false
+---
+
+Two controls for recipient-side political rupture, both properties of the
+recipient country alone rather than of the donor-recipient pair. This is what
+makes them usable across the whole sample: donor-recipient ideological
+alignment was considered and rejected for exactly the opposite reason — it is
+undefined for 91 per cent of the analytical sample, whose donor is a
+multilateral institution rather than a state.
+
+Source: [V-Dem](https://v-dem.net) via the `vdemdata` package, installed from
+GitHub rather than CRAN. It is used because no current, freely downloadable,
+registration-free source of coup and election-year data exists elsewhere.
+
+```{r}
+#| label: setup
+library(tidyverse)
+
+if (!requireNamespace("vdemdata", quietly = TRUE)) {
+  remotes::install_github("vdeminstitute/vdemdata")
+}
+library(vdemdata)
+
+dir_external <- "../data/external"
+YEAR_MIN <- 2014
+YEAR_MAX <- 2026
+```
+
+## 1. Country crosswalk
+
+Same cache 02_external_controls writes — reused if present, built here
+if not, so this document does not depend on the other having run first.
+
+```{r}
+path_countries <- file.path(dir_external, "wb_countries.csv")
+
+if (file.exists(path_countries)) {
+  countries <- read_csv(path_countries, col_types = cols(
+    iso3 = col_character(), iso2 = col_character(),
+    country_name = col_character(), region = col_character(),
+    income_group = col_character()
+  ))
+} else {
+  library(httr2)
+  resp <- request("https://api.worldbank.org/v2/country") |>
+    req_url_query(format = "json", per_page = 400) |>
+    req_retry(max_tries = 3) |>
+    req_perform() |>
+    resp_body_json(simplifyVector = FALSE)
+
+  countries <- resp[[2]] |>
+    map(\(x) tibble(
+      iso3 = x$id, iso2 = x$iso2Code, country_name = x$name,
+      region = x$region$value, income_group = x$incomeLevel$value
+    )) |>
+    list_rbind() |>
+    filter(region != "Aggregates")
+
+  write_csv(countries, path_countries)
+}
+```
+
+## 2. Coups
+
+`e_pt_coup` and `e_pt_coup_attempts` are the Powell and Thyne indicators,
+bundled into V-Dem and updated on its release schedule — current through 2025,
+which is more recent than either standalone mirror located during the search
+for this control.
+
+```{r}
+#| label: coups
+coups <- vdem |>
+  filter(year >= YEAR_MIN, year <= YEAR_MAX) |>
+  transmute(
+    iso3 = country_text_id,
+    year,
+    coup          = replace_na(as.integer(e_pt_coup > 0), 0L),
+    coup_attempt  = replace_na(as.integer(e_pt_coup_attempts > 0), 0L)
+  )
+
+coups |> filter(coup == 1) |> count(year, name = "countries_with_coup")
+```
+
+## 3. Elections
+
+An election of any type in a given country-year leaves at least one of
+`v2eltype_0` through `v2eltype_9` non-missing; which specific slot is filled
+depends on how many election types occurred that year; the type codes
+themselves are not used here, only whether an election happened at all.
+
+```{r}
+#| label: elections
+eltype_cols <- paste0("v2eltype_", 0:9)
+
+elections <- vdem |>
+  filter(year >= YEAR_MIN, year <= YEAR_MAX) |>
+  mutate(election_year = as.integer(if_any(all_of(eltype_cols), ~ !is.na(.x)))) |>
+  transmute(iso3 = country_text_id, year, election_year)
+
+elections |> count(election_year)
+```
+
+## 4. Coverage against the analytical frame
+
+```{r}
+#| label: coverage
+political <- coups |>
+  full_join(elections, by = c("iso3", "year"))
+
+political |>
+  group_by(year) |>
+  summarise(
+    n_countries = n(),
+    pct_coup    = round(100 * mean(coup, na.rm = TRUE)),
+    pct_election = round(100 * mean(election_year, na.rm = TRUE)),
+    .groups = "drop"
+  )
+```
+
+The source runs through 2025; H1 2026 activities in the frame carry no
+observation for that half-year and are left `NA` rather than backfilled —
+carrying forward an unobserved political event would be worse than admitting
+it is unknown.
+
+## 5. Attach ISO2 and save
+
+```{r}
+#| label: save
+political <- political |>
+  left_join(countries |> select(iso3, iso2), by = "iso3") |>
+  filter(!is.na(iso2)) |>
+  relocate(iso2, iso3, year)
+
+write_csv(political, file.path(dir_external, "controls_political.csv"))
+political |> glimpse()
+```
+
+**Output.** `data/external/controls_political.csv`, keyed on `iso2` x `year`,
+joins to the same key as `controls_country_year.csv` from
+02_external_controls.

@@ -1,0 +1,447 @@
+---
+title: "Frame construction"
+subtitle: "General budget support operations in the full IATI corpus"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: show
+execute:
+  warning: false
+  message: false
+---
+
+Identifies every general budget support operation in the IATI corpus by **aid
+modality**, not by purpose code.
+
+The earlier frame filtered on purpose code 51010 and was wrong in both
+directions at once. Its undercoverage was invisible from inside the extract: the
+World Bank's Development Policy Operations cannot be found by searching a file
+that already excluded them. That is why this runs against the full corpus.
+
+Aid type is declared either as an activity-level default or on individual
+transactions, and publishers differ in which they use — the AfDB populates only
+the transaction level, the EC only the activity level. Taking the union of both
+is the difference between a frame and a frame missing half its publishers.
+
+This needs `iati.sqlite` (32 GB), which is not in the repository — see the
+README for the download. Every join here runs under ten seconds against a
+local copy; the full document renders in one to three minutes.
+
+```{r}
+library(tidyverse)
+library(DBI)
+library(RSQLite)
+
+con <- dbConnect(SQLite(), "C:/iati/iati.sqlite")
+```
+
+The source ships with no indexes on the columns this script joins on
+repeatedly. Without one, SQLite falls back to a nested-loop scan for the
+`recipientcountry` lookup below and the query does not return in reasonable
+time; indexed, it runs in about a second. Adding an index only builds a lookup
+structure — it does not alter any data, and is safe to leave in place.
+
+```{sql, connection = con}
+CREATE INDEX IF NOT EXISTS idx_rc_act ON recipientcountry (_link_activity);
+```
+
+## 1. The frame
+
+```{sql, connection = con}
+DROP TABLE IF EXISTS gbs_frame;
+```
+
+Four restrictions, applied here rather than left implicit: the reporting
+organisation must be type 10 (bilateral), 15 (other public sector) or 40
+(multilateral) — this excludes NGOs and private-sector reporters that also use
+the A01/A02 codes but are not budget support in the theoretical sense; the
+activity must have at least one coded recipient country; the US Department of
+the Interior (`US-GOV-9`) is excluded by name — its 1,404 A01 activities are
+Compacts of Free Association with Micronesia, the Marshall Islands and Palau,
+carry no coded recipient country in most cases and are not administered
+through a performance assessment framework. Three further reporters are
+excluded on the same reasoning: the Netherlands Enterprise Agency
+(`NL-KVK-27378529`, 169 activities — sector-specific private-sector trade
+programmes, e.g. "Garments and textiles Guatemala", "Rwanda Coffee"); the
+Green Climate Fund (`XM-DAC-41317`, discrete project-based climate finance,
+e.g. "Bhutan for life", "Jordan Integrated Landscape Management Initiative" —
+GCF disburses to accredited implementing entities per project, not to a
+recipient treasury under a PAF); and the Netherlands Space Office
+(`XI-IATI-NSO`, satellite-data development grants under the G4AW programme,
+e.g. "Sat4Business Ghana", "SpiceUp Indonesia" — technical assistance, not
+budget support). None of the four excluded reporters engages in policy-based
+lending against a negotiated performance assessment framework, which is the
+instrument this thesis studies.
+
+```{sql, connection = con}
+CREATE TABLE gbs_frame AS
+WITH aid_union AS (
+    SELECT DISTINCT _link_activity AS act, UPPER(TRIM(code)) AS aid_code,
+           'activity' AS declared_at
+    FROM defaultaidtype
+    WHERE UPPER(TRIM(code)) IN ('A01','A02')
+    UNION
+    SELECT DISTINCT _link_activity, UPPER(TRIM(code)), 'transaction'
+    FROM transaction_aidtype
+    WHERE UPPER(TRIM(code)) IN ('A01','A02')
+)
+SELECT a._link AS act,
+       a.iatiidentifier,
+       a.reportingorg_ref,
+       a.reportingorg_type,
+       a.reportingorg_narrative,
+       a.activitystatus_code,
+       MAX(u.aid_code = 'A01')            AS has_a01,
+       MAX(u.aid_code = 'A02')            AS has_a02,
+       MAX(u.declared_at = 'activity')    AS declared_activity_level,
+       MAX(u.declared_at = 'transaction') AS declared_transaction_level
+FROM activity a
+JOIN aid_union u ON u.act = a._link
+WHERE a.reportingorg_type IN ('10', '15', '40')
+  AND a.reportingorg_ref NOT IN
+      ('US-GOV-9', 'NL-KVK-27378529', 'XM-DAC-41317', 'XI-IATI-NSO')
+  AND EXISTS (SELECT 1 FROM recipientcountry rc WHERE rc._link_activity = a._link)
+GROUP BY a._link;
+```
+
+16 activities in the corpus carry the **same** `iatiidentifier` under **more
+than one** surrogate key (`_link`) — the same activity indexed twice by IATI
+Tables, not a genuine duplicate report. Checked directly: every duplicate pair
+agrees on donor and activity status, so nothing is lost by keeping one. Left
+unresolved, this turns every later join into a many-to-many and silently
+inflates row counts — it surfaced exactly that way the first time this ran.
+
+```{sql, connection = con}
+DELETE FROM gbs_frame
+WHERE act NOT IN (SELECT MIN(act) FROM gbs_frame GROUP BY iatiidentifier);
+```
+
+```{sql, connection = con}
+CREATE INDEX idx_gbs_frame_act ON gbs_frame (act);
+```
+
+A second, larger duplication exists: 452 activities
+declare a parent activity — `related-activity` type 1 — that is **also in the
+frame**, so the same programme money appears at both the programme and the
+contract level. Verified rather than assumed: one EC parent commits USD 68.4m
+and its four in-frame children commit 61.9m between them.
+
+**It is not removed here.** This document extracts; the exclusion is an
+analytical decision and belongs where it can be re-run without the 32 GB
+source. What this section exports is the parent-child map, a few kilobytes, so
+that `construction/` can apply the filter — and so that a reader asking "what
+if the children are kept?" can answer it by editing one line of R rather than
+re-downloading the corpus.
+
+```{sql, connection = con}
+DROP TABLE IF EXISTS gbs_related;
+```
+
+```{sql, connection = con}
+CREATE TABLE gbs_related AS
+SELECT DISTINCT ra.iatiidentifier AS child_id, ra.ref AS parent_id
+FROM relatedactivity ra
+WHERE ra.type = '1'
+  AND ra.iatiidentifier IN (SELECT iatiidentifier FROM gbs_frame)
+  AND ra.ref            IN (SELECT iatiidentifier FROM gbs_frame);
+```
+
+```{sql, connection = con}
+SELECT COUNT(*) AS pairs,
+       COUNT(DISTINCT child_id)  AS children,
+       COUNT(DISTINCT parent_id) AS parents
+FROM gbs_related;
+```
+
+## 2. Does the frame clear the design thresholds?
+
+The pre-registered threshold for a third level in the model is 20 donors. The
+purpose-code frame returned 15.
+
+```{sql, connection = con}
+SELECT COUNT(*) AS n_activities, COUNT(DISTINCT reportingorg_ref) AS n_donors
+FROM gbs_frame;
+```
+
+The World Bank test. The purpose-code frame returned 5 activities for the
+largest budget support provider in the world; if undercoverage is the right
+diagnosis, this returns materially more.
+
+```{sql, connection = con}
+SELECT reportingorg_ref, MIN(reportingorg_narrative) AS donor, COUNT(*) AS n
+FROM gbs_frame
+WHERE reportingorg_narrative LIKE '%world bank%'
+   OR reportingorg_narrative LIKE '%international development association%'
+   OR reportingorg_ref LIKE '44000%'
+GROUP BY reportingorg_ref
+ORDER BY n DESC;
+```
+
+Which convention each publisher uses, and how many activities consulting only
+the activity-level element would have lost.
+
+```{sql, connection = con}
+SELECT declared_activity_level, declared_transaction_level,
+       COUNT(*) AS n_activities, COUNT(DISTINCT reportingorg_ref) AS n_donors
+FROM gbs_frame
+GROUP BY declared_activity_level, declared_transaction_level;
+```
+
+```{sql, connection = con}
+SELECT reportingorg_ref, MIN(reportingorg_narrative) AS donor, reportingorg_type,
+       COUNT(*) AS n_activities, SUM(has_a01) AS n_a01, SUM(has_a02) AS n_a02
+FROM gbs_frame
+GROUP BY reportingorg_ref, reportingorg_type
+ORDER BY n_activities DESC;
+```
+
+## 3. Temporal window
+
+2014 onward: IATI reporting is irregular before this date, which is a property
+of the source and therefore belongs here.
+
+**No upper bound is imposed.** The analytical window closes in 2023 because
+the aid-dependence control is published with a two-year lag — but that is a
+fact about the World Bank's release schedule, not about IATI, and it will
+change when 2024 figures appear. Encoding it here would mean re-downloading 32
+GB to move the window. It is applied in construction/01_build_tables, as a
+constant at the top of the file.
+
+```{sql, connection = con}
+DROP TABLE IF EXISTS gbs_frame_windowed;
+```
+
+```{sql, connection = con}
+CREATE TABLE gbs_frame_windowed AS
+SELECT f.*,
+       MIN(t.transactiondate_isodate) AS first_txn,
+       MAX(t.transactiondate_isodate) AS last_txn,
+       COUNT(*)                       AS n_transactions
+FROM gbs_frame f
+JOIN transaction_breakdown t ON t._link_activity = f.act
+WHERE t.transactiondate_isodate >= '2014-01-01'
+GROUP BY f.act;
+```
+
+```{sql, connection = con}
+SELECT COUNT(*) AS n_activities, COUNT(DISTINCT reportingorg_ref) AS n_donors
+FROM gbs_frame_windowed;
+```
+
+## 4. Is the planned-disbursement schedule available?
+
+The outcome originally specified — deviation from the donor's own published
+schedule — depends entirely on this field being populated.
+
+```{sql, connection = con}
+SELECT f.reportingorg_ref,
+       MIN(f.reportingorg_narrative) AS donor,
+       COUNT(DISTINCT f.act)         AS n_activities,
+       COUNT(DISTINCT p._link_activity) AS n_with_planned,
+       ROUND(100.0 * COUNT(DISTINCT p._link_activity)
+                   / NULLIF(COUNT(DISTINCT f.act), 0)) AS pct_with_planned
+FROM gbs_frame_windowed f
+LEFT JOIN planneddisbursement p ON p._link_activity = f.act
+GROUP BY f.reportingorg_ref
+ORDER BY n_activities DESC;
+```
+
+## 5. Document links, paired with their categories
+
+The flat CSV export could not deliver this: repeated child elements are
+comma-joined there, and for 628 of 1,118 activities the URL count did not match
+the category count, so re-pairing by position would have misfiled document types
+across most of the corpus. Here the relation is native.
+
+```{sql, connection = con}
+DROP TABLE IF EXISTS gbs_documents;
+```
+
+```{sql, connection = con}
+CREATE TABLE gbs_documents AS
+SELECT f.iatiidentifier, f.reportingorg_ref, f.reportingorg_narrative,
+       dl.url, dl.format, dc.code AS category_code
+FROM gbs_frame_windowed f
+JOIN documentlink dl ON dl._link_activity = f.act
+LEFT JOIN documentlink_category dc ON dc._link_documentlink = dl._link;
+```
+
+```{sql, connection = con}
+SELECT category_code, COUNT(*) AS n_links,
+       COUNT(DISTINCT iatiidentifier) AS n_activities
+FROM gbs_documents
+GROUP BY category_code
+ORDER BY n_links DESC;
+```
+
+## 6. Export
+
+```{r}
+frame <- dbGetQuery(con, "SELECT * FROM gbs_frame_windowed") |> as_tibble()
+docs  <- dbGetQuery(con, "SELECT * FROM gbs_documents WHERE url IS NOT NULL") |> as_tibble()
+
+# Harvest runtime is bounded by per-domain crawl delay, so the domain split is
+# what tells us whether the download is hours or days.
+docs <- docs |>
+  mutate(domain = str_extract(url, "(?<=://)[^/]+"))
+
+docs |> count(domain, sort = TRUE) |> print(n = 20)
+
+write_csv(frame, "../data/interim/gbs_frame.csv")
+write_csv(docs,  "../data/interim/gbs_documents.csv")
+```
+
+## 7. Raw ingredients for `construction/`
+
+Everything below stays in this document, not in `construction/`, for one reason:
+this is the only script in the repository that touches the 32 GB source. Every
+field `construction/` needs — dates, budget, recipients, per-year transaction
+totals, the activity-level controls — is pulled here, once, and written to a CSV
+that is committed. `construction/` then runs end to end on a clean clone with no
+access to `iati.sqlite`, only to what this section exports.
+
+Recipients, with their reported percentage — the source for the single-country
+assignment built downstream.
+
+```{sql, connection = con}
+DROP TABLE IF EXISTS gbs_recipients;
+```
+
+```{sql, connection = con}
+CREATE TABLE gbs_recipients AS
+SELECT f.iatiidentifier, rc.code AS country, rc.percentage
+FROM gbs_frame_windowed f
+JOIN recipientcountry rc ON rc._link_activity = f.act;
+```
+
+Activity dates. IATI encodes the four date types two ways across publishers —
+numeric codes (`1`-`4`) and string codes (`start-actual`, `end-planned`, ...) —
+so both are mapped to one label before pivoting.
+
+```{sql, connection = con}
+DROP TABLE IF EXISTS gbs_dates;
+```
+
+```{sql, connection = con}
+CREATE TABLE gbs_dates AS
+SELECT f.iatiidentifier,
+       CASE d.type
+         WHEN '1' THEN 'planned_start' WHEN 'start-planned' THEN 'planned_start'
+         WHEN '2' THEN 'actual_start'  WHEN 'start-actual'  THEN 'actual_start'
+         WHEN '3' THEN 'planned_end'   WHEN 'end-planned'   THEN 'planned_end'
+         WHEN '4' THEN 'actual_end'    WHEN 'end-actual'    THEN 'actual_end'
+       END AS date_type,
+       d.isodate
+FROM gbs_frame_windowed f
+JOIN activitydate d ON d._link_activity = f.act
+WHERE d.isodate IS NOT NULL AND d.isodate != '';
+```
+
+Forward budget. Restricted to `USD`-denominated lines: only 57 per cent of all
+budget rows in the corpus report in USD, and a sum mixing currencies without
+conversion would be meaningless. This is a real coverage loss, not a
+simplification, and is reported as such rather than patched with an unsourced
+FX table.
+
+```{sql, connection = con}
+DROP TABLE IF EXISTS gbs_budget;
+```
+
+```{sql, connection = con}
+CREATE TABLE gbs_budget AS
+SELECT f.iatiidentifier,
+       SUM(b.value)       AS budget_orig,
+       COUNT(*)           AS n_budget_lines,
+       b.value_currency   AS budget_ccy
+FROM gbs_frame_windowed f
+JOIN budget b ON b._link_activity = f.act
+WHERE b.value_currency = 'USD'
+GROUP BY f.iatiidentifier, b.value_currency;
+```
+
+Commitment and disbursement transactions (types 2 and 3), in USD. Two exports:
+one **windowed** to the frame's temporal frame (2014 onward, matching the
+frame construction in Section 3), one **unwindowed** covering the activity's
+whole recorded life. The two diverge exactly where a commitment predates the
+window — the reason `construction/` needs both rather than deriving one from
+the other.
+
+```{sql, connection = con}
+DROP TABLE IF EXISTS gbs_tx;
+```
+
+```{sql, connection = con}
+CREATE TABLE gbs_tx AS
+SELECT f.iatiidentifier,
+       t.transactiontype_code AS ttype,
+       SUBSTR(t.transactiondate_isodate, 1, 4) AS year,
+       t.transactiondate_isodate AS tdate,
+       t.value_usd AS usd
+FROM gbs_frame_windowed f
+JOIN transaction_breakdown t ON t._link_activity = f.act
+WHERE t.transactiontype_code IN ('2', '3');
+```
+
+```{sql, connection = con}
+DROP TABLE IF EXISTS gbs_lifecycle;
+```
+
+```{sql, connection = con}
+CREATE TABLE gbs_lifecycle AS
+SELECT iatiidentifier,
+       SUM(CASE WHEN ttype = '2' THEN usd ELSE 0 END) AS commitment_usd_full,
+       SUM(CASE WHEN ttype = '3' THEN usd ELSE 0 END) AS disbursement_usd_full,
+       COUNT(DISTINCT CASE WHEN ttype = '3' THEN year END) AS n_disb_years_full
+FROM gbs_tx
+GROUP BY iatiidentifier;
+```
+
+Activity-level controls, read directly off `activity`. The `_codename` columns
+travel with the codes: IATI ships the official label for each code, so the
+labels used downstream are authoritative rather than transcribed by hand. This
+also surfaces publisher errors — three `finance_type` values in the frame
+resolve to "GNI: Gross National Income", "ODA % GNI" and "Population", which
+belong to a different codelist entirely.
+
+```{sql, connection = con}
+DROP TABLE IF EXISTS gbs_controls;
+```
+
+```{sql, connection = con}
+CREATE TABLE gbs_controls AS
+SELECT f.iatiidentifier,
+       a.defaultfinancetype_code       AS finance_type,
+       a.defaultfinancetype_codename   AS finance_type_name,
+       a.defaultflowtype_code          AS flow_type,
+       a.defaultflowtype_codename      AS flow_type_name,
+       a.defaulttiedstatus_code        AS tied_status,
+       a.collaborationtype_code        AS collaboration_type,
+       a.collaborationtype_codename    AS collaboration_type_name,
+       a.hierarchy
+FROM gbs_frame_windowed f
+JOIN activity a ON a._link = f.act;
+```
+
+```{r}
+recipients <- dbGetQuery(con, "SELECT * FROM gbs_recipients") |> as_tibble()
+dates      <- dbGetQuery(con, "SELECT * FROM gbs_dates") |> as_tibble()
+budget     <- dbGetQuery(con, "SELECT * FROM gbs_budget") |> as_tibble()
+tx         <- dbGetQuery(con, "SELECT * FROM gbs_tx") |> as_tibble()
+lifecycle  <- dbGetQuery(con, "SELECT * FROM gbs_lifecycle") |> as_tibble()
+controls   <- dbGetQuery(con, "SELECT * FROM gbs_controls") |> as_tibble()
+related    <- dbGetQuery(con, "SELECT * FROM gbs_related") |> as_tibble()
+
+write_csv(recipients, "../data/interim/gbs_recipients.csv")
+write_csv(dates,      "../data/interim/gbs_dates.csv")
+write_csv(budget,     "../data/interim/gbs_budget.csv")
+write_csv(tx,         "../data/interim/gbs_tx.csv")
+write_csv(lifecycle,  "../data/interim/gbs_lifecycle.csv")
+write_csv(controls,   "../data/interim/gbs_controls.csv")
+write_csv(related,    "../data/interim/gbs_related.csv")
+
+dbDisconnect(con)
+```
+
+**Everything `construction/` needs is now in `data/interim/` as committed CSVs.**
+No script past this point opens `iati.sqlite`.

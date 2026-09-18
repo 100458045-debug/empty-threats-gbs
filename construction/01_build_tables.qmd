@@ -1,0 +1,273 @@
+---
+title: "Building the analysis dataset"
+subtitle: "From the raw extraction CSVs to one row per activity"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: show
+execute:
+  warning: false
+  message: false
+---
+
+Everything here reads CSVs committed to `data/interim/`, written once by
+extraction/01_frame. Nothing in this document touches `iati.sqlite` — that
+is the whole point of the split: this script runs to completion on a clean
+clone of the repository, with no access to the 32 GB source.
+
+```{r}
+library(tidyverse)
+
+read_gbs <- function(name, ...) read_csv(file.path("../data/interim", name), ...)
+```
+
+## 0. Analytical decisions
+
+Two restrictions live here rather than in extraction, because both are
+analytical choices that may change without the source data changing. Editing
+either is a one-line change plus a re-render; encoding them upstream would
+require re-downloading 32 GB to revisit.
+
+```{r}
+# 2014 is where IATI reporting becomes regular enough to treat a missing
+# disbursement as informative rather than as an artefact of non-reporting.
+# The raw transaction extract reaches back to 1989 for some activities.
+YEAR_MIN <- 2014
+
+# The analytical window closes in 2023 because the World Bank publishes net ODA
+# as a share of GNI with a two-year lag, and that is the aid-dependence control
+# the suspension literature identifies as predictive. Raise this when
+# the 2024 figures are released.
+YEAR_MAX <- 2023
+
+# Drop activities whose parent is also in the frame: the same programme money
+# is otherwise counted at both programme and contract level, inflating both the
+# numerator and the denominator of the donor-share variable. Set to
+# FALSE to test how much the exclusion matters.
+DROP_CHILD_ACTIVITIES <- TRUE
+```
+
+## 1. Frame and donor type
+
+```{r}
+frame_raw <- read_gbs("gbs_frame.csv", col_types = cols(
+  iatiidentifier = col_character(),
+  reportingorg_ref = col_character(),
+  reportingorg_type = col_character(),
+  reportingorg_narrative = col_character(),
+  activitystatus_code = col_character(),
+  has_a01 = col_logical(),
+  has_a02 = col_logical(),
+  declared_activity_level = col_logical(),
+  declared_transaction_level = col_logical(),
+  .default = col_guess()
+))
+
+# org_type 15 ("other public sector") sits with the multilaterals: it covers
+# entities like the Green Climate Fund, not bilateral government agencies
+#.
+x1_lookup <- c("10" = "Bilateral", "15" = "Multilateral", "40" = "Multilateral")
+
+status_lookup <- c(
+  "1" = "Pipeline/identification", "2" = "Implementation",
+  "3" = "Finalisation", "4" = "Closed", "5" = "Cancelled"
+)
+
+frame <- frame_raw |>
+  transmute(
+    iatiidentifier,
+    donor_ref = reportingorg_ref,
+    donor     = reportingorg_narrative,
+    org_type  = reportingorg_type,
+    x1_donor_type = x1_lookup[org_type],
+    a01 = as.integer(has_a01), a02 = as.integer(has_a02),
+    # A02-only is "sector budget support"; A01-only "general"; both is rare
+    # enough (17 activities corpus-wide) to keep as its own label rather than
+    # force a choice.
+    modality = case_when(
+      a01 == 1 & a02 == 1 ~ "both",
+      a02 == 1             ~ "A02_sector",
+      a01 == 1             ~ "A01_general"
+    ),
+    declared_activity    = as.integer(declared_activity_level),
+    declared_transaction = as.integer(declared_transaction_level),
+    status_code = activitystatus_code,
+    status_name = status_lookup[status_code]
+  )
+
+frame |> count(x1_donor_type, modality)
+```
+
+Applying the parent-child exclusion declared in §0. Reported as a count rather
+than applied silently, so the cost of the decision is visible in the rendered
+document.
+
+```{r}
+related <- read_gbs("gbs_related.csv", col_types = cols(
+  child_id = col_character(), parent_id = col_character()
+))
+
+if (DROP_CHILD_ACTIVITIES) {
+  n_before <- nrow(frame)
+  frame <- frame |> filter(!iatiidentifier %in% related$child_id)
+  tibble(
+    activities_before = n_before,
+    children_dropped  = n_before - nrow(frame),
+    activities_after  = nrow(frame)
+  )
+}
+```
+
+## 2. Main recipient country
+
+An activity can list several recipient countries with a percentage each. The
+main recipient is the one with the largest share; this affects 54 of the
+frame's activities.
+
+```{r}
+recipients <- read_gbs("gbs_recipients.csv", col_types = cols(
+  iatiidentifier = col_character(), country = col_character(),
+  percentage = col_double()
+))
+
+recipient_main <- recipients |>
+  # A missing percentage cannot win a max() comparison; treating it as 0
+  # rather than dropping the row keeps single-country activities in scope
+  # even when the percentage element was left blank.
+  mutate(percentage = replace_na(percentage, 0)) |>
+  slice_max(percentage, n = 1, by = iatiidentifier, with_ties = FALSE) |>
+  select(iatiidentifier, country)
+```
+
+## 3. Dates, and the outcome they support directly
+
+```{r}
+dates <- read_gbs("gbs_dates.csv", col_types = cols(
+  iatiidentifier = col_character(), date_type = col_character(),
+  isodate = col_character()
+)) |>
+  filter(!is.na(date_type)) |>
+  distinct(iatiidentifier, date_type, .keep_all = TRUE) |>
+  pivot_wider(names_from = date_type, values_from = isodate)
+
+# Early closure: the convergent-validity check for the financial gap.
+# A positive value means the operation concluded before its announced date.
+dates <- dates |>
+  mutate(
+    across(c(planned_start, actual_start, planned_end, actual_end), as.Date),
+    y2_early_days = as.integer(planned_end - actual_end),
+    planned_duration_days = as.integer(planned_end - planned_start)
+  )
+```
+
+## 4. Budget
+
+```{r}
+budget_tot <- read_gbs("gbs_budget.csv", col_types = cols(
+  iatiidentifier = col_character(), budget_orig = col_double(),
+  n_budget_lines = col_integer(), budget_ccy = col_character()
+))
+```
+
+## 5. Transactions: windowed and full-life
+
+`gbs_tx.csv` holds every commitment (type 2) and disbursement (type 3)
+transaction belonging to a framed activity, with no date restriction — the
+earliest reaches back to 1989. The analytical window declared in §0 is applied
+here, so the panel and every total derived from it span the same years as the
+controls.
+
+`gbs_lifecycle.csv` carries the same two totals **without** any window. The two
+therefore diverge wherever an activity has transactions outside 2014-2023, and
+that divergence is informative rather than an error: it is the difference
+between what the activity did in the observed period and what it did in total.
+
+```{r}
+tx <- read_gbs("gbs_tx.csv", col_types = cols(
+  iatiidentifier = col_character(), ttype = col_character(),
+  year = col_integer(), tdate = col_character(), usd = col_double()
+)) |>
+  filter(between(year, YEAR_MIN, YEAR_MAX))
+
+panel_year <- tx |>
+  summarise(
+    commitment_usd   = sum(usd[ttype == "2"], na.rm = TRUE),
+    disbursement_usd = sum(usd[ttype == "3"], na.rm = TRUE),
+    n_disb_tx        = sum(ttype == "3"),
+    .by = c(iatiidentifier, year)
+  )
+
+activity_tx <- panel_year |>
+  summarise(
+    commitment_usd   = sum(commitment_usd),
+    disbursement_usd = sum(disbursement_usd),
+    n_disb_years      = sum(disbursement_usd > 0),
+    # An activity with commitment but no disbursement year has an empty vector
+    # here; min()/max() on empty warn and return +-Inf rather than NA.
+    first_disb_year   = if (any(disbursement_usd > 0)) min(year[disbursement_usd > 0]) else NA_integer_,
+    last_disb_year    = if (any(disbursement_usd > 0)) max(year[disbursement_usd > 0]) else NA_integer_,
+    .by = iatiidentifier
+  )
+
+lifecycle <- read_gbs("gbs_lifecycle.csv", col_types = cols(
+  iatiidentifier = col_character(), commitment_usd_full = col_double(),
+  disbursement_usd_full = col_double(), n_disb_years_full = col_integer()
+))
+```
+
+## 6. Controls
+
+```{r}
+# The `_name` columns carry IATI's own label for each code, so the codes stay
+# numeric for modelling while the labels make tables readable — the same
+# code/name pairing `status_code`/`status_name` already uses.
+controls <- read_gbs("gbs_controls.csv", col_types = cols(.default = col_character())) |>
+  mutate(across(c(finance_type, flow_type, tied_status, collaboration_type,
+                  hierarchy), as.integer)) |>
+  # Blank labels are the source's own gaps, not a reading artefact.
+  mutate(across(ends_with("_name"), ~ na_if(.x, "")))
+
+# The `_name` columns arrive only from a re-rendered 01_frame; guard so an
+# older extract does not break the build.
+if ("finance_type_name" %in% names(controls)) {
+  controls |> count(finance_type, finance_type_name, sort = TRUE)
+} else {
+  controls |> count(finance_type, sort = TRUE)
+}
+```
+
+## 7. Assemble `analysis`
+
+One row per activity. `complete_flag` restricts the gap to activities where it
+is interpretable — an activity still under implementation can show a large gap
+for no reason other than that its disbursements have not happened yet.
+
+```{r}
+analysis <- frame |>
+  left_join(recipient_main |> rename(recipient_main = country), by = "iatiidentifier") |>
+  left_join(activity_tx,  by = "iatiidentifier") |>
+  left_join(dates,        by = "iatiidentifier") |>
+  left_join(budget_tot,   by = "iatiidentifier") |>
+  left_join(lifecycle,    by = "iatiidentifier") |>
+  left_join(controls,     by = "iatiidentifier") |>
+  mutate(
+    cp_eligible   = as.integer(modality == "A01_general"),
+    complete_flag = as.integer(status_code %in% c("3", "4")),
+    y1_gap        = if_else(commitment_usd > 0, 1 - disbursement_usd / commitment_usd, NA_real_),
+    y1_gap_full   = if_else(commitment_usd_full > 0,
+                             1 - disbursement_usd_full / commitment_usd_full, NA_real_)
+  )
+
+nrow(analysis)
+analysis |> filter(complete_flag == 1, !is.na(y1_gap_full)) |>
+  summarise(n = n(), n_donors = n_distinct(donor_ref))
+```
+
+## 8. Save
+
+```{r}
+write_csv(analysis,       "../data/interim/analysis.csv")
+write_csv(panel_year,     "../data/interim/panel_year.csv")
+write_csv(recipient_main, "../data/interim/recipient_main.csv")
+```

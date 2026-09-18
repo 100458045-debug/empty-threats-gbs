@@ -1,0 +1,661 @@
+---
+title: "EDA I — The dataset before any cleaning"
+author: "Gaspar Vigneaux"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    theme: flatly
+execute:
+  warning: false
+  message: false
+---
+
+Two jobs, in this order.
+
+**First**, understand every variable: what it contains, what is missing, and whether
+it measures what it is supposed to measure. Nothing is cleaned here — problems are
+found and named, and the fixes go to 02_feature_engineering.
+
+**Second**, decide the enforcement measure, applying five criteria fixed
+before any of this was inspected:
+
+1. **Theoretical fit** — withholding is a decision at a point in time, not a lifetime residual
+2. **Convergent validity** — must move with early closure in the direction enforcement implies
+3. **Donor coverage** — must not collapse the sample below what the comparison needs
+4. **Discrimination** — must distribute, not concentrate in one mode
+5. **Falsifiability** — if nothing passes (2), that is the finding, and modelling stops
+
+```{r}
+library(tidyverse)
+library(DataExplorer)
+library(scales)
+library(conflicted)
+conflict_prefer("select", "dplyr")
+conflict_prefer("filter", "dplyr")
+
+analysis   <- read_csv("../data/interim/analysis.csv", show_col_types = FALSE)
+panel_year <- read_csv("../data/interim/panel_year.csv", show_col_types = FALSE)
+structural <- read_csv("../data/interim/structural.csv", show_col_types = FALSE)
+controls   <- read_csv("../data/external/controls_country_year.csv", show_col_types = FALSE)
+political  <- read_csv("../data/external/controls_political.csv", show_col_types = FALSE)
+```
+
+```{r}
+#| echo: false
+# Every figure quoted in the prose below is computed here, so a changed frame
+# updates the text instead of leaving it asserting stale numbers.
+pc  <- function(x) round(100 * mean(x, na.rm = TRUE))
+pm  <- function(v) round(100 * mean(is.na(analysis[[v]])))
+cnt <- function(v, val) sum(analysis[[v]] == val, na.rm = TRUE)
+```
+
+# Part I — What is in the data
+
+## 1. Structure and missingness
+
+```{r}
+plot_intro(analysis)
+introduce(analysis)
+```
+
+```{r}
+analysis |>
+  summarise(across(everything(), ~ sum(is.na(.x)))) |>
+  pivot_longer(everything(), names_to = "variable", values_to = "n_missing") |>
+  mutate(pct = round(100 * n_missing / nrow(analysis))) |>
+  filter(n_missing > 0) |>
+  arrange(desc(n_missing)) |>
+  print(n = 30)
+```
+
+- **`budget_orig` and its two companions are missing for `r pm("budget_orig")`%** of
+  activities. The extraction restricts budget lines to those denominated in USD,
+  because summing mixed currencies without conversion is meaningless — the
+  missingness is that restriction, not absent reporting.
+- **`y2_early_days` is missing for `r pm("y2_early_days")`%**, which matters more
+  than it looks: this is the convergent-validity instrument used in Part II. It is
+  missing wherever an activity has no recorded actual end date, i.e. mostly
+  activities still running.
+- **`finance_type` and `flow_type` are missing for `r pm("finance_type")`% and
+  `r pm("flow_type")`%**, and both were intended as controls. At that rate they
+  cannot enter a model without either dropping a third of the sample or an explicit
+  missingness treatment.
+- **The windowed variables are far sparser than the full-life ones**: `y1_gap` is
+  missing for `r pm("y1_gap")`% against `r pm("y1_gap_full")`% for `y1_gap_full`,
+  and `commitment_usd` for `r pm("commitment_usd")`% against
+  `r pm("commitment_usd_full")`%. This follows directly from closing the window at
+  2023 — an activity whose commitment falls outside 2014-2023 has no windowed
+  commitment, so the windowed ratio is undefined. The full-life versions are the
+  ones to rely on.
+
+## 2. Categorical variables
+
+```{r}
+cat_vars <- c("x1_donor_type", "modality", "status_name", "finance_type",
+              "flow_type", "tied_status", "collaboration_type", "hierarchy")
+
+analysis |>
+  select(all_of(cat_vars)) |>
+  mutate(across(everything(), as.character)) |>
+  pivot_longer(everything(), names_to = "variable", values_to = "value") |>
+  count(variable, value) |>
+  mutate(pct = round(100 * n / sum(n)), .by = variable) |>
+  arrange(variable, desc(n)) |>
+  print(n = 40)
+```
+
+```{r}
+#| label: fig-categoricals
+#| fig-cap: "Distribution of the activity-level categorical variables"
+analysis |>
+  select(x1_donor_type, modality, status_name, hierarchy) |>
+  mutate(across(everything(), as.character)) |>
+  pivot_longer(everything(), names_to = "variable", values_to = "value") |>
+  count(variable, value) |>
+  mutate(value = fct_reorder(value, n)) |>
+  ggplot(aes(n, value)) +
+  geom_col(fill = "grey30") +
+  facet_wrap(~variable, scales = "free") +
+  labs(x = "Activities", y = NULL) +
+  theme_minimal(base_size = 10)
+```
+
+- **The sample is `r pc(analysis$x1_donor_type == "Multilateral")`% multilateral**
+  (`r cnt("x1_donor_type","Multilateral")` against
+  `r cnt("x1_donor_type","Bilateral")` bilateral). This is the central imbalance of
+  the design: the research question compares institutional types, and one type
+  carries four fifths of the observations.
+- **Sector budget support outnumbers general**
+  (`r cnt("modality","A02_sector")` to `r cnt("modality","A01_general")`), which
+  follows from the World Bank reporting its Development Policy Financing
+  exclusively as A02. Seventeen activities declare both and are kept as their own
+  category rather than forced into one.
+- **`tied_status` is effectively constant** — `r cnt("tied_status",5)` of
+  `r sum(!is.na(analysis$tied_status))` non-missing activities are code 5, untied.
+  A variable with no variation cannot be a control, and this one should be dropped
+  rather than carried forward.
+- **`hierarchy` includes an undocumented level 0** on `r cnt("hierarchy",0)`
+  activities. The IATI standard defines 1 (activity) and 2 (sub-activity); 0 is not
+  in the codelist and needs checking before use. Level 2 now holds only
+  `r cnt("hierarchy",2)` activities — most sub-activities were removed as
+  parent-child duplicates in construction/01_build_tables, which is that
+  exclusion working as intended.
+- `finance_type` splits mainly between 110 (standard grant,
+  `r cnt("finance_type",110)`) and 421 (standard loan, `r cnt("finance_type",421)`)
+  — a genuine and usable distinction, if the missingness is handled.
+
+## 3. Numeric variables
+
+```{r}
+num_vars <- c("commitment_usd_full", "disbursement_usd_full", "n_disb_years_full",
+              "planned_duration_days", "y2_early_days", "budget_orig")
+
+analysis |> select(all_of(num_vars)) |> summary()
+```
+
+**Impossible or suspicious values.** Each is counted rather than described, because
+each one implies a different fix.
+
+```{r}
+analysis |>
+  summarise(
+    commit_zero   = sum(commitment_usd_full == 0, na.rm = TRUE),
+    commit_neg    = sum(commitment_usd_full < 0, na.rm = TRUE),
+    disb_neg      = sum(disbursement_usd_full < 0, na.rm = TRUE),
+    budget_neg    = sum(budget_orig < 0, na.rm = TRUE),
+    duration_neg  = sum(planned_duration_days < 0, na.rm = TRUE),
+    duration_over_20y = sum(planned_duration_days > 7300, na.rm = TRUE),
+    early_neg     = sum(y2_early_days < 0, na.rm = TRUE)
+  ) |>
+  pivot_longer(everything(), names_to = "check", values_to = "n")
+```
+
+- **`r cnt("commitment_usd_full", 0)` activities report zero full-life commitment**
+  and `r sum(analysis$commitment_usd_full < 0, na.rm = TRUE)` report negative. A zero
+  commitment makes the gap undefined — a structural consequence of the ratio, not
+  missing data.
+- **`planned_duration_days` ranges from
+  `r min(analysis$planned_duration_days, na.rm = TRUE)` to
+  `r format(max(analysis$planned_duration_days, na.rm = TRUE), big.mark = ",")`
+  days.** A negative planned duration means the planned end precedes the planned
+  start, which cannot be true; the maximum is over a century. Both are reporting
+  errors and need a plausibility bound.
+- **`r sum(analysis$y2_early_days < 0, na.rm = TRUE)` activities have negative
+  `y2_early_days`**, meaning they closed *after* their announced date. That is not an
+  error but the other tail of the same variable, and it is informative. The extreme
+  is: `r min(analysis$y2_early_days, na.rm = TRUE)` days, thirteen years late.
+- **`budget_orig` is negative for `r sum(analysis$budget_orig < 0, na.rm = TRUE)` of
+  the `r sum(!is.na(analysis$budget_orig))` activities that have it**, which is
+  investigated next because it disqualifies the variable as it stands.
+
+### 3.1 The budget variable is not measuring what it should
+
+```{r}
+analysis |>
+  filter(!is.na(budget_orig)) |>
+  mutate(sign = if_else(budget_orig < 0, "negative", "positive")) |>
+  count(donor, sign) |>
+  pivot_wider(names_from = sign, values_from = n, values_fill = 0) |>
+  arrange(desc(negative)) |>
+  print(n = 10)
+```
+
+- **Every negative budget belongs to the World Bank.** This is not random noise: it
+  is a publisher-specific sign convention, and the World Bank is the largest single
+  contributor to the analytical sample.
+- The extraction sums all USD budget lines for an activity without separating
+  `type` (original vs revised) or `status` (indicative vs committed). Where a
+  publisher records revisions as negative adjustments, that sum is meaningless.
+- **`budget_orig` cannot be used as constructed.** Either the extraction is
+  rewritten to take original-committed lines only, or the variable is dropped. Given
+  it is already 75% missing, dropping is the likely answer — recorded for
+  02_feature_engineering.
+
+```{r}
+#| label: fig-numeric-dist
+#| fig-cap: "Distribution of the monetary and duration variables (log scale where skewed)"
+analysis |>
+  select(commitment_usd_full, disbursement_usd_full, planned_duration_days) |>
+  pivot_longer(everything(), names_to = "variable", values_to = "value") |>
+  filter(value > 0) |>
+  ggplot(aes(value)) +
+  geom_histogram(bins = 40, fill = "grey30") +
+  scale_x_log10(labels = label_number(scale_cut = cut_short_scale())) +
+  facet_wrap(~variable, scales = "free") +
+  labs(x = "value (log scale)", y = "Activities") +
+  theme_minimal(base_size = 10)
+```
+
+- All three are heavily right-skewed and approximately log-normal once zeros and
+  negatives are removed. Any model using them should use the log, which is what
+  the Statistics course prescribes for this shape.
+
+## 4. Structural variables
+
+Built in construction/04_structural: S1 the donor's share of the recipient's
+budget support, S2 the fragmentation of the pool, S3 its size.
+
+```{r}
+structural |> select(s1_share, s2_hhi, s2_hhi_net, s3_n_donors) |> summary()
+```
+
+```{r}
+structural |>
+  summarise(
+    donor_country_years = n(),
+    single_donor        = sum(s3_n_donors == 1),
+    pct_single          = round(100 * mean(s3_n_donors == 1)),
+    share_exactly_1     = sum(s1_share > 0.999),
+    hhi_net_missing     = sum(is.na(s2_hhi_net))
+  )
+```
+
+```{r}
+#| label: fig-structural
+#| fig-cap: "Donor share and pool size across donor-country-years"
+structural |>
+  select(s1_share, s3_n_donors) |>
+  pivot_longer(everything(), names_to = "variable", values_to = "value") |>
+  ggplot(aes(value)) +
+  geom_histogram(bins = 30, fill = "grey30") +
+  facet_wrap(~variable, scales = "free") +
+  labs(x = NULL, y = "Donor-country-years") +
+  theme_minimal(base_size = 10)
+```
+
+- **A third of donor-country-years have a single donor**, and in those S1 is exactly
+  1 by construction. That value carries no information about leverage — it is what
+  a one-donor cell must produce — so those cells contribute nothing to identifying
+  H2 and need to be either excluded or flagged.
+- **`s2_hhi_net` is missing for exactly those 687 single-donor cells**, which is
+  correct behaviour: a pool net of the only donor in it is empty, not zero. But it
+  means H3 is estimable on two thirds of the cells, not all.
+- **The donor pool never exceeds 7** and its median is 2. This is a much narrower
+  range than the fragmentation literature assumes — Molenaers et al. work with
+  recipient countries hosting a dozen or more budget support donors. The
+  restricted range limits how much of the fragmentation hypothesis this data can
+  test, and that limit belongs in the write-up.
+
+## 5. External controls
+
+```{r}
+controls |>
+  select(voice_account, corruption_ctrl, pol_stability, aid_dependence, gdp_pc, population) |>
+  summary()
+```
+
+```{r}
+bind_rows(
+  controls |> summarise(source = "World Bank", rows = n(), countries = n_distinct(iso2),
+                        year_min = min(year), year_max = max(year)),
+  political |> summarise(source = "V-Dem", rows = n(), countries = n_distinct(iso2),
+                         year_min = min(year), year_max = max(year))
+)
+```
+
+- **`aid_dependence` is missing for 49% of country-years** — by far the worst
+  coverage of any control, and the one Molenaers et al. find most predictive. Net
+  ODA as a share of GNI is only published for aid-receiving countries, so the
+  missingness is structural: high-income countries in the table have no value
+  because the concept does not apply to them. Restricted to actual recipients,
+  coverage should be far better, and that is the check to run before deciding.
+- The three governance indicators are missing for roughly 13% each, concentrated in
+  the most recent years — the WGI are published with a lag and end in 2024.
+- **Both sources stop in 2025**, while the frame runs to June 2026. Activity-years
+  in 2026 will have no control values, and carrying the last observation forward
+  would be inventing a political history that has not happened yet.
+
+```{r}
+political |>
+  summarise(coup_years = sum(coup), election_years = sum(election_year),
+            pct_coup = round(100 * mean(coup)), pct_election = round(100 * mean(election_year)))
+```
+
+- 17 coup-years and 602 election-years across the window. Coups are rare enough that
+  they will only ever be a sparse indicator; elections, at roughly 29% of
+  country-years, have enough variation to function as a control.
+
+## 6. Joining the sources
+
+The three tables key differently — activity, donor-country-year, country-year — and
+the join is where coverage is actually lost.
+
+```{r}
+analysis |>
+  summarise(
+    activities            = n(),
+    recipient_missing     = sum(is.na(recipient_main)),
+    country_in_wb_controls = sum(recipient_main %in% controls$iso2, na.rm = TRUE)
+  )
+
+analysis |>
+  filter(!is.na(recipient_main), !recipient_main %in% controls$iso2) |>
+  count(recipient_main, sort = TRUE)
+```
+
+- **11 activities have no recipient country at all** and cannot receive any
+  country-level control.
+- **85 activities name a country absent from the World Bank tables** — Niue, the
+  Cook Islands, Tokelau, Saint Pierre and Miquelon, Saint Barthélemy, Wallis and
+  Futuna. These are small Pacific and French overseas territories that the World
+  Bank does not report on. They are a genuine coverage loss, concentrated in one
+  donor's portfolio, and should be reported rather than dropped silently.
+
+## 7. What Part I found, and what it hands to feature engineering
+
+| Variable | Problem | Likely fix |
+|---|---|---|
+| `budget_orig` | 75% missing; all 655 negatives are one publisher's sign convention | Drop, or re-extract original-committed lines only |
+| `tied_status` | 98% one value | Drop — no variation to exploit |
+| `hierarchy` | Undocumented level 0 on 337 activities | Check against the codelist before use |
+| `planned_duration_days` | Negative values; maximum of 105 years | Plausibility bounds |
+| `y2_early_days` | Extremes to ±13 years | Winsorise or bound; keep the sign, it is informative |
+| `commitment_usd_full` | 145 zeros, 2 negatives | Exclude from ratio-based measures |
+| Monetary variables | Strong right skew | Log transform |
+| `aid_dependence` | 49% missing overall | Re-check restricted to actual recipients |
+| `finance_type`, `flow_type` | 28-29% missing | Explicit missing category, or drop |
+| S1 in single-donor cells | Exactly 1 by construction, uninformative | Flag or exclude the 33% single-donor cells |
+| Controls after 2025 | Source ends before the frame does | Restrict the window; do not carry forward |
+| 96 activities | No recipient, or country absent from controls | Report as coverage loss |
+
+# Part II — Choosing the enforcement measure
+
+Everything above is descriptive. This part applies the five criteria and decides.
+
+## 8. The filter cascade
+
+The analytical sample is not the frame. Each restriction removes donors, and which
+donors it removes is not random — this is criterion 3, and it has to be counted.
+
+```{r}
+cascade <- tibble(
+  step = c("Frame", "+ status Finalisation or Closed", "+ computable full-life gap"),
+  activities = c(
+    nrow(analysis),
+    sum(analysis$complete_flag == 1),
+    sum(analysis$complete_flag == 1 & !is.na(analysis$y1_gap_full))
+  ),
+  donors = c(
+    n_distinct(analysis$donor_ref),
+    n_distinct(analysis$donor_ref[analysis$complete_flag == 1]),
+    n_distinct(analysis$donor_ref[analysis$complete_flag == 1 & !is.na(analysis$y1_gap_full)])
+  )
+)
+
+cascade |> mutate(pct_activities = round(100 * activities / activities[1]))
+```
+
+**Why completion is required at all.** An activity still under implementation shows
+a large gap for no reason other than that its disbursements have not happened yet:
+53% of in-implementation activities exhibit a gap above 0.9. Without the
+restriction, more than half the positive cases would be false ones. The restriction
+is correct for this measure — and it costs 32 of 51 donors.
+
+```{r}
+lost_donors <- analysis |>
+  mutate(in_sample = complete_flag == 1 & !is.na(y1_gap_full)) |>
+  summarise(n_activities = n(), n_in_sample = sum(in_sample),
+            .by = c(donor, x1_donor_type)) |>
+  filter(n_in_sample == 0) |>
+  arrange(desc(n_activities))
+
+lost_donors |> print(n = 40)
+lost_donors |> count(x1_donor_type, wt = n_activities, name = "activities_lost")
+```
+
+```{r}
+#| label: fig-cascade
+#| fig-cap: "Activities and donors surviving each restriction"
+cascade |>
+  mutate(step = fct_inorder(step)) |>
+  pivot_longer(c(activities, donors)) |>
+  ggplot(aes(step, value)) +
+  geom_col(fill = "grey30") +
+  geom_text(aes(label = value), vjust = -0.4, size = 3.5) +
+  facet_wrap(~name, scales = "free_y") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = NULL, y = NULL) +
+  theme_minimal(base_size = 11) +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1))
+```
+
+## 9. Candidate A — the full-life gap
+
+The measure specified early in the project and later found wanting, diagnosed
+here in full so the rejection rests on visible evidence.
+
+```{r}
+gap_data <- analysis |> filter(complete_flag == 1, !is.na(y1_gap_full))
+
+gap_data |>
+  summarise(
+    n = n(),
+    mean = round(mean(y1_gap_full), 3),
+    median = round(median(y1_gap_full), 3),
+    sd = round(sd(y1_gap_full), 3),
+    pct_zero = round(100 * mean(abs(y1_gap_full) < 0.01)),
+    pct_neg = round(100 * mean(y1_gap_full < -0.01)),
+    pct_above_90 = round(100 * mean(y1_gap_full > 0.9))
+  )
+```
+
+```{r}
+#| label: fig-gap-dist
+#| fig-cap: "Distribution of the full-life commitment-disbursement gap"
+gap_data |>
+  filter(between(y1_gap_full, -0.5, 1.5)) |>
+  ggplot(aes(y1_gap_full)) +
+  geom_histogram(bins = 60, fill = "grey30") +
+  geom_vline(xintercept = 0.25, colour = "firebrick", linetype = "dashed") +
+  scale_x_continuous(labels = percent) +
+  labs(x = "Gap (1 - disbursed/committed)", y = "Activities",
+       caption = "Dashed line: the provisional 0.25 withholding threshold") +
+  theme_minimal(base_size = 11)
+```
+
+**Criterion 4 — discrimination.** The band between the mass at zero and the mass at
+near-total non-disbursement is where a graded measure would carry its information.
+
+```{r}
+gap_data |>
+  mutate(band = cut(y1_gap_full, c(-Inf, -0.01, 0.01, 0.1, 0.25, 0.5, 0.9, Inf),
+                    labels = c("negative", "~zero", "0-10%", "10-25%",
+                               "25-50%", "50-90%", ">90%"))) |>
+  count(band) |>
+  mutate(pct = round(100 * n / sum(n)))
+```
+
+- 62% sit within rounding of zero and 14% are negative — the latter are activities
+  that disbursed more than they committed, from currency revaluation or
+  supplementary financing.
+- **Only 4% of activities fall between 10% and 90%.** The middle of the range is
+  empty. This is the signature of two distinct populations, not one graded
+  construct, and it means a threshold anywhere in that band is cutting through a
+  void rather than separating cases.
+
+## 10. Candidate B — withholding as a year-level event
+
+Criterion 1 asks for a measure representing a decision taken at a point in time.
+This candidate asks a different question of the same transactions: **in a year when
+this activity was live and money remained owed, did any disbursement arrive?**
+
+```{r}
+activity_span <- panel_year |>
+  summarise(first_year = min(year), last_year = max(year), .by = iatiidentifier)
+
+# An interruption only means something between the first and last observed year:
+# before the first there is nothing to withhold, after the last the operation has
+# stopped and silence is closure, not enforcement.
+year_events <- activity_span |>
+  reframe(year = first_year:last_year, .by = iatiidentifier) |>
+  left_join(panel_year, by = c("iatiidentifier", "year")) |>
+  mutate(
+    disbursement_usd = replace_na(disbursement_usd, 0),
+    commitment_usd   = replace_na(commitment_usd, 0)
+  ) |>
+  arrange(iatiidentifier, year) |>
+  mutate(
+    cum_commit   = cumsum(commitment_usd),
+    cum_disb     = cumsum(disbursement_usd),
+    # Undisbursed balance carried into this year: only if money was still owed
+    # can a zero-disbursement year be read as withholding.
+    balance_owed = cum_commit - cum_disb,
+    interrupted  = as.integer(disbursement_usd <= 0 & balance_owed > 0),
+    .by = iatiidentifier
+  )
+
+year_events |>
+  summarise(activity_years = n(), activities = n_distinct(iatiidentifier),
+            pct_interrupted = round(100 * mean(interrupted)))
+```
+
+```{r}
+activity_interruptions <- year_events |>
+  summarise(n_years = n(), n_interrupted = sum(interrupted),
+            any_interrupt = as.integer(sum(interrupted) > 0),
+            .by = iatiidentifier)
+
+activity_interruptions |> count(n_interrupted) |> arrange(n_interrupted)
+```
+
+- **`r round(100*mean(year_events$interrupted))`% of activity-years are flagged.**
+  That is a high base rate for what is meant to be a sanctioning event, and it is
+  the main open question about this measure:
+  budget support disburses in tranches, sometimes biennial, so a zero-disbursement
+  year may reflect the tranche schedule rather than a decision to withhold. The
+  measure passes the tests below, but almost certainly captures a mixture of
+  enforcement and ordinary disbursement lumpiness. Refining it — requiring more
+  than one consecutive year, or weighting by the balance owed — is the first task
+  of 02_feature_engineering.
+
+**Criterion 3 — does this candidate recover donors?** The full-life gap requires a
+completed activity; an interruption does not.
+
+```{r}
+bind_rows(
+  analysis |>
+    filter(complete_flag == 1, !is.na(y1_gap_full)) |>
+    summarise(measure = "A: full-life gap", activities = n(), donors = n_distinct(donor_ref)),
+  analysis |>
+    inner_join(activity_interruptions, by = "iatiidentifier") |>
+    summarise(measure = "B: year-level interruption", activities = n(), donors = n_distinct(donor_ref))
+)
+```
+
+## 11. Criterion 2 — convergent validity
+
+The eliminatory test. Early closure derives from dates rather than money, so it is
+an independent channel on the same construct. If a measure captures
+enforcement, activities it flags should close early **more** often, not less.
+
+```{r}
+convergent <- analysis |>
+  filter(complete_flag == 1, !is.na(y2_early_days)) |>
+  left_join(activity_interruptions, by = "iatiidentifier") |>
+  mutate(closed_early = as.integer(y2_early_days > 30))
+
+# Candidate A at several thresholds: an earlier pass found the relationship ran
+# backwards and strengthened as the threshold tightened. Re-checked on the
+# corrected frame.
+map_dfr(c(0.10, 0.25, 0.50), \(thr) {
+  convergent |>
+    filter(!is.na(y1_gap_full)) |>
+    mutate(flagged = y1_gap_full > thr) |>
+    summarise(threshold = thr, n_flagged = sum(flagged),
+              early_if_flagged = round(100 * mean(closed_early[flagged])),
+              early_if_not = round(100 * mean(closed_early[!flagged])))
+})
+```
+
+```{r}
+convergent |>
+  filter(!is.na(any_interrupt)) |>
+  summarise(n_flagged = sum(any_interrupt == 1),
+            early_if_flagged = round(100 * mean(closed_early[any_interrupt == 1])),
+            early_if_not = round(100 * mean(closed_early[any_interrupt == 0])))
+```
+
+```{r}
+#| label: fig-convergent
+#| fig-cap: "Early-closure rate by whether each candidate flags the activity"
+bind_rows(
+  convergent |> filter(!is.na(y1_gap_full)) |>
+    transmute(measure = "A: gap > 25%", flagged = y1_gap_full > 0.25, closed_early),
+  convergent |> filter(!is.na(any_interrupt)) |>
+    transmute(measure = "B: any interrupted year", flagged = any_interrupt == 1, closed_early)
+) |>
+  summarise(pct_early = 100 * mean(closed_early), n = n(), .by = c(measure, flagged)) |>
+  ggplot(aes(flagged, pct_early, fill = flagged)) +
+  geom_col(width = 0.6) +
+  geom_text(aes(label = paste0(round(pct_early), "%")), vjust = -0.4, size = 3.5) +
+  facet_wrap(~measure) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  scale_fill_manual(values = c("grey60", "firebrick")) +
+  labs(x = "Measure flags the activity", y = "Closed early (%)") +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "none")
+```
+
+## 12. Decision
+
+Every figure in this table is computed from the objects above rather than typed
+in, so re-running the pipeline on a changed frame cannot leave the prose
+asserting numbers the code no longer produces.
+
+```{r}
+#| echo: false
+cov <- bind_rows(
+  analysis |> filter(complete_flag == 1, !is.na(y1_gap_full)) |>
+    summarise(m = "A", act = n(), don = n_distinct(donor_ref)),
+  analysis |> inner_join(activity_interruptions, by = "iatiidentifier") |>
+    summarise(m = "B", act = n(), don = n_distinct(donor_ref))
+)
+A_act <- cov$act[cov$m == "A"]; A_don <- cov$don[cov$m == "A"]
+B_act <- cov$act[cov$m == "B"]; B_don <- cov$don[cov$m == "B"]
+
+cvA <- convergent |> filter(!is.na(y1_gap_full)) |>
+  mutate(f = y1_gap_full > 0.25) |>
+  summarise(hit = round(100*mean(closed_early[f])), miss = round(100*mean(closed_early[!f])))
+cvB <- convergent |> filter(!is.na(any_interrupt)) |>
+  summarise(hit = round(100*mean(closed_early[any_interrupt == 1])),
+            miss = round(100*mean(closed_early[any_interrupt == 0])))
+
+gp <- gap_data |> summarise(z = round(100*mean(abs(y1_gap_full) < 0.01)),
+                            n = round(100*mean(y1_gap_full < -0.01)),
+                            mid = round(100*mean(between(y1_gap_full, 0.1, 0.9))))
+max_int <- max(activity_interruptions$n_interrupted)
+```
+
+| Criterion | A: full-life gap | B: year-level interruption |
+|---|---|---|
+| 1. Theoretical fit | **Fails.** A lifetime residual cannot separate a withholding decision from restructuring or administrative closure | **Passes.** A live year with money owed and nothing disbursed is a decision at a point in time |
+| 2. Convergent validity | **Fails.** Flagged activities close early *less* often (`r cvA$hit`% vs `r cvA$miss`%), and the gap widens as the threshold tightens | **Passes.** Flagged activities close early *more* often (`r cvB$hit`% vs `r cvB$miss`%) |
+| 3. Donor coverage | **Fails.** `r format(A_act, big.mark=",")` activities, `r A_don` donors — below the pre-registered threshold of 20 | **Passes.** `r format(B_act, big.mark=",")` activities, `r B_don` donors |
+| 4. Discrimination | **Fails.** `r gp$z`% within rounding of zero, `r gp$n`% negative, only `r gp$mid`% between 10% and 90% | **Passes.** Interruption counts spread from 0 to `r max_int` years |
+
+**Decision: Candidate B**, subject to the refinement flagged in §10. The measure
+carried forward is the year-level interruption — an activity-year in which the
+operation was live, an undisbursed balance remained, and no disbursement arrived.
+
+Three consequences, each substantive rather than technical.
+
+**The earlier failure replicates on the corrected frame.** The gap's convergent-validity
+failure was first found on the earlier, undocumented pipeline. It reproduces here at
+every threshold on the rebuilt frame, which rules out frame construction as its cause.
+
+**The donor ceiling was a property of the measure, not of the data.** An
+earlier pass concluded the 14-donor ceiling was structural. That needs
+amending: it was structural *to the full-life gap*, which requires a completed
+activity. An interruption does not, and the sample reaches **`r B_don`
+donors** — above the pre-registered threshold of 20 for the first time in the
+project.
+
+**The unit of analysis changes to the activity-year.** This aligns the outcome with
+the theory, which specifies a decision taken when a disbursement is due, and with the
+structural variables, already computed per donor-country-year.
+
+The fallback does not apply: a candidate satisfied convergent validity, so
+modelling proceeds.

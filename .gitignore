@@ -1,0 +1,27 @@
+# ---------------------------------------------------------------------------
+# Raw data: 13 GB, cannot go to GitHub (100 MB/file hard limit).
+# The harvested PDF corpus is reproducible from data/interim/document_manifest.csv,
+# which carries the URL and SHA1 of every document.
+# ---------------------------------------------------------------------------
+data/raw/
+
+# Source database and any local copy of it. See the README for where to get it.
+*.sqlite
+*.sqlite.zip
+
+# NOTE: *.csv is deliberately NOT ignored. The committed CSVs in data/interim/,
+# data/external/ and data/processed/ are what make the analysis reproducible
+# without the 13 GB source.
+
+# R and Quarto artefacts
+.Rhistory
+.RData
+.Rproj.user/
+.quarto/
+*_files/
+*_cache/
+*.rds
+
+# OS
+Thumbs.db
+.DS_Store
